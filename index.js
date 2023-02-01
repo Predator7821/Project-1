@@ -36,7 +36,7 @@ const GetProducts = new mongoose.Schema({
     }
 });
 
-const Products = mongoosge.model('Products', GetProducts);
+const Products = mongoose.model('Products', GetProducts);
 
 app.get('/api/products', async (req,res)=>{
     try {
