@@ -13,34 +13,51 @@ app.use(cors());
 mongoose.set('strictQuery', true);
 app.use(express.static('client/build'));
 
-const GetProducts = new mongoose.Schema({
-    title: {
+// אובייקט
+const Actor_Name= new mongoose.Schema({
+    first_name:{
         type: String,
         required: true,
     },
-    price: {
-        type: Number,
-        required: true,
-    },
-    description: {
+    last_name:{
         type: String,
         required: true,
     },
-    category: {
+})
+const actordob= new mongoose.Schema({
+    date:{
         type: String,
         required: true,
     },
-    image: {
+    location:{
         type: String,
         required: true,
     }
+}
+) // מקשר אותו לפה
+const GetActor = new mongoose.Schema({
+    name: {
+        type:Actor_Name,
+    },
+    dob:{
+        type:actordob
+    },
+    picture:{
+        type: String,
+        required: true,
+    },
+    biography:{
+        type: String,
+        required: true,
+    }
+
 });
 
-const Products = mongoose.model('Products', GetProducts);
+const Actor = mongoose.model('Actors', GetActor);
 
-app.get('/api/products', async (req,res)=>{
+app.get('/api/actors', async (req,res)=>{
     try {
-        const data = await Products.find({})
+        const data = await Actor.find({})
         res.status(200).send(data)
     } catch (e) {
         console.log(e)
