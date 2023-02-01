@@ -11,6 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 mongoose.set('strictQuery', true);
+app.use(express.static('client/build'));
 
 const GetProducts = new mongoose.Schema({
     title: {
@@ -46,7 +47,11 @@ app.get('/api/products', async (req,res)=>{
         res.status(500).send({message:e})
     }
 });
-//
+
+app.get("*",(req,res)=>{
+    res.sendFile(__dirname+"/server/build/index.html");
+});
+
 mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
