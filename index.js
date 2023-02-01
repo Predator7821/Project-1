@@ -61,12 +61,3 @@ mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}?retr
         console.log("i am listening on port " + PORT);
     });
 });
-
-// mongoose.connect("mongodb://127.0.0.1:27017", {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-// });
-
-// app.listen(PORT, ()=>{
-//     console.log("i am listening on port " + PORT);
-// });
