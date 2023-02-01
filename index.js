@@ -1,9 +1,72 @@
-// console.log('hello,world!');
+import express from "express";
+import cors from 'cors';
+import mongoose from "mongoose";
+import dotenv from 'dotenv';
 
-// console.log(5+5+5);
+dotenv.config();
+const {PORT,DB_USER,DB_PASS,DB_HOST,DB_NAME} = process.env;
 
-// console.log(process.argv);
+const app = express();
 
-// if(process.argv[2] === "test"){
-//     console.log("welcome superuser");
-// }
+app.use(express.json());
+app.use(cors());
+mongoose.set('strictQuery', true);
+app.use(express.static('client/build'));
+
+const GetProducts = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true,
+    },
+    price: {
+        type: Number,
+        required: true,
+    },
+    description: {
+        type: String,
+        required: true,
+    },
+    category: {
+        type: String,
+        required: true,
+    },
+    image: {
+        type: String,
+        required: true,
+    }
+});
+
+const Products = mongoosge.model('Products', GetProducts);
+
+app.get('/api/products', async (req,res)=>{
+    try {
+        const data = await Products.find({})
+        res.status(200).send(data)
+    } catch (e) {
+        console.log(e)
+        res.status(500).send({message:e})
+    }
+});
+
+app.get("*",(req,res)=>{
+    res.sendFile(__dirname+"/server/build/index.html");
+});
+
+mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+},(err)=>{
+    app.listen(PORT,()=>{
+        console.log('err',err);
+        console.log("i am listening on port " + PORT);
+    });
+});
+
+// mongoose.connect("mongodb://127.0.0.1:27017", {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+// });
+
+// app.listen(PORT, ()=>{
+//     console.log("i am listening on port " + PORT);
+// });
