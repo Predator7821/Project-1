@@ -16,6 +16,9 @@ const Menu = ({ menu, setMenu }) => {
           <Button>
             <Link to={`actors`}>Actors</Link>
           </Button>
+          <Button>
+            <Link to={`movies`}>movies</Link>
+          </Button>
           <Button onClick={() => setMenu(false)}>close menu</Button>
         </div>
       </Drawer>
