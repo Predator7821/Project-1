@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import Drawer from "@mui/material/Drawer";
 import "./Menu.css";
 import { Button } from "@mui/material";
-const Menu = (menu, setMenu) => {
+const Menu = ({ menu, setMenu }) => {
   return (
     <div>
       <Drawer

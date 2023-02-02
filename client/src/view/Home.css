@@ -1,0 +1,24 @@
+.sides {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.topbotom {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.tinyboxes {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.fromthebottothetop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
