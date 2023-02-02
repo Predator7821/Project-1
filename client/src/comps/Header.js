@@ -15,8 +15,8 @@ const Header = () => {
         <Link to={`/`}>
           <img
             width={64}
-            height={32}
-            src="https://cdn.logo.com/hotlink-ok/logo-social.png"
+            height={64}
+            src="https://media.discordapp.net/attachments/1027536882483085315/1070765606829297694/istockphoto-1307317595-170667a_copy.jpg"
             alt=""
           />
         </Link>

@@ -2,7 +2,6 @@ import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import "./Home.css";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
-import { CardMedia } from "@mui/material";
 const Home = () => {
   const MovieCycle = [
     "https://cdn4.buysellads.net/uu/1/127419/1670532177-Stock.jpg",
@@ -52,14 +51,6 @@ const Home = () => {
           </div>
         </div>
       </Box>
-      <div className="upanddown">
-        <span>Top Movies</span>
-        <div className="leftandright">
-          {top.map((item) => {
-            item.rating.rate > 9 && <div>{item.name}</div>;
-          })}
-        </div>
-      </div>
     </div>
   );
 };
