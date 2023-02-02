@@ -16,7 +16,7 @@ const SingleMovie = () => {
     movieview();
   }, []);
   return (
-    <div>
+    <div className="fixit">
       {movie.map((item) => {
         return (
           <div className="upanddown">
