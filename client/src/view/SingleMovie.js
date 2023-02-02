@@ -8,7 +8,7 @@ const SingleMovie = () => {
   const params = useParams();
   const [movie, setMovie] = useState([]);
   const movieview = async () => {
-    const test1 = await fetch(`http://127.0.0.1:8000/movies/${params.movieid}`);
+    const test1 = await fetch(`http://127.0.0.1:8000/api/movies/${params.movieid}`);
     const test2 = await test1.json();
     setMovie(test2);
   };

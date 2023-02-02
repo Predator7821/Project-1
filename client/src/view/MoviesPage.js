@@ -24,7 +24,7 @@ const MoviesPage = () => {
     <div className="spacer flexer">
       {movie.map((item) => {
         return (
-          <Card sx={{ maxWidth: 345 }}>
+          <Card sx={{ maxWidth: 345, margin: 5 }}>
             <CardContent>
               <Button>
                 <AddCircleIcon></AddCircleIcon>
