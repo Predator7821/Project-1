@@ -96,7 +96,7 @@ const GetMovie = new mongoose.Schema({
     required: true,
   },
   runtime: {
-    tppe: Number,
+    type: Number,
     required: true,
   },
   date: {
