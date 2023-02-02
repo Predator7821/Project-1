@@ -1,3 +1,5 @@
+import { Card, CardContent, CardMedia, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 
 const ActorsPage = () => {
@@ -15,11 +17,27 @@ const ActorsPage = () => {
   return (
     <>
       {actor.map((person) => {
-        return <h1>{`${person.name.first_name} ${person.name.last_name}`}</h1>;
+        return (
+          <Card sx={{ display: `flex` }}>
+            <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <CardContent sx={{ flex: "1 0 auto" }}>
+                <Typography>{`${person.name.first_name} ${person.name.last_name}`}</Typography>
+                <Typography>{`${person.dob.date}`}</Typography>
+                <Typography>{`${person.dob.location}`}</Typography>
+                <Typography>{`${person.biography}`}</Typography>
+              </CardContent>
+            </Box>
+            <CardMedia
+              component="img"
+              sx={{ width: 151 }}
+              image={person.image}
+              alt=""
+            />
+          </Card>
+        );
       })}
     </>
   );
 };
-
 
 export default ActorsPage;
