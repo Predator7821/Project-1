@@ -21,7 +21,7 @@ const MoviesPage = () => {
     FetchMovie();
   }, []);
   return (
-    <div className="spacer">
+    <div className="spacer flexer">
       {movie.map((item) => {
         return (
           <Card sx={{ maxWidth: 345 }}>
