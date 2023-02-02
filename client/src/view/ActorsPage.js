@@ -6,10 +6,12 @@ const ActorsPage = () => {
     const test1 = await fetch("http://127.0.0.1:8000/api/actors");
     const test2 = await test1.json();
     setActor(test2);
-    useEffect(() => {
-      FetchActor();
-    }, []);
+    console.log(actor);
+
   };
+  useEffect(() => {
+    FetchActor();
+  }, []);
   return (
     <>
       {actor.map((person) => {
