@@ -19,7 +19,7 @@ const Home = () => {
     topmovies();
   }, []);
   return (
-    <div>
+    <div className="enlarge">
       <Box>
         <div className="topbotom">
           <img width={849} height={547.56} src={MovieCycle[0]} alt="" />

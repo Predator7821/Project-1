@@ -35,3 +35,6 @@
   align-items: center;
   flex-wrap: wrap;
 }
+.enlarge {
+  padding: 100px;
+}

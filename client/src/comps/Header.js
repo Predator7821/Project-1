@@ -14,6 +14,7 @@ const Header = () => {
       <Button>
         <Link to={`/`}>
           <img
+            className="stupid"
             width={64}
             height={64}
             src="https://media.discordapp.net/attachments/1027536882483085315/1070765606829297694/istockphoto-1307317595-170667a_copy.jpg"
@@ -33,7 +34,7 @@ const Header = () => {
       </Box>
       <Button>LOGOPRO</Button>
       <Button>Watch Later</Button>
-      <Button>Login</Button>
+      <Button onClick={() => <Link></Link>}>Login</Button>
       <Lang />
     </div>
   );
