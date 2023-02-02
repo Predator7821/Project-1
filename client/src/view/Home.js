@@ -1,7 +1,17 @@
 import { Box } from "@mui/system";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Home.css";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import {
+  CardMedia,
+  Typography,
+  Button,
+  Card,
+  CardContent,
+} from "@mui/material";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import StarIcon from "@mui/icons-material/Star";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
 const Home = () => {
   const MovieCycle = [
     "https://cdn4.buysellads.net/uu/1/127419/1670532177-Stock.jpg",
@@ -9,7 +19,15 @@ const Home = () => {
     "https://cdn4.buysellads.net/uu/1/127419/1670532177-Stock.jpg",
     "https://cdn4.buysellads.net/uu/1/127419/1670532177-Stock.jpg",
   ];
-
+  const [top, setTop] = useState();
+  const topmovies = async () => {
+    const test1 = await fetch("http://127.0.0.1:8000/movies");
+    const test2 = await test1.json();
+    setTop(test2);
+  };
+  useEffect(() => {
+    topmovies();
+  }, []);
   return (
     <div>
       <Box>
@@ -43,6 +61,44 @@ const Home = () => {
           </div>
         </div>
       </Box>
+      <div className="upanddown">
+        <span>Top Movies</span>
+        <div className="leftandright">
+          {top.map((item) => {
+            return (
+              item.rating.rate > 9 && (
+                <Card sx={{ maxWidth: 345, margin: 5 }}>
+                  <CardContent>
+                    <Button>
+                      <AddCircleIcon></AddCircleIcon>
+                    </Button>
+                  </CardContent>
+                  <CardMedia
+                    component="img"
+                    alt="green iguana"
+                    height="140"
+                    image={item.picture}
+                  />
+                  <CardContent>
+                    <Typography>
+                      <StarIcon></StarIcon>
+                      {item.rating.rate}
+                    </Typography>
+                    <Typography>{item.name}</Typography>
+                    <Typography>
+                      <Button>
+                        <StarBorderIcon></StarBorderIcon>
+                      </Button>
+                    </Typography>
+                    <Button>watch later</Button>
+                    <Button>trailer</Button>
+                  </CardContent>
+                </Card>
+              )
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 };
