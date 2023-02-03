@@ -2,6 +2,17 @@ import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import "./Home.css";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import {
+  Button,
+  Card,
+  CardMedia,
+  Typography,
+  CardContent,
+} from "@mui/material";
+import StarIcon from "@mui/icons-material/Star";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+
 const Home = () => {
   const MovieCycle = [
     "https://cdn4.buysellads.net/uu/1/127419/1670532177-Stock.jpg",
@@ -18,6 +29,7 @@ const Home = () => {
   useEffect(() => {
     topmovies();
   }, []);
+  const toparr = top.filter((i) => i.rating.rate >= 9);
   return (
     <div className="enlarge">
       <Box>
@@ -51,6 +63,39 @@ const Home = () => {
           </div>
         </div>
       </Box>
+      <div>
+        {toparr.map((item) => {
+          return (
+            <Card sx={{ maxWidth: 345, margin: 5 }}>
+              <CardContent>
+                <Button>
+                  <AddCircleIcon></AddCircleIcon>
+                </Button>
+              </CardContent>
+              <CardMedia
+                component="img"
+                alt="green iguana"
+                height="140"
+                image={item.picture}
+              />
+              <CardContent>
+                <Typography>
+                  <StarIcon></StarIcon>
+                  {item.rating.rate}
+                </Typography>
+                <Typography>{item.name}</Typography>
+                <Typography>
+                  <Button>
+                    <StarBorderIcon></StarBorderIcon>
+                  </Button>
+                </Typography>
+                <Button>watch later</Button>
+                <Button>trailer</Button>
+              </CardContent>
+            </Card>
+          );
+        })}
+      </div>
     </div>
   );
 };
