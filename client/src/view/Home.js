@@ -22,14 +22,14 @@ const Home = () => {
   ];
   const [top, setTop] = useState([]);
   const topmovies = async () => {
-    const test1 = await fetch("http://127.0.0.1:8000/movies");
+    const test1 = await fetch("http://127.0.0.1:8000/api/movies");
     const test2 = await test1.json();
     setTop(test2);
   };
   useEffect(() => {
     topmovies();
   }, []);
-  const toparr = top.filter((i) => i.rating.rate >= 9);
+  let toparr = top.filter((i) => i.rating.rate >= 9);
   return (
     <div className="enlarge">
       <Box>
@@ -63,7 +63,7 @@ const Home = () => {
           </div>
         </div>
       </Box>
-      <div>
+      <div className="pop">
         {toparr.map((item) => {
           return (
             <Card sx={{ maxWidth: 345, margin: 5 }}>
