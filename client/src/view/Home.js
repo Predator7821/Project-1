@@ -63,7 +63,7 @@ const Home = () => {
           </div>
         </div>
       </Box>
-      <div>
+      <div className="pop">
         {toparr.map((item) => {
           return(
             <Card sx={{ maxWidth: 345, margin: 5 }}>

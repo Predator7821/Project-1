@@ -38,3 +38,9 @@
 .enlarge {
   padding: 100px;
 }
+.pop {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
