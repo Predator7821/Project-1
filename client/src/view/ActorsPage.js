@@ -17,21 +17,19 @@ const ActorsPage = () => {
     <>
       {actor.map((person) => {
         return (
-          <Card sx={{ display: `flex` }}>
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
-              <CardContent sx={{ flex: "1 0 auto" }}>
-                <Typography>{`${person.name.first_name} ${person.name.last_name}`}</Typography>
-                <Typography>{`${person.dob.date}`}</Typography>
-                <Typography>{`${person.dob.location}`}</Typography>
-                <Typography>{`${person.biography}`}</Typography>
-              </CardContent>
-            </Box>
+          <Card sx={{ maxWidth: 345, margin: 5 }}>
             <CardMedia
               component="img"
-              sx={{ width: 151 }}
-              image={person.image}
-              alt=""
+              alt="green iguana"
+              height="140"
+              image={person.picture}
             />
+            <CardContent>
+              <Typography>{`${person.name.first_name} ${person.name.last_name}`}</Typography>
+              <Typography>{`${person.dob.date}`}</Typography>
+              <Typography>{`${person.dob.location}`}</Typography>
+              <Typography>{`${person.biography}`}</Typography>
+            </CardContent>
           </Card>
         );
       })}

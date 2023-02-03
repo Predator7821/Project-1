@@ -29,22 +29,24 @@ const Home = () => {
   useEffect(() => {
     topmovies();
   }, []);
-  const [actor, setActor] = useState([]);
-  const bdayactor = async () => {
-    const test1 = await fetch("http://127.0.0.1:8000/api/actors");
-    const test2 = await test1.json();
-    setActor(test2);
-  };
-  useEffect(() => {
-    bdayactor();
-  }, []);
+  // const [actor, setActor] = useState([]);
+  // const bdayactor = async () => {
+  //   const test1 = await fetch("http://127.0.0.1:8000/api/actors");
+  //   const test2 = await test1.json();
+  //   setActor(test2);
+  // };
+  // useEffect(() => {
+  //   bdayactor();
+  // }, []);
 
   const toparr = top.filter((i) => i.rating.rate >= 9);
   const ratearr = top.filter((i) => i.rating.count >= 750000);
 
-  const current = new Date();
-  const date = `${current.getDate()}/${current.getMonth() + 1}`;
-  const bdayarr = actor.filter((i) => i.dob.date === date);
+  // const current = new Date();
+  // const date = `${current.getDate()}/${
+  //   current.getMonth() + 1
+  // }/${current.getFullYear()}`;
+  // const bdayarr = actor.filter((i) => i.dob.date === date);
   return (
     <div className="enlarge">
       <Box>
@@ -146,7 +148,7 @@ const Home = () => {
           );
         })}
       </div>
-      <h1>todays birthdays</h1>
+      {/* <h1>todays birthdays</h1>
       <div className="pop">
         {bdayarr.map((item) => {
           return (
@@ -161,7 +163,7 @@ const Home = () => {
             </div>
           );
         })}
-      </div>
+      </div> */}
     </div>
   );
 };
