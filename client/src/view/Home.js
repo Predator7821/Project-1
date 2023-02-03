@@ -31,7 +31,7 @@ const Home = () => {
   }, []);
   const [actor, setActor] = useState([]);
   const bdayactor = async () => {
-    const test1 = await fetch("http://127.0.0.1:8000/api/movies");
+    const test1 = await fetch("http://127.0.0.1:8000/api/actors");
     const test2 = await test1.json();
     setActor(test2);
   };
