@@ -29,7 +29,9 @@ const Home = () => {
   useEffect(() => {
     topmovies();
   }, []);
-  let toparr = top.filter((i) => i.rating.rate >= 9);
+  const toparr = top.filter((i) => i.rating.rate >= 9);
+  const ratearr = top.filter((i) => i.rating.count >= 750000);
+
   return (
     <div className="enlarge">
       <Box>
@@ -63,9 +65,10 @@ const Home = () => {
           </div>
         </div>
       </Box>
+      <h1>Top Rated Movies</h1>
       <div className="pop">
         {toparr.map((item) => {
-          return(
+          return (
             <Card sx={{ maxWidth: 345, margin: 5 }}>
               <CardContent>
                 <Button>
@@ -93,8 +96,41 @@ const Home = () => {
                 <Button>trailer</Button>
               </CardContent>
             </Card>
-          )
-         
+          );
+        })}
+      </div>
+      <h1>Fan Choice</h1>
+      <div className="pop">
+        {ratearr.map((item) => {
+          return (
+            <Card sx={{ maxWidth: 345, margin: 5 }}>
+              <CardContent>
+                <Button>
+                  <AddCircleIcon></AddCircleIcon>
+                </Button>
+              </CardContent>
+              <CardMedia
+                component="img"
+                alt="green iguana"
+                height="140"
+                image={item.picture}
+              />
+              <CardContent>
+                <Typography>
+                  <StarIcon></StarIcon>
+                  {item.rating.rate}
+                </Typography>
+                <Typography>{item.name}</Typography>
+                <Typography>
+                  <Button>
+                    <StarBorderIcon></StarBorderIcon>
+                  </Button>
+                </Typography>
+                <Button>watch later</Button>
+                <Button>trailer</Button>
+              </CardContent>
+            </Card>
+          );
         })}
       </div>
     </div>
