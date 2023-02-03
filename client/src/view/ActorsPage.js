@@ -1,5 +1,4 @@
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
-import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 
 const ActorsPage = () => {
