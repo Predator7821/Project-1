@@ -20,7 +20,7 @@ const Home = () => {
     "https://cdn4.buysellads.net/uu/1/127419/1670532177-Stock.jpg",
     "https://cdn4.buysellads.net/uu/1/127419/1670532177-Stock.jpg",
   ];
-  const [top, setTop] = useState();
+  const [top, setTop] = useState([]);
   const topmovies = async () => {
     const test1 = await fetch("http://127.0.0.1:8000/movies");
     const test2 = await test1.json();
