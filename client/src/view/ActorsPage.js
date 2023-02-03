@@ -17,20 +17,22 @@ const ActorsPage = () => {
     <>
       {actor.map((person) => {
         return (
-          <Card sx={{ maxWidth: 345, margin: 5 }}>
-            <CardMedia
-              component="img"
-              alt="green iguana"
-              height="140"
-              image={person.picture}
-            />
-            <CardContent>
-              <Typography>{`${person.name.first_name} ${person.name.last_name}`}</Typography>
-              <Typography>{`${person.dob.date}`}</Typography>
-              <Typography>{`${person.dob.location}`}</Typography>
-              <Typography>{`${person.biography}`}</Typography>
-            </CardContent>
-          </Card>
+          <div className="actorcards">
+            <Card sx={{ maxWidth: 345, margin: 5 }}>
+              <CardMedia
+                component="img"
+                alt="green iguana"
+                height="140"
+                image={person.picture}
+              />
+              <CardContent>
+                <Typography>{`${person.name.first_name} ${person.name.last_name}`}</Typography>
+                <Typography>{`${person.dob.date}`}</Typography>
+                <Typography>{`${person.dob.location}`}</Typography>
+                <Typography>{`${person.biography}`}</Typography>
+              </CardContent>
+            </Card>
+          </div>
         );
       })}
     </>
