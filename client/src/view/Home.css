@@ -43,6 +43,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  overflow: auto;
 }
 .smallpfp {
   border-radius: 75%;

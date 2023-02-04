@@ -1,13 +1,12 @@
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-
+import './ActorsPage.css'
 const ActorsPage = () => {
   const [actor, setActor] = useState([]);
   const FetchActor = async () => {
     const test1 = await fetch("http://127.0.0.1:8000/api/actors");
     const test2 = await test1.json();
     setActor(test2);
-    console.log(actor);
   };
   useEffect(() => {
     FetchActor();

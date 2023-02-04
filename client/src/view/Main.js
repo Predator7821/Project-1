@@ -7,6 +7,7 @@ import Footer from "../comps/Footer";
 import ActorsPage from "./ActorsPage";
 import MoviesPage from "./MoviesPage";
 import SingleMovie from "./SingleMovie";
+import Login from "./Login";
 const Main = () => {
   return (
     <>
@@ -18,6 +19,7 @@ const Main = () => {
           <Route path="actors" element={<ActorsPage />} />
           <Route path="movies" element={<MoviesPage />} />
           <Route path="movies/:movieid" element={<SingleMovie />} />
+          <Route path="login" element={<Login />} />
         </Routes>
         <Footer />
       </BrowserRouter>

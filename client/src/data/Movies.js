@@ -139,4 +139,33 @@
         "runtime": 85,
         "date": 1997,
       },
+      {
+        "id": 11,
+        "name": "Captin America",
+        "category": "Action",
+        "picture": "https://m.media-amazon.com/images/M/MV5BMTYzOTc2NzU3N15BMl5BanBnXkFtZTcwNjY3MDE3NQ@@._V1_FMjpg_UX1000_.jpg",
+        "type": "live action",
+        "rating": {
+          "rate": 1.5,
+          "count": 1000000,
+        },
+        "description": "Captain America: The First Avenger is a 2011 American superhero film based on the Marvel Comics character Captain America. Produced by Marvel Studios and distributed by Paramount Pictures,[a] it is the fifth film in the Marvel Cinematic Universe (MCU). The film was directed by Joe Johnston, written by Christopher Markus and Stephen McFeely, and stars Chris Evans as Steve Rogers / Captain America alongside Tommy Lee Jones, Hugo Weaving, Hayley Atwell, Sebastian Stan, Dominic Cooper, Toby Jones, Neal McDonough, Derek Luke, and Stanley Tucci. During World War II, Steve Rogers, a frail man, is transformed into the super-soldier Captain America and must stop the Red Skull (Weaving) from using the Tesseract as an energy source for world domination." ,
+        "runtime": 60,
+        "date": 2014,
+      },
+      {
+        "id": 12,
+        "name": "Apocalipto",
+        "category": "Action",
+        "picture": "https://upload.wikimedia.org/wikipedia/en/thumb/6/62/Apocalypto-poster01.jpg/220px-Apocalypto-poster01.jpg",
+        "type": "live action",
+        "rating": {
+          "rate": 5.5,
+          "count": 1000000,
+        },
+        "description": "Apocalypto is a 2006 historical epic horror film produced, co-written, and directed by Mel Gibson. The film features a cast of Native American and Indigenous Mexican actors consisting of Rudy Youngblood, Raoul Trujillo, Mayra Sérbulo, Dalia Hernández, Gerardo Taracena, Rodolfo Palacios, Bernardo Ruiz Juarez, Ammel Rodrigo Mendoza, Ricardo Diaz Mendoza, and Israel Contreras. All of the indigenous people depicted in the film were Maya. Similar to Gibson's earlier film The Passion of the Christ, all dialogue is in a modern approximation of the ancient language of the setting. Here, the Indigenous Yucatec Mayan language is spoken with subtitles, which sometimes refer to the language as Mayan." ,
+        "runtime": 40,
+        "date": 2006,
+      },
+
   ]

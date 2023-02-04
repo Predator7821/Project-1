@@ -121,6 +121,46 @@ app.get("/api/movies", async (req, res) => {
   }
 });
 
+const GetUser = new mongoose.Schema({
+  Username: {
+    type: String,
+    required: true,
+  },
+  Password: {
+    type: String,
+    required: true,
+  },
+  Email: {
+    type: String,
+    required: true,
+  },
+  pfp: {
+    type: String,
+  },
+  bio: {
+    type: String,
+  },
+  dob: {
+    type: String,
+    required: true,
+  },
+  fullname: {
+    type: String,
+  },
+});
+
+const User = mongoose.model("Users", GetUser);
+
+app.get("/api/users", async (req, res) => {
+  try {
+    const data = await User.find({});
+    res.status(200).send(data);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({ message: e });
+  }
+});
+
 app.get("*", (req, res) => {
   res.sendFile(__dirname + "/server/build/index.html");
 });

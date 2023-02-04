@@ -34,7 +34,7 @@ const Header = () => {
       </Box>
       <Button>LOGOPRO</Button>
       <Button>Watch Later</Button>
-      <Button onClick={() => <Link></Link>}>Login</Button>
+      <Button><Link to={'login'}>Login</Link></Button>
       <Lang />
     </div>
   );
