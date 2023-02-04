@@ -2,6 +2,17 @@ import React from "react";
 import { Button, TextField } from "@mui/material";
 import "./Login.css";
 const Login = () => {
+    // const user={
+    //     "Username": ,
+    //     "Password": ,
+    //     "Email": ,
+    //     "dob": ,
+    //     "first_name":,
+    //     "last_name":,
+    //   }
+    const handleChange =(e)=>{
+        
+    };
   return (
     <div className="lotsfopads">
       <TextField id="outlined-basic" label="Username" variant="outlined" />
@@ -16,7 +27,7 @@ const Login = () => {
         type="password"
         variant="outlined"
       />
-      <Button variant="outlined">Register</Button>
+      <Button onClick={()=> handleChange()} variant="outlined">Register</Button>
     </div>
   );
 };

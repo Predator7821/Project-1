@@ -40,10 +40,7 @@
 }
 .pop {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  overflow: auto;
+  flex-direction: row; 
 }
 .smallpfp {
   border-radius: 75%;

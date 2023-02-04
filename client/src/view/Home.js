@@ -84,7 +84,7 @@ const Home = () => {
       <div className="pop">
         {toparr.map((item) => {
           return (
-            <Card sx={{ maxWidth: 345, margin: 5 }}>
+            <Card sx={{ maxWidth: 345, margin:1 }}>
               <CardContent>
                 <Button>
                   <AddCircleIcon></AddCircleIcon>
@@ -118,7 +118,7 @@ const Home = () => {
       <div className="pop">
         {ratearr.map((item) => {
           return (
-            <Card sx={{ maxWidth: 345, margin: 5 }}>
+            <Card sx={{ maxWidth: 345, margin: 1 }}>
               <CardContent>
                 <Button>
                   <AddCircleIcon></AddCircleIcon>
