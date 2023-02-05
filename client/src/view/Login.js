@@ -35,9 +35,10 @@ const Login = () => {
           <div>
             <Button variant="outlined">Login</Button>
             <Button variant="outlined">
-              <Link to={"/register"}>Cant Login ?</Link>
+              <Link to={"/register"}>Register</Link>
             </Button>
           </div>
+          <Button variant="outlined">Forgot Pass?</Button>
         </div>
       )}
     </div>
