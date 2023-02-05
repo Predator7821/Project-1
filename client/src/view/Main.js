@@ -18,8 +18,8 @@ const Main = () => {
           <Route path="/" element={<Home />} />
           <Route path="*" element={<Err />} />
           <Route path="actors" element={<ActorsPage />} />
-          <Route path="movies" element={<MoviesPage />} />
-          <Route path="movies/:movieid" element={<SingleMovie />} />
+          <Route path="/movies" element={<MoviesPage />} />
+          <Route path="/movies/:movieid" element={<SingleMovie />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
         </Routes>

@@ -10,6 +10,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import "./MoviePage.css";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
+import { Link } from "react-router-dom";
 const MoviesPage = () => {
   const [movie, setMovie] = useState([]);
   const FetchMovie = async () => {
@@ -31,12 +32,14 @@ const MoviesPage = () => {
               </Button>
             </CardContent>
             <Button>
-              <CardMedia
-                component="img"
-                alt="green iguana"
-                height="140"
-                image={item.picture}
-              />
+              <Link to={"movies"}>
+                <CardMedia
+                  component="img"
+                  alt="green iguana"
+                  height="140"
+                  image={item.picture}
+                />
+              </Link>
             </Button>
             <CardContent>
               <Typography>
