@@ -3,7 +3,8 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: gray;
+  background-image: radial-gradient(#720000, black);
+  color: white;
 }
 .sticker {
   position: fixed;
@@ -17,6 +18,6 @@
 .stupid {
   border-radius: 75%;
 }
-*{
+* {
   text-decoration: none;
 }

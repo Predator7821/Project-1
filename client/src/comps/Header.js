@@ -9,6 +9,7 @@ import ManageSearchIcon from "@mui/icons-material/ManageSearch";
 import Lang from "./Lang";
 const Header = () => {
   const [menu, setMenu] = useState(false);
+  const [temp, setTemp] = useState(false);
   return (
     <div className="centersize sticker moveabit">
       <Button>
@@ -34,7 +35,13 @@ const Header = () => {
       </Box>
       <Button>LOGOPRO</Button>
       <Button>Watch Later</Button>
-      <Button><Link to={'login'}>Login</Link></Button>
+      {temp ? (
+        <h1>you are logged in</h1>
+      ) : (
+        <Button>
+          <Link to={"login"}>Login</Link>
+        </Button>
+      )}
       <Lang />
     </div>
   );

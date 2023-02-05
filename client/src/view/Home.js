@@ -84,7 +84,7 @@ const Home = () => {
       <div className="pop">
         {toparr.map((item) => {
           return (
-            <Card sx={{ maxWidth: 345, margin:1 }}>
+            <Card sx={{ maxWidth: 345, margin: 1 }}>
               <CardContent>
                 <Button>
                   <AddCircleIcon></AddCircleIcon>

@@ -30,12 +30,14 @@ const MoviesPage = () => {
                 <AddCircleIcon></AddCircleIcon>
               </Button>
             </CardContent>
-            <CardMedia
-              component="img"
-              alt="green iguana"
-              height="140"
-              image={item.picture}
-            />
+            <Button>
+              <CardMedia
+                component="img"
+                alt="green iguana"
+                height="140"
+                image={item.picture}
+              />
+            </Button>
             <CardContent>
               <Typography>
                 <StarIcon></StarIcon>

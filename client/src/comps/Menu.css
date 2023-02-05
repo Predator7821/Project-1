@@ -1,6 +1,9 @@
-.centersize {
+.changeit {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-image: radial-gradient(#720000, black);
+  color: white;
+  text-decoration: none;
 }

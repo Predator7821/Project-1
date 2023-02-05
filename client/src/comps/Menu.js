@@ -12,7 +12,7 @@ const Menu = ({ menu, setMenu }) => {
         open={menu}
         onClose={() => setMenu(false)}
       >
-        <div className="centersize">
+        <div className="changeit">
           <Button>
             <Link to={`actors`}>Actors</Link>
           </Button>
