@@ -6,9 +6,7 @@ export const fulluser = {};
 const Register = () => {
   const handleChange = () => {
     console.log(fulluser);
-    useEffect(() => {
-      axios.post("http://127.0.0.1:8000/api/users", fulluser);
-    }, []);
+    axios.post("http://127.0.0.1:8000/api/users", fulluser);
   };
 
   return (
