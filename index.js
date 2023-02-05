@@ -121,18 +121,18 @@ app.get("/api/movies", async (req, res) => {
   }
 });
 
-app.get("/api/movies/:movieid", async (req,res) => {
-  try{
-    const movie = await Movie.findOne({_id: req.params.movieid})
-    if(!movie){
-      res.status(404).send({message:"no such movie in the DB"})
+app.get("/api/movies/:movieid", async (req, res) => {
+  try {
+    const movie = await Movie.findOne({ id: req.params.movieid });
+    if (!movie) {
+      res.status(404).send({ message: "no such movie in the DB" });
     }
-    res.send(movie)
-  } catch(e){
-    console.log(e)
-    res.status(500).send({message:e})
+    res.send(movie);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({ message: e });
   }
-})
+});
 
 const GetUser = new mongoose.Schema({
   Username: {
