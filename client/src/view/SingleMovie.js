@@ -19,31 +19,9 @@ const SingleMovie = () => {
   }, []);
   return (
     <div className="fixit">
-      {/* {movie.map((item) => {
-        return (
-          <div className="upanddown">
-            <h1>{item.name}</h1>
-            <div className="sidetoside">
-              <span>{item.type}</span>
-              <span>{item.category}</span>
-              <span>{item.date}</span>
-              <span>{item.time}</span>
-            </div>
-            <div className="sidetoside">
-              <img src={item.picture} alt="" />
-              <span>{item.description}</span>
-              <span>
-                <StarIcon></StarIcon>
-                {item.rating.rate}/10
-                {item.rating.count}
-                <Button>
-                  <StarBorderIcon></StarBorderIcon>
-                </Button>
-              </span>
-            </div>
-          </div>
-        );
-      })} */}
+      {movie.map((item) => {
+        return <h1>{item.name}</h1>;
+      })}
     </div>
   );
 };
