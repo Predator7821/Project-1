@@ -32,7 +32,7 @@ const MoviesPage = () => {
               </Button>
             </CardContent>
             <Button>
-              <Link to={"movies"}>
+              <Link to={"/movies"}>
                 <CardMedia
                   component="img"
                   alt="green iguana"
