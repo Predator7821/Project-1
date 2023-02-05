@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { TextField, Button } from "@mui/material";
+import "./Register.css";
+import axios from "axios";
 export const fulluser = {};
 const Register = () => {
   const handleChange = () => {
     console.log(fulluser);
   };
+  useEffect(() => {
+    axios.post("http://127.0.0.1:8000/api/users", fulluser);
+  }, []);
+
   return (
     <div className="lotsfopads">
       <TextField
