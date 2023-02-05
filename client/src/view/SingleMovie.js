@@ -19,9 +19,9 @@ const SingleMovie = () => {
   }, []);
   return (
     <div className="fixit">
-      {movie.map((item) => {
-        return <h1>{item.name}</h1>;
-      })}
+      {movie.map((item) => (
+        <h1>{item.name}</h1>
+      ))}
     </div>
   );
 };
