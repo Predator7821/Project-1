@@ -12,7 +12,10 @@ const Login = () => {
   //     "first_name":,
   //     "last_name":,
   //   }
-  const handleChange = (e) => {};
+  const userObj = {};
+  const handleChange = () => {
+    console.log(userObj);
+  };
   return (
     <div className="extenedthemistake">
       {login ? (
@@ -22,6 +25,9 @@ const Login = () => {
       ) : (
         <div className="lotsfopads">
           <TextField
+            onChange={(event) => {
+              userObj.name = event.target.value;
+            }}
             id="outlined-basic"
             label="UsernName/Email"
             variant="outlined"
@@ -31,9 +37,14 @@ const Login = () => {
             label="password"
             type="password"
             variant="outlined"
+            onChange={(event) => {
+              userObj.password = event.target.value;
+            }}
           />
           <div>
-            <Button variant="outlined">Login</Button>
+            <Button onClick={() => handleChange()} variant="outlined">
+              Login
+            </Button>
             <Button variant="outlined">
               <Link to={"/register"}>Register</Link>
             </Button>

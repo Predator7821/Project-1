@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-
+import { fulluser } from "./client/src/view/Register";
 dotenv.config();
 const { PORT, DB_USER, DB_PASS, DB_HOST, DB_NAME } = process.env;
 
@@ -155,7 +155,6 @@ const GetUser = new mongoose.Schema({
   },
   dob: {
     type: String,
-    required: true,
   },
   fullname: {
     type: String,
@@ -176,6 +175,13 @@ app.get("/api/users", async (req, res) => {
 
 app.get("*", (req, res) => {
   res.sendFile(__dirname + "/server/build/index.html");
+});
+
+app.post("/api/users", async (req, res) => {
+  const todoexample = { id: 1 };
+  const todo = todoexample;
+  fulluser.push(todo);
+  res.send(fulluser);
 });
 
 mongoose.connect(
