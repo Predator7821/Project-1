@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import { fulluser } from "./client/src/view/Register.js";
 dotenv.config();
 const { PORT, DB_USER, DB_PASS, DB_HOST, DB_NAME } = process.env;
 
@@ -170,6 +171,10 @@ app.get("/api/users", async (req, res) => {
     console.log(e);
     res.status(500).send({ message: e });
   }
+});
+
+app.post("/api/users", async (req, res) => {
+  res.send(fulluser);
 });
 
 app.get("*", (req, res) => {

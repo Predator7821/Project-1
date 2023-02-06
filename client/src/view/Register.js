@@ -1,19 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { TextField, Button } from "@mui/material";
 import "./Register.css";
-import axios from "axios";
 export const fulluser = {};
 const Register = () => {
   const handleChange = () => {
     console.log(fulluser);
-    axios
-      .post("http://127.0.0.1:8000/api/users", fulluser)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
   };
 
   return (
