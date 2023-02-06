@@ -1,17 +1,17 @@
 import React from "react";
 import { TextField, Button } from "@mui/material";
 import "./Register.css";
-export const fulluser = {};
+export const Fulluser = {};
 const Register = () => {
   const handleChange = () => {
-    console.log(fulluser);
+    console.log(Fulluser);
   };
 
   return (
     <div className="lotsfopads">
       <TextField
         onChange={(event) => {
-          fulluser.username = event.target.value;
+          Fulluser.username = event.target.value;
         }}
         id="outlined-basic"
         label="Username"
@@ -19,7 +19,7 @@ const Register = () => {
       />
       <TextField
         onChange={(event) => {
-          fulluser.fullname = event.target.value;
+          Fulluser.fullname = event.target.value;
         }}
         id="outlined-basic"
         label="fullname"
@@ -27,7 +27,7 @@ const Register = () => {
       />
       <TextField
         onChange={(event) => {
-          fulluser.email = event.target.value;
+          Fulluser.email = event.target.value;
         }}
         id="outlined-basic"
         label="Email"
@@ -35,7 +35,7 @@ const Register = () => {
       />
       <TextField
         onChange={(event) => {
-          fulluser.password = event.target.value;
+          Fulluser.password = event.target.value;
         }}
         id="outlined-basic"
         label="password"
