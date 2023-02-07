@@ -1,48 +1,61 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { TextField, Button } from "@mui/material";
 import "./Register.css";
-export const Fulluser = {};
-const Register = () => {
-  const handleChange = () => {
-    console.log(Fulluser);
-  };
+import axios from "axios";
 
+const Register = () => {
+  const [userData, setUserData] = useState({});
+
+  const handleChange = (name, value) => {
+    setUserData({ ...userData, [name]: value });
+  };
+  const handleRegister = async () => {
+    const user = await axios.post("http://localhost:8000/api/users/", userData);
+    console.log(user);
+  };
+  useEffect(() => {
+    console.log(userData);
+  }, [userData]);
   return (
     <div className="lotsfopads">
       <TextField
-        onChange={(event) => {
-          Fulluser.username = event.target.value;
+        name="Username"
+        onBlur={(event) => {
+          handleChange(event.target.name, event.target.value);
         }}
         id="outlined-basic"
         label="Username"
         variant="outlined"
       />
       <TextField
-        onChange={(event) => {
-          Fulluser.fullname = event.target.value;
+        name="fullname"
+        onBlur={(event) => {
+          handleChange(event.target.name, event.target.value);
         }}
         id="outlined-basic"
         label="fullname"
         variant="outlined"
       />
       <TextField
-        onChange={(event) => {
-          Fulluser.email = event.target.value;
+        name="Email"
+        onBlur={(event) => {
+          handleChange(event.target.name, event.target.value);
         }}
         id="outlined-basic"
         label="Email"
         variant="outlined"
       />
       <TextField
-        onChange={(event) => {
-          Fulluser.password = event.target.value;
+        onBlur={(event) => {
+          handleChange(event.target.name, event.target.value);
         }}
         id="outlined-basic"
         label="password"
         type="password"
         variant="outlined"
+        name="Password"
       />
-      <Button onClick={() => handleChange()} variant="outlined">
+      <Button onClick={handleRegister} variant="outlined">
         Register
       </Button>
     </div>

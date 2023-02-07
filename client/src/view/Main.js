@@ -8,7 +8,7 @@ import ActorsPage from "./ActorsPage";
 import MoviesPage from "./MoviesPage";
 import SingleMovie from "./SingleMovie";
 import Login from "./Login";
-import Register from "./Register";
+import Register from "./Register.js";
 const Main = () => {
   return (
     <>

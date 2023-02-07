@@ -2,10 +2,8 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-
 dotenv.config();
 const { PORT, DB_USER, DB_PASS, DB_HOST, DB_NAME } = process.env;
-
 const app = express();
 
 app.use(express.json());
@@ -167,6 +165,18 @@ app.get("/api/users", async (req, res) => {
   try {
     const data = await User.find({});
     res.status(200).send(data);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({ message: e });
+  }
+});
+
+app.post("/api/users", async (req, res) => {
+  try {
+    const body = { ...req.body };
+    console.log(body);
+
+    res.send(body); // change that later!!!!!
   } catch (e) {
     console.log(e);
     res.status(500).send({ message: e });
