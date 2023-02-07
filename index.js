@@ -176,12 +176,27 @@ app.post("/api/users", async (req, res) => {
     const body = { ...req.body };
     console.log(body);
 
-    res.send(body); // change that later!!!!!
+    res.send(req.body); // change that later!!!!!
   } catch (e) {
     console.log(e);
     res.status(500).send({ message: e });
   }
 });
+
+app.get("/", function (req, res) {
+  res.sendFile(__dirname + "./server/build/index.html");
+});
+
+app.post("/"),
+  function (req, res) {
+    let newNote = new User({
+      Username: req.body.Username,
+      fullname: req.body.fullname,
+      Email: req.body.Email,
+      Password: req.body.Password,
+    });
+    newNote.save();
+  };
 
 app.get("*", (req, res) => {
   res.sendFile(__dirname + "/server/build/index.html");
