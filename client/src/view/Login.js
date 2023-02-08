@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, TextField } from "@mui/material";
 import "./Login.css";
 import { Link } from "react-router-dom";
 const Login = () => {
   const [login, setLogin] = useState(false);
+  const [user, setUser] = useState([]);
+  
   // const user={
   //     "Username": ,
   //     "Password": ,
@@ -12,7 +14,15 @@ const Login = () => {
   //     "first_name":,
   //     "last_name":,
   //   }
-  const userObj = {};
+  const getUser = async () => {
+    const test1 = await fetch("http://127.0.0.1:8000/api/users");
+    const test2  = await test1.json();
+    setUser(test2);
+  };
+  const userObj={}
+  useEffect(() => {
+    getUser();
+  }, []);
   const handleChange = () => {
     console.log(userObj);
   };
@@ -28,12 +38,12 @@ const Login = () => {
             onChange={(event) => {
               userObj.name = event.target.value;
             }}
-            id="outlined-basic"
+            name="username"
             label="UsernName/Email"
             variant="outlined"
           />
           <TextField
-            id="outlined-basic"
+          name="password"
             label="password"
             type="password"
             variant="outlined"
