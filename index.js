@@ -172,34 +172,14 @@ app.get("/api/users", async (req, res) => {
 });
 
 app.post("/api/users", async (req, res) => {
-  try {
-    const body = { ...req.body };
-    console.log(body);
-
-    res.send(req.body); // change that later!!!!!
-  } catch (e) {
-    console.log(e);
-    res.status(500).send({ message: e });
-  }
-});
-
-app.get("/", function (req, res) {
-  res.sendFile(__dirname + "./server/build/index.html");
-});
-
-app.post("/"),
-  function (req, res) {
-    let newNote = new User({
-      Username: req.body.Username,
-      fullname: req.body.fullname,
-      Email: req.body.Email,
-      Password: req.body.Password,
-    });
-    newNote.save();
-  };
-
-app.get("*", (req, res) => {
-  res.sendFile(__dirname + "/server/build/index.html");
+  const data = new User({
+    Username: req.body.Username,
+    Password: req.body.Password,
+    fullname: req.body.fullname,
+    Email: req.body.Email,
+  });
+  const val = await data.save()
+    res.json(val)
 });
 
 mongoose.connect(
