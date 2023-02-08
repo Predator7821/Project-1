@@ -9,6 +9,7 @@ import {
   Typography,
   CardContent,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -90,12 +91,13 @@ const Home = () => {
                   <AddCircleIcon></AddCircleIcon>
                 </Button>
               </CardContent>
-              <CardMedia
+              <Button><Link to={`/movies/${item._id}`}><CardMedia
                 component="img"
                 alt="green iguana"
-                height="140"
+                height="200"
                 image={item.picture}
-              />
+              /></Link></Button>
+              
               <CardContent>
                 <Typography>
                   <StarIcon></StarIcon>
@@ -124,12 +126,14 @@ const Home = () => {
                   <AddCircleIcon></AddCircleIcon>
                 </Button>
               </CardContent>
+              <Button><Link to={`/movies/${item._id}`}>
               <CardMedia
                 component="img"
                 alt="green iguana"
-                height="140"
+                height="200"
                 image={item.picture}
-              />
+                />
+                </Link></Button>
               <CardContent>
                 <Typography>
                   <StarIcon></StarIcon>

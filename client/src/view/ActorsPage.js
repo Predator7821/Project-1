@@ -1,5 +1,6 @@
-import { Card, CardContent, CardMedia, Typography } from "@mui/material";
+import { Button, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import './ActorsPage.css'
 const ActorsPage = () => {
   const [actor, setActor] = useState([]);
@@ -17,6 +18,9 @@ const ActorsPage = () => {
         return (
           <Card sx={{ maxWidth: 400 }}>
             <CardMedia sx={{ height: 300 }} image={person.picture} />
+            <Button><Link to={`/actors/${person._id}`}>
+              More Info
+            </Link></Button>
             <CardContent>
               <Typography>{`${person.name.first_name} ${person.name.last_name}`}</Typography>
               <Typography>{`${person.dob.date}`}</Typography>

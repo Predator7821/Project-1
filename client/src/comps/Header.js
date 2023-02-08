@@ -10,6 +10,7 @@ import Lang from "./Lang";
 const Header = () => {
   const [menu, setMenu] = useState(false);
   const [temp, setTemp] = useState(false);
+  const search = () => {};
   return (
     <div className="centersize sticker moveabit">
       <Button>
@@ -29,8 +30,10 @@ const Header = () => {
       <Box>
         <SearchCatSelection />
         <SearchBar />
-        <Button>
-          <ManageSearchIcon></ManageSearchIcon>
+        <Button onClick={() => search()}>
+          <Link to={""}>
+            <ManageSearchIcon></ManageSearchIcon>
+          </Link>
         </Button>
       </Box>
       <Button>LOGOPRO</Button>

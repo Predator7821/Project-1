@@ -5,6 +5,7 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import "./MoviePage.css";
@@ -30,12 +31,17 @@ const MoviesPage = () => {
                 <AddCircleIcon></AddCircleIcon>
               </Button>
             </CardContent>
-            <CardMedia
-              component="img"
-              alt="green iguana"
-              height="140"
-              image={item.picture}
-            />
+            <Button>
+              <Link to={`/movies/${item._id}`}>
+                <CardMedia
+                  component="img"
+                  alt="green iguana"
+                  height="325"
+                  image={item.picture}
+                />
+              </Link>
+            </Button>
+
             <CardContent>
               <Typography>
                 <StarIcon></StarIcon>

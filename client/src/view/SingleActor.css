@@ -1,0 +1,7 @@
+.icantsee{
+    padding: 100px;
+}
+.dropittotheside{
+    display: flex;
+    flex-direction: row;
+}
