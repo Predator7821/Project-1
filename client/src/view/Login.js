@@ -1,30 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Button, TextField } from "@mui/material";
 import "./Login.css";
 import { Link } from "react-router-dom";
+import { Logincontext } from "../context/Passdata";
 const Login = () => {
-  const [login, setLogin] = useState(false);
+  const [login, setLogin] = useState(useContext(Logincontext));
   const [user, setUser] = useState([]);
-  
-  // const user={
-  //     "Username": ,
-  //     "Password": ,
-  //     "Email": ,
-  //     "dob": ,
-  //     "first_name":,
-  //     "last_name":,
-  //   }
+  const logininfo = {
+    name: "",
+    password: "",
+  };
+
   const getUser = async () => {
     const test1 = await fetch("http://127.0.0.1:8000/api/users");
-    const test2  = await test1.json();
+    const test2 = await test1.json();
     setUser(test2);
   };
-  const userObj={}
+
   useEffect(() => {
     getUser();
   }, []);
+
   const handleChange = () => {
-    console.log(userObj);
+    for (let i = 0; i < user.length; i++) {
+      if (
+        logininfo.name === user[i].Username &&
+        logininfo.password === user[i].Password
+      ) {
+        setLogin(true);
+      }
+    }
   };
   return (
     <div className="extenedthemistake">
@@ -35,20 +40,20 @@ const Login = () => {
       ) : (
         <div className="lotsfopads">
           <TextField
-            onChange={(event) => {
-              userObj.name = event.target.value;
+            onBlur={(event) => {
+              logininfo.name = event.target.value;
             }}
             name="username"
             label="UsernName/Email"
             variant="outlined"
           />
           <TextField
-          name="password"
+            name="password"
             label="password"
             type="password"
             variant="outlined"
-            onChange={(event) => {
-              userObj.password = event.target.value;
+            onBlur={(event) => {
+              logininfo.password = event.target.value;
             }}
           />
           <div>
@@ -59,7 +64,6 @@ const Login = () => {
               <Link to={"/register"}>Register</Link>
             </Button>
           </div>
-          <Button variant="outlined">Forgot Pass?</Button>
         </div>
       )}
     </div>

@@ -1,0 +1,11 @@
+.ihatestickyheaders {
+  padding: 100px;
+}
+.profile {
+  display: flex;
+  flex-direction: column;
+}
+.bios {
+  display: flex;
+  flex-direction: row;
+}

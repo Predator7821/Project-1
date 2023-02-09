@@ -10,6 +10,8 @@ import SingleMovie from "./SingleMovie";
 import Login from "./Login";
 import Register from "./Register.js";
 import SingleActor from "./SingleActor";
+import Users from "./Users";
+import SingleUser from "./SingleUser";
 const Main = () => {
   return (
     <>
@@ -24,6 +26,8 @@ const Main = () => {
           <Route path="/actors/:actorid" element={<SingleActor />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="users" element={<Users />} />
+          <Route path="/users/:userid" element={<SingleUser />} />
         </Routes>
         <Footer />
       </BrowserRouter>

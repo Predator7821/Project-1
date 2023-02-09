@@ -3,7 +3,17 @@ import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
-const { PORT, DB_USER, DB_PASS, DB_HOST, DB_NAME } = process.env;
+const {
+  PORT,
+  DB_USER,
+  DB_PASS,
+  DB_HOST,
+  DB_NAME,
+  DB_HOST2,
+  DB_NAME2,
+  DB_PASS2,
+  DB_USER2,
+} = process.env;
 const app = express();
 
 app.use(express.json());
@@ -145,6 +155,19 @@ app.get("/api/actors/:actorid", async (req, res) => {
   }
 });
 
+app.get("/api/users/:userid", async (req, res) => {
+  try {
+    const user = await User.findOne({ _id: req.params.userid });
+    if (!user) {
+      res.status(404).send({ message: "That user dose not exsist" });
+    }
+    res.send(user);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({ message: e });
+  }
+});
+
 const GetUser = new mongoose.Schema({
   Username: {
     type: String,
@@ -162,9 +185,6 @@ const GetUser = new mongoose.Schema({
     type: String,
   },
   bio: {
-    type: String,
-  },
-  dob: {
     type: String,
   },
   fullname: {
@@ -191,12 +211,12 @@ app.post("/api/users", async (req, res) => {
     fullname: req.body.fullname,
     Email: req.body.Email,
   });
-  const val = await data.save()
-    res.json(val)
+  const val = await data.save();
+  res.json(val);
 });
 
 mongoose.connect(
-  `mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`,
+  `mongodb+srv://${DB_USER2}:${DB_PASS2}@${DB_HOST2}/${DB_NAME2}?retryWrites=true&w=majority`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,

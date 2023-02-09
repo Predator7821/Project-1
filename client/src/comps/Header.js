@@ -32,7 +32,7 @@ const Header = () => {
         <SearchBar />
         <Button onClick={() => search()}>
           <Link to={""}>
-            <ManageSearchIcon></ManageSearchIcon>
+            <ManageSearchIcon className="bewhiteplz"></ManageSearchIcon>
           </Link>
         </Button>
       </Box>
@@ -42,7 +42,9 @@ const Header = () => {
         <h1>you are logged in</h1>
       ) : (
         <Button>
-          <Link to={"login"}>Login</Link>
+          <Link className="bewhiteplz" to={"login"}>
+            Login
+          </Link>
         </Button>
       )}
       <Lang />

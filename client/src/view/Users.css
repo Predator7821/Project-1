@@ -1,0 +1,11 @@
+.theheaderisbroken {
+  padding: 100px;
+}
+.cardfixer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.idkanymore {
+  padding: 25px;
+}

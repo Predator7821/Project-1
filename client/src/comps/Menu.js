@@ -14,10 +14,19 @@ const Menu = ({ menu, setMenu }) => {
       >
         <div className="changeit">
           <Button>
-            <Link to={`actors`}>Actors</Link>
+            <Link className="bewhiteplz" to={`actors`}>
+              Actors
+            </Link>
           </Button>
           <Button>
-            <Link to={`movies`}>movies</Link>
+            <Link className="bewhiteplz" to={`movies`}>
+              movies
+            </Link>
+          </Button>
+          <Button>
+            <Link className="bewhiteplz" to={`users`}>
+              users
+            </Link>
           </Button>
           <Button onClick={() => setMenu(false)}>close menu</Button>
         </div>
