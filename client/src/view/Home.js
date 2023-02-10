@@ -1,7 +1,7 @@
-import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import "./Home.css";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import ReactPlayer from "react-player/youtube";
 import {
   Button,
   Card,
@@ -15,21 +15,16 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 const Home = () => {
-  const MovieCycle = [
-    "https://cdn4.buysellads.net/uu/1/127419/1670532177-Stock.jpg",
-    "https://cdn4.buysellads.net/uu/1/127419/1670532177-Stock.jpg",
-    "https://cdn4.buysellads.net/uu/1/127419/1670532177-Stock.jpg",
-    "https://cdn4.buysellads.net/uu/1/127419/1670532177-Stock.jpg",
-  ];
   const [top, setTop] = useState([]);
   const topmovies = async () => {
-    const test1 = await fetch("http://127.0.0.1:8000/api/movies");
-    const test2 = await test1.json();
-    setTop(test2);
+    fetch("http://127.0.0.1:8000/api/movies")
+      .then((response) => response.json())
+      .then((data) => setTop(data));
   };
   useEffect(() => {
     topmovies();
   }, []);
+  const ranNum = parseInt(Math.random() * top.length + 1);
   // const [actor, setActor] = useState([]);
   // const bdayactor = async () => {
   //   const test1 = await fetch("http://127.0.0.1:8000/api/actors");
@@ -48,67 +43,39 @@ const Home = () => {
   //   current.getMonth() + 1
   // }/${current.getFullYear()}`;
   // const bdayarr = actor.filter((i) => i.dob.date === date);
+
   return (
     <div className="enlarge">
-      <Box>
-        <div className="topbotom">
-          <img width={849} height={547.56} src={MovieCycle[0]} alt="" />
-          <div className="sides">
-            <div className="tinyboxes">
-              <img width={88} height={130} src={MovieCycle[1]} alt="" />
-              <div className="fromthebottothetop">
-                <PlayCircleIcon></PlayCircleIcon>
-                <span>movie title </span>
-                <span>movie desc</span>
-              </div>
-            </div>
-            <div className="tinyboxes">
-              <img width={88} height={130} src={MovieCycle[1]} alt="" />
-              <div className="fromthebottothetop">
-                <PlayCircleIcon></PlayCircleIcon>
-                <span>movie title </span>
-                <span>movie desc</span>
-              </div>
-            </div>
-            <div className="tinyboxes">
-              <img width={88} height={130} src={MovieCycle[1]} alt="" />
-              <div className="fromthebottothetop">
-                <PlayCircleIcon></PlayCircleIcon>
-                <span>movie title </span>
-                <span>movie desc</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Box>
       <h1>Top Rated Movies</h1>
       <div className="pop">
         {toparr.map((item) => {
           return (
-            <Card sx={{ maxWidth: 345, margin: 1 }}>
+            <Card sx={{ minWidth: 345, maxWidth: 345, margin: 1 }}>
               <CardContent>
                 <Button>
                   <AddCircleIcon></AddCircleIcon>
                 </Button>
               </CardContent>
-              <Button><Link to={`/movies/${item._id}`}><CardMedia
-                component="img"
-                alt="green iguana"
-                height="200"
-                image={item.picture}
-              /></Link></Button>
-              
+              <Button>
+                <Link to={`/movies/${item._id}`}>
+                  <CardMedia
+                    component="img"
+                    alt="green iguana"
+                    height="500"
+                    image={item.picture}
+                  />
+                </Link>
+              </Button>
+
               <CardContent>
                 <Typography>
                   <StarIcon></StarIcon>
                   {item.rating.rate}
-                </Typography>
-                <Typography>{item.name}</Typography>
-                <Typography>
                   <Button>
                     <StarBorderIcon></StarBorderIcon>
                   </Button>
                 </Typography>
+                <Typography>{item.name}</Typography>
                 <Button>watch later</Button>
                 <Button>trailer</Button>
               </CardContent>
@@ -120,31 +87,31 @@ const Home = () => {
       <div className="pop">
         {ratearr.map((item) => {
           return (
-            <Card sx={{ maxWidth: 345, margin: 1 }}>
+            <Card sx={{ minWidth: 345, maxWidth: 345, margin: 1 }}>
               <CardContent>
                 <Button>
                   <AddCircleIcon></AddCircleIcon>
                 </Button>
               </CardContent>
-              <Button><Link to={`/movies/${item._id}`}>
-              <CardMedia
-                component="img"
-                alt="green iguana"
-                height="200"
-                image={item.picture}
-                />
-                </Link></Button>
+              <Button>
+                <Link to={`/movies/${item._id}`}>
+                  <CardMedia
+                    component="img"
+                    alt="green iguana"
+                    height="500"
+                    image={item.picture}
+                  />
+                </Link>
+              </Button>
               <CardContent>
                 <Typography>
                   <StarIcon></StarIcon>
                   {item.rating.rate}
-                </Typography>
-                <Typography>{item.name}</Typography>
-                <Typography>
                   <Button>
                     <StarBorderIcon></StarBorderIcon>
                   </Button>
                 </Typography>
+                <Typography>{item.name}</Typography>
                 <Button>watch later</Button>
                 <Button>trailer</Button>
               </CardContent>

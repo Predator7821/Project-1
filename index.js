@@ -82,6 +82,56 @@ const GetRating = new mongoose.Schema({
   },
 });
 
+const GetPremiumRating = new mongoose.Schema({
+  rate: {
+    type: Number,
+    required: true,
+  },
+  count: {
+    type: Number,
+    required: true,
+  },
+});
+
+const GetPremiumMovie = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  category: {
+    type: String,
+    required: true,
+  },
+  picture: {
+    type: String,
+    required: true,
+  },
+  type: {
+    type: String,
+    required: true,
+  },
+  rating: {
+    type: GetPremiumRating,
+    required: true,
+  },
+  runtime: {
+    type: Number,
+    required: true,
+  },
+  date: {
+    type: Number,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  trailer: {
+    type: String,
+    required: true,
+  },
+});
+
 const GetMovie = new mongoose.Schema({
   name: {
     type: String,
@@ -140,6 +190,33 @@ app.get("/api/movies/:movieid", async (req, res) => {
       res.status(404).send({ message: "no such movie in the DB" });
     }
     res.send(movie);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({ message: e });
+  }
+});
+
+const PremiumMovie = mongoose.model("Premiums", GetPremiumMovie);
+
+app.get("/api/premiums", async (req, res) => {
+  try {
+    const data = await PremiumMovie.find({});
+    res.status(200).send(data);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({ message: e });
+  }
+});
+
+app.get("/api/premiums/:premiumsid", async (req, res) => {
+  try {
+    const premiummovie = await PremiumMovie.findOne({
+      _id: req.params.premiumsid,
+    });
+    if (!premiummovie) {
+      res.status(404).send({ message: "no such movie in the DB" });
+    }
+    res.send(premiummovie);
   } catch (e) {
     console.log(e);
     res.status(500).send({ message: e });

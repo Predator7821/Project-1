@@ -1,0 +1,9 @@
+.worstheader {
+  padding: 100px;
+}
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

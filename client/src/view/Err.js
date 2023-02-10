@@ -18,8 +18,12 @@ const Err = () => {
     <div className="brokenheader">
       <div className="movesidetoside">
         <div className="oneabovetheother">
-          <h1>ERROR</h1>
-          <h1>404</h1>
+          <img
+            src="https://cdn.discordapp.com/attachments/1027536882483085315/1073594609114042398/images.jpg"
+            alt=""
+            height={250}
+            width={250}
+          />
         </div>
         <h1> {mistakeArr[ranNum]}</h1>
         <Button>

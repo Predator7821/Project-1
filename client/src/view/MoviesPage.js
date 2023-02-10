@@ -11,6 +11,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import "./MoviePage.css";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
+
 const MoviesPage = () => {
   const [movie, setMovie] = useState([]);
   const FetchMovie = async () => {
@@ -25,7 +26,7 @@ const MoviesPage = () => {
     <div className="spacer flexer">
       {movie.map((item) => {
         return (
-          <Card sx={{ maxWidth: 345, margin: 5 }}>
+          <Card sx={{ minWidth: 345, maxWidth: 345, margin: 5 }}>
             <CardContent>
               <Button>
                 <AddCircleIcon></AddCircleIcon>
@@ -36,7 +37,7 @@ const MoviesPage = () => {
                 <CardMedia
                   component="img"
                   alt="green iguana"
-                  height="325"
+                  height="500"
                   image={item.picture}
                 />
               </Link>

@@ -40,7 +40,8 @@
 }
 .pop {
   display: flex;
-  flex-direction: row; 
+  flex-direction: row;
+  overflow-x: scroll;
 }
 .smallpfp {
   border-radius: 75%;
