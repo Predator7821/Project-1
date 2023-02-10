@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./SingleMovie.css";
 import { useParams } from "react-router-dom";
+import ReactPlayer from "react-player/youtube";
 const SingleMovie = () => {
   const params = useParams();
   const [movie, setMovie] = useState({});
@@ -28,6 +29,7 @@ const SingleMovie = () => {
           <img width={220} height={321} src={movie.picture} alt="" />
           <span>{movie.description}</span>
         </div>
+        <ReactPlayer url={movie.trailer} />
       </div>
     </div>
   );
