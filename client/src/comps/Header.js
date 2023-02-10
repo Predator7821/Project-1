@@ -42,7 +42,7 @@ const Header = () => {
             className="stupid"
             width={64}
             height={64}
-            src="https://cdn.discordapp.com/attachments/1027536882483085315/1073587452238909450/photo-1550353127-b0da3aeaa0ca.jpg"
+            src="https://cdn.discordapp.com/attachments/1027536882483085315/1073599195715489883/photo-1550353127-b0da3aeaa0ca.jpg"
             alt=""
           />
         </Link>
