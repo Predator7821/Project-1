@@ -115,6 +115,10 @@ const GetMovie = new mongoose.Schema({
     type: String,
     required: true,
   },
+  trailer: {
+    type: String,
+    required: true,
+  },
 });
 
 const Movie = mongoose.model("Movies", GetMovie);
