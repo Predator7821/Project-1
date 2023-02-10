@@ -31,12 +31,22 @@ const Header = () => {
         <SearchCatSelection />
         <SearchBar />
         <Button onClick={() => search()}>
-          <Link to={""}>
+          <Link to={"/"}>
             <ManageSearchIcon className="bewhiteplz"></ManageSearchIcon>
           </Link>
         </Button>
       </Box>
-      <Button>LOGOPRO</Button>
+      <Button>
+        <Link to={"/premiums"}>
+          <img
+            className="stupid"
+            width={64}
+            height={64}
+            src="https://cdn.discordapp.com/attachments/1027536882483085315/1073587452238909450/photo-1550353127-b0da3aeaa0ca.jpg"
+            alt=""
+          />
+        </Link>
+      </Button>
       <Button>Watch Later</Button>
       {temp ? (
         <h1>you are logged in</h1>

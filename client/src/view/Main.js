@@ -12,6 +12,8 @@ import Register from "./Register.js";
 import SingleActor from "./SingleActor";
 import Users from "./Users";
 import SingleUser from "./SingleUser";
+import Premium from "./Premium";
+import SinglePremium from "./SinglePremium";
 const Main = () => {
   return (
     <>
@@ -28,6 +30,8 @@ const Main = () => {
           <Route path="register" element={<Register />} />
           <Route path="users" element={<Users />} />
           <Route path="/users/:userid" element={<SingleUser />} />
+          <Route path="premiums" element={<Premium />} />
+          <Route path="premiums/:premiumsid" element={<SinglePremium />} />
         </Routes>
         <Footer />
       </BrowserRouter>

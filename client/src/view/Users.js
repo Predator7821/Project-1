@@ -24,7 +24,7 @@ const Users = () => {
         {users.map((person) => {
           return (
             <div className="idkanymore">
-              <Card>
+              <Card sx={{ minWidth: 250, maxWidth: 250, margin: 1 }}>
                 <CardMedia
                   sx={{ height: 140 }}
                   image="https://i.pinimg.com/736x/82/87/b8/8287b87f305d095b81c6da4957c896c0.jpg"
