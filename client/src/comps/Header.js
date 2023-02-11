@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Menu from "./Menu";
 import { Box, Button } from "@mui/material";
 import "./Header.css";
@@ -7,9 +7,11 @@ import SearchCatSelection from "./SearchCatSelection";
 import SearchBar from "./SearchBar";
 import ManageSearchIcon from "@mui/icons-material/ManageSearch";
 import Lang from "./Lang";
+import { Logincontext } from "../context/Passdata";
 const Header = () => {
   const [menu, setMenu] = useState(false);
-  const [temp, setTemp] = useState(false);
+  const [temp, setTemp] = useState();
+  const user = "";
   const search = () => {};
   return (
     <div className="centersize sticker moveabit">
@@ -49,7 +51,7 @@ const Header = () => {
       </Button>
       <Button>Watch Later</Button>
       {temp ? (
-        <h1>you are logged in</h1>
+        <span>hello, {user}!</span>
       ) : (
         <Button>
           <Link className="bewhiteplz" to={"login"}>

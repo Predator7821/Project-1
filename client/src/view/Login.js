@@ -16,7 +16,9 @@ const Login = () => {
     const test2 = await test1.json();
     setUser(test2);
   };
-
+  const logout = () => {
+    setLogin(false);
+  };
   useEffect(() => {
     getUser();
   }, []);
@@ -35,7 +37,7 @@ const Login = () => {
     <div className="extenedthemistake">
       {login ? (
         <div>
-          <Button onClick={() => setLogin(false)}>Logout</Button>
+          <Button onClick={() => logout()}>Logout</Button>
         </div>
       ) : (
         <div className="lotsfopads">

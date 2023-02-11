@@ -46,6 +46,15 @@ const Home = () => {
 
   return (
     <div className="enlarge">
+      {/* <div>
+        {top.map((e) => {
+          return (
+            <div>
+              <ReactPlayer url={e[ranNum].trailer} />
+            </div>
+          );
+        })}
+      </div> */}
       <h1>Top Rated Movies</h1>
       <div className="pop">
         {toparr.map((item) => {
