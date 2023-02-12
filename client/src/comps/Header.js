@@ -7,11 +7,12 @@ import SearchCatSelection from "./SearchCatSelection";
 import SearchBar from "./SearchBar";
 import ManageSearchIcon from "@mui/icons-material/ManageSearch";
 import Lang from "./Lang";
-import { Logincontext } from "../context/Passdata";
+import { Logincontext, Currentusercontext } from "../context/Passdata";
 const Header = () => {
+  const { isLoggedIn, setIsLoggedIn } = useContext(Logincontext);
+  const { currentUser, setCurrentUser } = useContext(Currentusercontext);
   const [menu, setMenu] = useState(false);
   const [temp, setTemp] = useState();
-  const user = "";
   const search = () => {};
   return (
     <div className="centersize sticker moveabit">
@@ -33,7 +34,7 @@ const Header = () => {
         <SearchCatSelection />
         <SearchBar />
         <Button onClick={() => search()}>
-          <Link to={"/"}>
+          <Link to={"/results"}>
             <ManageSearchIcon className="bewhiteplz"></ManageSearchIcon>
           </Link>
         </Button>
@@ -50,8 +51,10 @@ const Header = () => {
         </Link>
       </Button>
       <Button>Watch Later</Button>
-      {temp ? (
-        <span>hello, {user}!</span>
+      {isLoggedIn ? (
+        <Link className="bewhiteplz" to={"/login"}>
+          <span>Hello, {currentUser}!</span>
+        </Link>
       ) : (
         <Button>
           <Link className="bewhiteplz" to={"login"}>

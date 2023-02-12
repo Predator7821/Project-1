@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { TextField, Button } from "@mui/material";
 import "./Register.css";
 import axios from "axios";

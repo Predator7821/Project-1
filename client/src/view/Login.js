@@ -2,22 +2,24 @@ import React, { useEffect, useState, useContext } from "react";
 import { Button, TextField } from "@mui/material";
 import "./Login.css";
 import { Link } from "react-router-dom";
-import { Logincontext } from "../context/Passdata";
+import { Currentusercontext, Logincontext } from "../context/Passdata";
 const Login = () => {
-  const [login, setLogin] = useState(useContext(Logincontext));
+  const { isLoggedIn, setIsLoggedIn } = useContext(Logincontext);
+  const { currentUser, setCurrentUser } = useContext(Currentusercontext);
+  const [login, setLogin] = useState(false);
   const [user, setUser] = useState([]);
   const logininfo = {
     name: "",
     password: "",
   };
-
+  console.log(login);
   const getUser = async () => {
     const test1 = await fetch("http://127.0.0.1:8000/api/users");
     const test2 = await test1.json();
     setUser(test2);
   };
   const logout = () => {
-    setLogin(false);
+    setIsLoggedIn(false);
   };
   useEffect(() => {
     getUser();
@@ -29,13 +31,15 @@ const Login = () => {
         logininfo.name === user[i].Username &&
         logininfo.password === user[i].Password
       ) {
-        setLogin(true);
+        setIsLoggedIn(true);
+      } else {
+        alert("wrong username or password");
       }
     }
   };
   return (
     <div className="extenedthemistake">
-      {login ? (
+      {isLoggedIn ? (
         <div>
           <Button onClick={() => logout()}>Logout</Button>
         </div>
@@ -44,6 +48,7 @@ const Login = () => {
           <TextField
             onBlur={(event) => {
               logininfo.name = event.target.value;
+              setCurrentUser(event.target.value);
             }}
             name="username"
             label="UsernName/Email"
@@ -59,7 +64,7 @@ const Login = () => {
             }}
           />
           <div>
-            <Button onClick={() => handleChange()} variant="outlined">
+            <Button onClick={handleChange} variant="outlined">
               Login
             </Button>
             <Button variant="outlined">
