@@ -11,10 +11,10 @@ const SearchCatSelection = () => {
   return (
     <>
       <Select label="Filter:" onChange={handleChange} value={cat}>
-        <MenuItem value={1}>All</MenuItem>
-        <MenuItem value={2}>Actors</MenuItem>
-        <MenuItem value={3}>Movies</MenuItem>
-        <MenuItem value={4}>Users</MenuItem>
+        <MenuItem value={"All"}>All</MenuItem>
+        <MenuItem value={"Actors"}>Actors</MenuItem>
+        <MenuItem value={"Movies"}>Movies</MenuItem>
+        <MenuItem value={"Users"}>Users</MenuItem>
       </Select>
     </>
   );

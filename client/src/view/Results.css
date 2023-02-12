@@ -1,0 +1,8 @@
+.thatfuckingheader {
+  padding: 100px;
+}
+.makeitfitthecenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

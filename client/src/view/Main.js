@@ -14,6 +14,7 @@ import Users from "./Users";
 import SingleUser from "./SingleUser";
 import Premium from "./Premium";
 import SinglePremium from "./SinglePremium";
+import Results from "./Results";
 const Main = () => {
   return (
     <>
@@ -32,6 +33,7 @@ const Main = () => {
           <Route path="/users/:userid" element={<SingleUser />} />
           <Route path="premiums" element={<Premium />} />
           <Route path="premiums/:premiumsid" element={<SinglePremium />} />
+          <Route path="/results" element={<Results />} />
         </Routes>
         <Footer />
       </BrowserRouter>

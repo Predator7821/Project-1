@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "./Home.css";
-import PlayCircleIcon from "@mui/icons-material/PlayCircle";
-import ReactPlayer from "react-player/youtube";
 import {
   Button,
   Card,
@@ -13,6 +11,8 @@ import { Link } from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { Box } from "@mui/system";
+import Tinybox from "../comps/Tinybox";
 
 const Home = () => {
   const [top, setTop] = useState([]);
@@ -24,7 +24,7 @@ const Home = () => {
   useEffect(() => {
     topmovies();
   }, []);
-  const ranNum = parseInt(Math.random() * top.length + 1);
+  const ranNum = useMemo(() => parseInt(Math.random() * top.length + 1), [top]);
   // const [actor, setActor] = useState([]);
   // const bdayactor = async () => {
   //   const test1 = await fetch("http://127.0.0.1:8000/api/actors");
@@ -34,7 +34,7 @@ const Home = () => {
   // useEffect(() => {
   //   bdayactor();
   // }, []);
-
+  const tinyBoxesArr = [1, 2, 3];
   const toparr = top.filter((i) => i.rating.rate >= 9);
   const ratearr = top.filter((i) => i.rating.count >= 750000);
 
@@ -46,16 +46,19 @@ const Home = () => {
 
   return (
     <div className="enlarge">
-      {/* <div>
-        {top.map((e) => {
-          return (
-            <div>
-              <ReactPlayer url={e[ranNum].trailer} />
-            </div>
-          );
-        })}
-      </div> */}
-      <h1>Top Rated Movies</h1>
+      <Box>
+        <h1 className="putmewhereineedtobe">discover somthing random</h1>
+        <div className="sides">
+          {tinyBoxesArr.map((tinyBox) => {
+            return (
+              <div className="spacethosethings">
+                <Tinybox ranNum={ranNum + tinyBox} top={top} />
+              </div>
+            );
+          })}
+        </div>
+      </Box>
+      <h1 className="putmewhereineedtobe">Top Rated Movies</h1>
       <div className="pop">
         {toparr.map((item) => {
           return (
@@ -92,7 +95,7 @@ const Home = () => {
           );
         })}
       </div>
-      <h1>Fan Choice</h1>
+      <h1 className="putmewhereineedtobe">Fan Choice</h1>
       <div className="pop">
         {ratearr.map((item) => {
           return (

@@ -1,13 +1,23 @@
 import "./App.css";
 import { useState } from "react";
-import { Logincontext } from "./context/Passdata";
+import {
+  Currentusercontext,
+  Logincontext,
+  Searchresultscontext,
+} from "./context/Passdata";
 import Main from "./view/Main";
 function App() {
-  const [login, setLogin] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState("");
+  const [results, setResults] = useState("");
   return (
     <>
-      <Logincontext.Provider value={{ login, setLogin }}>
-        <Main />
+      <Logincontext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+        <Currentusercontext.Provider value={{ currentUser, setCurrentUser }}>
+          <Searchresultscontext.Provider value={{ results, setResults }}>
+            <Main />
+          </Searchresultscontext.Provider>
+        </Currentusercontext.Provider>
       </Logincontext.Provider>
     </>
   );
