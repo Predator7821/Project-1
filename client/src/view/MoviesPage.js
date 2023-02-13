@@ -55,7 +55,7 @@ const MoviesPage = () => {
                 </Button>
               </Typography>
               <Button>watch later</Button>
-              <Button>trailer</Button>
+              <Button><a href={item.trailer}>Trailer</a></Button>
             </CardContent>
           </Card>
         );

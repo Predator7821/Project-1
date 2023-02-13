@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { TextField, Button } from "@mui/material";
 import "./Register.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [userData, setUserData] = useState({
@@ -24,6 +25,7 @@ const Register = () => {
         fullname: userData.fullname,
         Email: userData.Email,
         Password: userData.Password,
+        Age: userData.Age,
       })
       .then((res) => {
         console.log(userData);
@@ -60,8 +62,15 @@ const Register = () => {
         value={userData.Password}
         onChange={(e) => handle(e)}
       />
+      <TextField
+        label="Age"
+        variant="outlined"
+        name="Age"
+        value={userData.Age}
+        onChange={(e) => handle(e)}
+      />
       <Button onClick={(e) => handleRegister(e)} variant="outlined">
-        Register
+        <Link to={'/login'}>Register</Link>
       </Button>
     </div>
   );

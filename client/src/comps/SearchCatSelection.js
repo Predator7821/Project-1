@@ -1,16 +1,17 @@
 import { MenuItem, Select } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { Catsearchcontext } from "../context/Passdata";
 
 const SearchCatSelection = () => {
-  const [cat, setCat] = useState("");
-
+  const { searchCat, setSearchCat } = useContext(Catsearchcontext)
   const handleChange = (event) => {
-    setCat(event.target.value);
+    setSearchCat(event.target.value)
+    console.log(searchCat);
   };
 
   return (
     <>
-      <Select label="Filter:" onChange={handleChange} value={cat}>
+      <Select label="Filter:" onChange={handleChange} value={searchCat}>
         <MenuItem value={"All"}>All</MenuItem>
         <MenuItem value={"Actors"}>Actors</MenuItem>
         <MenuItem value={"Movies"}>Movies</MenuItem>

@@ -25,25 +25,26 @@ const Home = () => {
     topmovies();
   }, []);
   const ranNum = useMemo(() => parseInt(Math.random() * top.length + 1), [top]);
-  // const [actor, setActor] = useState([]);
-  // const bdayactor = async () => {
-  //   const test1 = await fetch("http://127.0.0.1:8000/api/actors");
-  //   const test2 = await test1.json();
-  //   setActor(test2);
-  // };
-  // useEffect(() => {
-  //   bdayactor();
-  // }, []);
+  const [actor, setActor] = useState([]);
+  const bdayactor = async () => {
+    const test1 = await fetch("http://127.0.0.1:8000/api/actors");
+    const test2 = await test1.json();
+    setActor(test2);
+  };
+  useEffect(() => {
+    bdayactor();
+  }, []);
   const tinyBoxesArr = [1, 2, 3];
   const toparr = top.filter((i) => i.rating.rate >= 9);
   const ratearr = top.filter((i) => i.rating.count >= 750000);
 
-  // const current = new Date();
-  // const date = `${current.getDate()}/${
-  //   current.getMonth() + 1
-  // }/${current.getFullYear()}`;
-  // const bdayarr = actor.filter((i) => i.dob.date === date);
-
+  const current = new Date();
+  const date = `${current.getDate()}/0${
+    current.getMonth() + 1
+  }`;
+  
+  const bdayarr = actor.filter((i) => i.dob.date === date);
+  
   return (
     <div className="enlarge">
       <Box>
@@ -89,7 +90,7 @@ const Home = () => {
                 </Typography>
                 <Typography>{item.name}</Typography>
                 <Button>watch later</Button>
-                <Button>trailer</Button>
+                <Button><a href={item.trailer}>Trailer</a></Button>
               </CardContent>
             </Card>
           );
@@ -125,28 +126,30 @@ const Home = () => {
                 </Typography>
                 <Typography>{item.name}</Typography>
                 <Button>watch later</Button>
-                <Button>trailer</Button>
+                <Button><a href={item.trailer}>Trailer</a></Button>
               </CardContent>
             </Card>
           );
         })}
       </div>
-      {/* <h1>todays birthdays</h1>
+      <h1 className="putmewhereineedtobe">Todays Birthdays</h1>
       <div className="pop">
         {bdayarr.map((item) => {
           return (
-            <div>
+            <div className="fixmybdays">
               <img
-                width={50}
-                height={50}
+                width={150}
+                height={150}
                 className="smallpfp"
                 src={item.picture}
                 alt=""
               />
+              <span>{item.name.first_name} {item.name.last_name} </span>
+              <span>{item.dob.date}</span>
             </div>
           );
         })}
-      </div> */}
+      </div>
     </div>
   );
 };

@@ -5,25 +5,28 @@ import {
   CardContent,
   CardMedia,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { Link } from "react-router-dom";
 import "./Premium.css";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-
+import { Checkpremiumcontext, Currentusercontext } from "../context/Passdata";
 const Premium = () => {
   const [premium, setPremium] = useState([]);
+  const {ispremium,setIspremium}=useContext(Checkpremiumcontext);
+
   const fetchpremium = async () => {
     fetch("http://127.0.0.1:8000/api/premiums")
       .then((response) => response.json())
       .then((data) => setPremium(data));
-  };
+  }
   useEffect(() => {
     fetchpremium();
   }, []);
   return (
-    <div className="worstheader">
+    <div className="worstheader gotothecetner">
+      {ispremium ? <div className="worstheader">
       <h1 className="placeholder">Premium Movies EB Exclusives</h1>
       <div className="spacer flexer">
         {premium.map((item) => {
@@ -63,7 +66,11 @@ const Premium = () => {
           );
         })}
       </div>
+    </div> :<div>please register for a premium user</div>}
+      
     </div>
+    
+    
   );
 };
 

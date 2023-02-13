@@ -11,9 +11,12 @@ import { Logincontext, Currentusercontext } from "../context/Passdata";
 const Header = () => {
   const { isLoggedIn, setIsLoggedIn } = useContext(Logincontext);
   const { currentUser, setCurrentUser } = useContext(Currentusercontext);
+
   const [menu, setMenu] = useState(false);
   const [temp, setTemp] = useState();
-  const search = () => {};
+  const search = () => {
+    
+  };
   return (
     <div className="centersize sticker moveabit">
       <Button>

@@ -169,6 +169,9 @@ const GetMovie = new mongoose.Schema({
     type: String,
     required: true,
   },
+  age:{
+    type:Number,
+  }
 });
 
 const Movie = mongoose.model("Movies", GetMovie);
@@ -248,7 +251,6 @@ app.get("/api/users/:userid", async (req, res) => {
     res.status(500).send({ message: e });
   }
 });
-
 const GetUser = new mongoose.Schema({
   Username: {
     type: String,
@@ -271,6 +273,13 @@ const GetUser = new mongoose.Schema({
   fullname: {
     type: String,
   },
+  premium:{
+    type: Boolean,
+  },
+  Age:{
+    type:Number,
+    required:true,
+  }
 });
 
 const User = mongoose.model("Users", GetUser);
@@ -291,6 +300,7 @@ app.post("/api/users", async (req, res) => {
     Password: req.body.Password,
     fullname: req.body.fullname,
     Email: req.body.Email,
+    Age: req.body.Age
   });
   const val = await data.save();
   res.json(val);

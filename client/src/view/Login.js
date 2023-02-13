@@ -2,17 +2,17 @@ import React, { useEffect, useState, useContext } from "react";
 import { Button, TextField } from "@mui/material";
 import "./Login.css";
 import { Link } from "react-router-dom";
-import { Currentusercontext, Logincontext } from "../context/Passdata";
+import { Checkpremiumcontext, Currentusercontext, Logincontext } from "../context/Passdata";
 const Login = () => {
   const { isLoggedIn, setIsLoggedIn } = useContext(Logincontext);
   const { currentUser, setCurrentUser } = useContext(Currentusercontext);
+  const {ispremium,setIspremium} = useContext(Checkpremiumcontext)
   const [login, setLogin] = useState(false);
   const [user, setUser] = useState([]);
   const logininfo = {
     name: "",
     password: "",
   };
-  console.log(login);
   const getUser = async () => {
     const test1 = await fetch("http://127.0.0.1:8000/api/users");
     const test2 = await test1.json();
@@ -20,11 +20,11 @@ const Login = () => {
   };
   const logout = () => {
     setIsLoggedIn(false);
+    setIspremium(false);
   };
   useEffect(() => {
     getUser();
   }, []);
-
   const handleChange = () => {
     for (let i = 0; i < user.length; i++) {
       if (
@@ -32,8 +32,10 @@ const Login = () => {
         logininfo.password === user[i].Password
       ) {
         setIsLoggedIn(true);
-      } else {
-        alert("wrong username or password");
+        if(user[i].premium===true){
+          setIspremium(true)
+          console.log(ispremium);
+        }
       }
     }
   };

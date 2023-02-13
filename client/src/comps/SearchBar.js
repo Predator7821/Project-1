@@ -3,7 +3,6 @@ import { TextField } from "@mui/material";
 import { Searchresultscontext } from "../context/Passdata";
 const SearchBar = () => {
   const { results, setResults } = useContext(Searchresultscontext);
-  console.log(results);
   return (
     <>
       <TextField
