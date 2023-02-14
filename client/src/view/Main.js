@@ -15,6 +15,8 @@ import SingleUser from "./SingleUser";
 import Premium from "./Premium";
 import SinglePremium from "./SinglePremium";
 import Results from "./Results";
+import Profilepage from "./Profilepage";
+import Singleprofile from "./Singleprofile";
 const Main = () => {
   return (
     <>
@@ -34,6 +36,8 @@ const Main = () => {
           <Route path="premiums" element={<Premium />} />
           <Route path="premiums/:premiumsid" element={<SinglePremium />} />
           <Route path="/results" element={<Results />} />
+          <Route path="/profile" element={<Profilepage />} />
+          <Route path="/profile/:Username" element={<Singleprofile />} />
         </Routes>
         <Footer />
       </BrowserRouter>

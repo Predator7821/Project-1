@@ -70,7 +70,7 @@ const Register = () => {
         onChange={(e) => handle(e)}
       />
       <Button onClick={(e) => handleRegister(e)} variant="outlined">
-        <Link to={'/login'}>Register</Link>
+        <Link to={"/login"}>Register</Link>
       </Button>
     </div>
   );

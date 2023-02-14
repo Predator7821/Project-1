@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   CardMedia,
   CardContent,
@@ -8,7 +8,9 @@ import {
 } from "@mui/material";
 import "./Users.css";
 import { Link } from "react-router-dom";
+import { User_idcontext } from "../context/Passdata";
 const Users = () => {
+  const { userid, setUserid } = useContext(User_idcontext);
   const [users, setUsers] = useState([]);
   const Fetchuser = async () => {
     const test1 = await fetch("http://127.0.0.1:8000/api/users");
@@ -33,6 +35,7 @@ const Users = () => {
                 <Button>
                   <Link to={`/users/${person._id}`}>More Info</Link>
                 </Button>
+                {setUserid(person._id)}
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
                     {person.Username}

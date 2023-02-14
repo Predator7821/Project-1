@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { Link, useParams } from "react-router-dom";
 import "./SingleUser.css";
+import { Currentusercontext } from "../context/Passdata";
 const SingleUser = () => {
+  const { currentUser, setCurrentUser } = useContext(Currentusercontext);
   const params = useParams();
   const [user, setUser] = useState({});
   const userview = async () => {
@@ -26,6 +28,7 @@ const SingleUser = () => {
           }
         />
       </div>
+      <Link to={`/profile/${currentUser}`}>got to the real profile</Link>
       <div className="bios">
         <span>{user.Username}</span>
         <span>{user.bio}</span>

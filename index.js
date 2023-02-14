@@ -169,9 +169,9 @@ const GetMovie = new mongoose.Schema({
     type: String,
     required: true,
   },
-  age:{
-    type:Number,
-  }
+  age: {
+    type: Number,
+  },
 });
 
 const Movie = mongoose.model("Movies", GetMovie);
@@ -251,6 +251,19 @@ app.get("/api/users/:userid", async (req, res) => {
     res.status(500).send({ message: e });
   }
 });
+
+app.get("/api/profile/:Username", async (req, res) => {
+  try {
+    const profile = await User.findOne({ Username: req.params.Username });
+    if (!profile) {
+      res.status(404).send({ message: "That user dose not exsist" });
+    }
+    res.send(profile);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({ message: e });
+  }
+});
 const GetUser = new mongoose.Schema({
   Username: {
     type: String,
@@ -267,19 +280,19 @@ const GetUser = new mongoose.Schema({
   pfp: {
     type: String,
   },
-  bio: {
+  Bio: {
     type: String,
   },
   fullname: {
     type: String,
   },
-  premium:{
+  premium: {
     type: Boolean,
   },
-  Age:{
-    type:Number,
-    required:true,
-  }
+  Age: {
+    type: Number,
+    required: true,
+  },
 });
 
 const User = mongoose.model("Users", GetUser);
@@ -293,19 +306,24 @@ app.get("/api/users", async (req, res) => {
     res.status(500).send({ message: e });
   }
 });
-
 app.post("/api/users", async (req, res) => {
-  const data = new User({
+  const data = User({
     Username: req.body.Username,
     Password: req.body.Password,
     fullname: req.body.fullname,
     Email: req.body.Email,
-    Age: req.body.Age
+    Age: req.body.Age,
   });
   const val = await data.save();
   res.json(val);
 });
-
+app.put(`/api/users/:userid`, async (req, res) => {
+  const data = new User({
+    Bio: req.body.Bio,
+  });
+  const val = await data.save();
+  res.json(val);
+});
 mongoose.connect(
   `mongodb+srv://${DB_USER2}:${DB_PASS2}@${DB_HOST2}/${DB_NAME2}?retryWrites=true&w=majority`,
   {
