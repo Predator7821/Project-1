@@ -7,6 +7,7 @@ import {
   Catsearchcontext,
   Checkpremiumcontext,
   User_idcontext,
+  Moviefetchcontext,
 } from "./context/Passdata";
 import Main from "./view/Main";
 function App() {
@@ -16,6 +17,7 @@ function App() {
   const [searchCat, setSearchCat] = useState("");
   const [ispremium, setIspremium] = useState(false);
   const [userid, setUserid] = useState("");
+  const [bestofdabest, setBestofdabest] = useState([]);
   return (
     <>
       <Logincontext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
@@ -24,7 +26,11 @@ function App() {
             <Catsearchcontext.Provider value={{ searchCat, setSearchCat }}>
               <Checkpremiumcontext.Provider value={{ ispremium, setIspremium }}>
                 <User_idcontext.Provider value={{ userid, setUserid }}>
-                  <Main />
+                  <Moviefetchcontext.Provider
+                    value={{ bestofdabest, setBestofdabest }}
+                  >
+                    <Main />
+                  </Moviefetchcontext.Provider>
                 </User_idcontext.Provider>
               </Checkpremiumcontext.Provider>
             </Catsearchcontext.Provider>

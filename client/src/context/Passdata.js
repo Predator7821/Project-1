@@ -11,3 +11,5 @@ export const Catsearchcontext = createContext(null);
 export const Checkpremiumcontext = createContext(null);
 
 export const User_idcontext = createContext(null);
+
+export const Moviefetchcontext = createContext(null);

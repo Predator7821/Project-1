@@ -1,9 +1,18 @@
 .spacer {
   padding: 100px;
-
 }
 .flexer {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+}
+.sortthefilters {
+  display: flex;
+  flex-direction: column;
+}
+.filtersorter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 }

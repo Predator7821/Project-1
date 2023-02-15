@@ -2,11 +2,15 @@ import React, { useEffect, useState, useContext } from "react";
 import { Button, TextField } from "@mui/material";
 import "./Login.css";
 import { Link } from "react-router-dom";
-import { Checkpremiumcontext, Currentusercontext, Logincontext } from "../context/Passdata";
+import {
+  Checkpremiumcontext,
+  Currentusercontext,
+  Logincontext,
+} from "../context/Passdata";
 const Login = () => {
   const { isLoggedIn, setIsLoggedIn } = useContext(Logincontext);
   const { currentUser, setCurrentUser } = useContext(Currentusercontext);
-  const {ispremium,setIspremium} = useContext(Checkpremiumcontext)
+  const { ispremium, setIspremium } = useContext(Checkpremiumcontext);
   const [login, setLogin] = useState(false);
   const [user, setUser] = useState([]);
   const logininfo = {
@@ -32,9 +36,8 @@ const Login = () => {
         logininfo.password === user[i].Password
       ) {
         setIsLoggedIn(true);
-        if(user[i].premium===true){
-          setIspremium(true)
-          console.log(ispremium);
+        if (user[i].premium === true) {
+          setIspremium(true);
         }
       }
     }
