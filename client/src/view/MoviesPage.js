@@ -11,12 +11,17 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import "./MoviePage.css";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-import { Moviefetchcontext } from "../context/Passdata";
+import {
+  Moviefetchcontext,
+  Currentusercontext,
+  Cartcontext,
+} from "../context/Passdata";
 import Movietypefilter from "../comps/Movietypefilter";
 import Moviesortfilter from "../comps/Moviesortfilter";
 import Runtime from "../comps/Runtime";
 const MoviesPage = () => {
   const { bestofdabest, setBestofdabest } = useContext(Moviefetchcontext);
+  const { currentUser, setCurrentUser } = useContext(Currentusercontext);
   const [movie, setMovie] = useState([]);
   const [bestmovie, setBestmovie] = useState([]);
   const [length, setLength] = useState([1, 1000]);
@@ -51,6 +56,8 @@ const MoviesPage = () => {
   useEffect(() => {
     onFilterChange();
   }, [cat, length, typecat]);
+  const Globalstate = useContext(Cartcontext);
+  const dispatch = Globalstate.dispatch;
   return (
     <div className="spacer sortthefilters">
       <div className="filtersorter">
@@ -77,9 +84,19 @@ const MoviesPage = () => {
           return (
             <Card sx={{ minWidth: 345, maxWidth: 345, margin: 5 }}>
               <CardContent>
-                <Button>
-                  <AddCircleIcon></AddCircleIcon>
-                </Button>
+                {currentUser ? (
+                  <Button
+                    onClick={() => dispatch({ type: "ADD", payload: item })}
+                  >
+                    <AddCircleIcon></AddCircleIcon>
+                  </Button>
+                ) : (
+                  <Button>
+                    <Link to={"/login"}>
+                      <AddCircleIcon></AddCircleIcon>
+                    </Link>
+                  </Button>
+                )}
               </CardContent>
               <Button>
                 <Link to={`/movies/${item._id}`}>
@@ -103,7 +120,6 @@ const MoviesPage = () => {
                     <StarBorderIcon></StarBorderIcon>
                   </Button>
                 </Typography>
-                <Button>watch later</Button>
                 <Button>
                   <a href={item.trailer}>Trailer</a>
                 </Button>

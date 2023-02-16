@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useContext } from "react";
 import "./Home.css";
 import {
   Button,
@@ -13,8 +13,9 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box } from "@mui/system";
 import Tinybox from "../comps/Tinybox";
-
+import { Currentusercontext, Cartcontext } from "../context/Passdata";
 const Home = () => {
+  const { currentUser, setCurrentUser } = useContext(Currentusercontext);
   const [top, setTop] = useState([]);
   const topmovies = async () => {
     fetch("http://127.0.0.1:8000/api/movies")
@@ -39,12 +40,11 @@ const Home = () => {
   const ratearr = top.filter((i) => i.rating.count >= 750000);
 
   const current = new Date();
-  const date = `${current.getDate()}/0${
-    current.getMonth() + 1
-  }`;
-  
+  const date = `${current.getDate()}/0${current.getMonth() + 1}`;
+
   const bdayarr = actor.filter((i) => i.dob.date === date);
-  
+  const Globalstate = useContext(Cartcontext);
+  const dispatch = Globalstate.dispatch;
   return (
     <div className="enlarge">
       <Box>
@@ -65,9 +65,19 @@ const Home = () => {
           return (
             <Card sx={{ minWidth: 345, maxWidth: 345, margin: 1 }}>
               <CardContent>
-                <Button>
-                  <AddCircleIcon></AddCircleIcon>
-                </Button>
+                {currentUser ? (
+                  <Button
+                    onClick={() => dispatch({ type: "ADD", payload: item })}
+                  >
+                    <AddCircleIcon></AddCircleIcon>
+                  </Button>
+                ) : (
+                  <Button>
+                    <Link to={"/login"}>
+                      <AddCircleIcon></AddCircleIcon>
+                    </Link>
+                  </Button>
+                )}
               </CardContent>
               <Button>
                 <Link to={`/movies/${item._id}`}>
@@ -89,8 +99,9 @@ const Home = () => {
                   </Button>
                 </Typography>
                 <Typography>{item.name}</Typography>
-                <Button>watch later</Button>
-                <Button><a href={item.trailer}>Trailer</a></Button>
+                <Button>
+                  <a href={item.trailer}>Trailer</a>
+                </Button>
               </CardContent>
             </Card>
           );
@@ -102,9 +113,19 @@ const Home = () => {
           return (
             <Card sx={{ minWidth: 345, maxWidth: 345, margin: 1 }}>
               <CardContent>
-                <Button>
-                  <AddCircleIcon></AddCircleIcon>
-                </Button>
+                {currentUser ? (
+                  <Button
+                    onClick={() => dispatch({ type: "ADD", payload: item })}
+                  >
+                    <AddCircleIcon></AddCircleIcon>
+                  </Button>
+                ) : (
+                  <Button>
+                    <Link to={"/login"}>
+                      <AddCircleIcon></AddCircleIcon>
+                    </Link>
+                  </Button>
+                )}
               </CardContent>
               <Button>
                 <Link to={`/movies/${item._id}`}>
@@ -125,8 +146,9 @@ const Home = () => {
                   </Button>
                 </Typography>
                 <Typography>{item.name}</Typography>
-                <Button>watch later</Button>
-                <Button><a href={item.trailer}>Trailer</a></Button>
+                <Button>
+                  <a href={item.trailer}>Trailer</a>
+                </Button>
               </CardContent>
             </Card>
           );
@@ -144,7 +166,9 @@ const Home = () => {
                 src={item.picture}
                 alt=""
               />
-              <span>{item.name.first_name} {item.name.last_name} </span>
+              <span>
+                {item.name.first_name} {item.name.last_name}{" "}
+              </span>
               <span>{item.dob.date}</span>
             </div>
           );

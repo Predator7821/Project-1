@@ -8,11 +8,12 @@ import {
   Checkpremiumcontext,
   User_idcontext,
   Moviefetchcontext,
+  Passdata,
 } from "./context/Passdata";
 import Main from "./view/Main";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState("");
+  const [currentUser, setCurrentUser] = useState(null);
   const [results, setResults] = useState("");
   const [searchCat, setSearchCat] = useState("");
   const [ispremium, setIspremium] = useState(false);
@@ -29,7 +30,9 @@ function App() {
                   <Moviefetchcontext.Provider
                     value={{ bestofdabest, setBestofdabest }}
                   >
-                    <Main />
+                    <Passdata>
+                      <Main />
+                    </Passdata>
                   </Moviefetchcontext.Provider>
                 </User_idcontext.Provider>
               </Checkpremiumcontext.Provider>

@@ -25,6 +25,7 @@ const Login = () => {
   const logout = () => {
     setIsLoggedIn(false);
     setIspremium(false);
+    setCurrentUser(false);
   };
   useEffect(() => {
     getUser();

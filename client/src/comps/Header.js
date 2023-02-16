@@ -14,9 +14,7 @@ const Header = () => {
 
   const [menu, setMenu] = useState(false);
   const [temp, setTemp] = useState();
-  const search = () => {
-    
-  };
+  const search = () => {};
   return (
     <div className="centersize sticker moveabit">
       <Button>
@@ -53,7 +51,20 @@ const Header = () => {
           />
         </Link>
       </Button>
-      <Button>Watch Later</Button>
+      {currentUser ? (
+        <Button>
+          <Link className="pleasebewhite" to={`/profile/${currentUser}`}>
+            Watch Later
+          </Link>
+        </Button>
+      ) : (
+        <Button>
+          <Link className="pleasebewhite" to={"/login"}>
+            Watch Later
+          </Link>
+        </Button>
+      )}
+
       {isLoggedIn ? (
         <Link className="bewhiteplz" to={"/login"}>
           <span>Hello, {currentUser}!</span>

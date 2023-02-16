@@ -1,9 +1,13 @@
 import React, { useContext, useState } from "react";
 import "./Singleprofile.css";
-import { User_idcontext } from "../context/Passdata";
+import { User_idcontext, Cartcontext } from "../context/Passdata";
 import { Button } from "@mui/material";
 import axios from "axios";
+import { Typography, Card, CardContent } from "@mui/material";
 const Singleprofile = () => {
+  const Globalstate = useContext(Cartcontext);
+  const state = Globalstate.state;
+  const dispatch = Globalstate.dispatch;
   const { userid, setUserid } = useContext(User_idcontext);
   const [userData, setUserData] = useState({
     Bio: "",
@@ -33,6 +37,24 @@ const Singleprofile = () => {
         className="sizebio"
       ></textarea>
       <Button onClick={handlesubmit}>update bio</Button>
+      <div>
+        {state.map((item, index) => {
+          return (
+            <Card sx={{ maxHeight: 500 }} key={index}>
+              <CardContent>
+                <Typography variant="body2" color="text.secondary">
+                  {item.name}
+                </Typography>
+              </CardContent>
+              <Button
+                onClick={() => dispatch({ type: "REMOVE", payload: item })}
+              >
+                remove
+              </Button>
+            </Card>
+          );
+        })}
+      </div>
     </div>
   );
 };
