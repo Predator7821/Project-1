@@ -8,3 +8,8 @@
 כפתור תפריט עם ניווט לעמודים מעניינים כמו הסרטים הכי טובים
 אפשרות לדרג סרט עם דירוג משתנה
 בעמוד הראשי יוצג שחקנים שנולדו באותו יום
+
+questions to ask almog
+can we not do the translation
+how to set up a PUT path/route
+the search is broken
