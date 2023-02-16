@@ -15,12 +15,12 @@ const Moviesortfilter = (setTypecat, typecat) => {
     <>
       <Box sx={{ minWidth: 120 }}>
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">categories:</InputLabel>
+          <InputLabel id="demo-simple-select-label">type:</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={typecat}
-            label="categories:"
+            label="type:"
             onChange={handleSelect}
           >
             {categories.map((i, index) => (
