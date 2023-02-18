@@ -1,5 +1,4 @@
 הרשמה:
-גיל: כדי שזה ידע איזה סרטים להציע לו למשל מישהו מתחת ל18 לא יכול לראות סרטים למבוגרים
 תמונה:
 מידע על עצמו:
 
@@ -13,3 +12,4 @@ questions to ask almog
 can we not do the translation
 how to set up a PUT path/route
 the search is broken
+fix search after applying the movies by age

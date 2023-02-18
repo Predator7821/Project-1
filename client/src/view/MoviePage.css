@@ -16,3 +16,8 @@
   justify-content: space-around;
   align-items: center;
 }
+.notice {
+  color: red;
+  display: flex;
+  justify-content: center;
+}

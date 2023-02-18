@@ -2,13 +2,14 @@ import React, { useContext } from "react";
 import { Box } from "@mui/system";
 import { FormControl, Select, InputLabel, MenuItem } from "@mui/material";
 import { Moviefetchcontext } from "../context/Passdata";
-const Movietypefilter = (cat, setCat, movie) => {
+const Movietypefilter = (cat, setCat, ageofmovie) => {
   const { bestofdabest, setBestofdabest } = useContext(Moviefetchcontext);
   const categories = bestofdabest
     .map((p) => p.category)
     .filter((value, index, array) => array.indexOf(value) === index);
 
   categories.unshift("All Movies");
+
   const handleSelect = (e) => {
     setCat(e.target.value);
   };

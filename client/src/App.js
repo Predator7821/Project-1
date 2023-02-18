@@ -9,6 +9,7 @@ import {
   User_idcontext,
   Moviefetchcontext,
   Passdata,
+  Movieagecontext,
 } from "./context/Passdata";
 import Main from "./view/Main";
 function App() {
@@ -19,6 +20,7 @@ function App() {
   const [ispremium, setIspremium] = useState(false);
   const [userid, setUserid] = useState("");
   const [bestofdabest, setBestofdabest] = useState([]);
+  const [movieAge, setMovieAge] = useState("");
   return (
     <>
       <Logincontext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
@@ -31,7 +33,11 @@ function App() {
                     value={{ bestofdabest, setBestofdabest }}
                   >
                     <Passdata>
-                      <Main />
+                      <Movieagecontext.Provider
+                        value={{ movieAge, setMovieAge }}
+                      >
+                        <Main />
+                      </Movieagecontext.Provider>
                     </Passdata>
                   </Moviefetchcontext.Provider>
                 </User_idcontext.Provider>

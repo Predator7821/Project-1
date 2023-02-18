@@ -15,6 +15,7 @@ import {
   Moviefetchcontext,
   Currentusercontext,
   Cartcontext,
+  Movieagecontext,
 } from "../context/Passdata";
 import Movietypefilter from "../comps/Movietypefilter";
 import Moviesortfilter from "../comps/Moviesortfilter";
@@ -22,6 +23,7 @@ import Runtime from "../comps/Runtime";
 const MoviesPage = () => {
   const { bestofdabest, setBestofdabest } = useContext(Moviefetchcontext);
   const { currentUser, setCurrentUser } = useContext(Currentusercontext);
+  const { movieAge, setMovieAge } = useContext(Movieagecontext);
   const [movie, setMovie] = useState([]);
   const [bestmovie, setBestmovie] = useState([]);
   const [length, setLength] = useState([1, 1000]);
@@ -53,81 +55,179 @@ const MoviesPage = () => {
       setBestmovie(filteredmovies);
     }
   };
+  const ageonFilterChange = () => {
+    if (cat === "All Movies" && typecat === "All types") {
+      setBestmovie(
+        ageofmovie.filter(
+          (t) => t.runtime >= length[0] && t.runtime <= length[1]
+        )
+      );
+    } else {
+      const filteredmovies = movie.filter(
+        (t) =>
+          t.category === cat &&
+          t.runtime >= length[0] &&
+          t.runtime <= length[1] &&
+          t.type === typecat
+      );
+      setBestmovie(filteredmovies);
+    }
+  };
   useEffect(() => {
     onFilterChange();
   }, [cat, length, typecat]);
   const Globalstate = useContext(Cartcontext);
   const dispatch = Globalstate.dispatch;
+  const ageofmovie = movie.filter((e) => e.age < movieAge);
+  const [test, setTest] = useState([]);
   return (
-    <div className="spacer sortthefilters">
-      <div className="filtersorter">
-        <Movietypefilter
-          onFilterChange={onFilterChange}
-          cat={cat}
-          setCat={setCat}
-          movie={movie}
-        />
-        <Moviesortfilter
-          onFilterChange={onFilterChange}
-          typecat={typecat}
-          setTypecat={setTypecat}
-        />
-        <Runtime
-          length={length}
-          setLength={setLength}
-          onFilterChange={onFilterChange}
-          movie={movie}
-        />
-      </div>
-      <div className="flexer">
-        {movie.map((item) => {
-          return (
-            <Card sx={{ minWidth: 345, maxWidth: 345, margin: 5 }}>
-              <CardContent>
-                {currentUser ? (
-                  <Button
-                    onClick={() => dispatch({ type: "ADD", payload: item })}
-                  >
-                    <AddCircleIcon></AddCircleIcon>
-                  </Button>
-                ) : (
+    <div>
+      {movieAge ? (
+        <div className="spacer sortthefilters">
+          <div className="filtersorter">
+            <Movietypefilter
+              ageonFilterChange={ageonFilterChange}
+              cat={cat}
+              setCat={setCat}
+              ageofmovie={ageofmovie}
+            />
+            <Moviesortfilter
+              ageonFilterChange={ageonFilterChange}
+              typecat={typecat}
+              ageofmovie={ageofmovie}
+            />
+            <Runtime
+              length={length}
+              setLength={setLength}
+              ageonFilterChange={ageonFilterChange}
+            />
+          </div>
+          <div className="flexer">
+            {ageofmovie.map((item) => {
+              return (
+                <Card sx={{ minWidth: 345, maxWidth: 345, margin: 5 }}>
+                  <CardContent>
+                    {currentUser ? (
+                      <Button
+                        onClick={() => dispatch({ type: "ADD", payload: item })}
+                      >
+                        <AddCircleIcon></AddCircleIcon>
+                      </Button>
+                    ) : (
+                      <Button>
+                        <Link to={"/login"}>
+                          <AddCircleIcon></AddCircleIcon>
+                        </Link>
+                      </Button>
+                    )}
+                  </CardContent>
                   <Button>
-                    <Link to={"/login"}>
-                      <AddCircleIcon></AddCircleIcon>
+                    <Link to={`/movies/${item._id}`}>
+                      <CardMedia
+                        component="img"
+                        alt="green iguana"
+                        height="500"
+                        image={item.picture}
+                      />
                     </Link>
                   </Button>
-                )}
-              </CardContent>
-              <Button>
-                <Link to={`/movies/${item._id}`}>
-                  <CardMedia
-                    component="img"
-                    alt="green iguana"
-                    height="500"
-                    image={item.picture}
-                  />
-                </Link>
-              </Button>
 
-              <CardContent>
-                <Typography>
-                  <StarIcon></StarIcon>
-                  {item.rating.rate}
-                </Typography>
-                <Typography>{item.name}</Typography>
-                <Typography>
+                  <CardContent>
+                    <Typography>
+                      <StarIcon></StarIcon>
+                      {item.rating.rate}
+                    </Typography>
+                    <Typography>{item.name}</Typography>
+                    <Typography>
+                      <Button>
+                        <StarBorderIcon></StarBorderIcon>
+                      </Button>
+                    </Typography>
+                    <Button>
+                      <a href={item.trailer}>Trailer</a>
+                    </Button>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+      ) : (
+        <div className="spacer sortthefilters">
+          <span className="notice">
+            *Note some movies may not me age apropriate please register to give
+            you the right movies for your age
+          </span>
+          <div className="filtersorter">
+            <Movietypefilter
+              onFilterChange={onFilterChange}
+              cat={cat}
+              setCat={setCat}
+              movie={movie}
+            />
+            <Moviesortfilter
+              onFilterChange={onFilterChange}
+              typecat={typecat}
+              setTypecat={setTypecat}
+            />
+            <Runtime
+              length={length}
+              setLength={setLength}
+              onFilterChange={onFilterChange}
+              movie={movie}
+            />
+          </div>
+          <div className="flexer">
+            {movie.map((item) => {
+              return (
+                <Card sx={{ minWidth: 345, maxWidth: 345, margin: 5 }}>
+                  <CardContent>
+                    {currentUser ? (
+                      <Button
+                        onClick={() => dispatch({ type: "ADD", payload: item })}
+                      >
+                        <AddCircleIcon></AddCircleIcon>
+                      </Button>
+                    ) : (
+                      <Button>
+                        <Link to={"/login"}>
+                          <AddCircleIcon></AddCircleIcon>
+                        </Link>
+                      </Button>
+                    )}
+                  </CardContent>
                   <Button>
-                    <StarBorderIcon></StarBorderIcon>
+                    <Link to={`/movies/${item._id}`}>
+                      <CardMedia
+                        component="img"
+                        alt="green iguana"
+                        height="500"
+                        image={item.picture}
+                      />
+                    </Link>
                   </Button>
-                </Typography>
-                <Button>
-                  <a href={item.trailer}>Trailer</a>
-                </Button>
-              </CardContent>
-            </Card>
-          );
-        })}
-      </div>
+
+                  <CardContent>
+                    <Typography>
+                      <StarIcon></StarIcon>
+                      {item.rating.rate}
+                    </Typography>
+                    <Typography>{item.name}</Typography>
+                    <Typography>
+                      <Button>
+                        <StarBorderIcon></StarBorderIcon>
+                      </Button>
+                    </Typography>
+                    <Button>
+                      <a href={item.trailer}>Trailer</a>
+                    </Button>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

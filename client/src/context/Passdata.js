@@ -14,6 +14,8 @@ export const User_idcontext = createContext(null);
 
 export const Moviefetchcontext = createContext(null);
 
+export const Movieagecontext = createContext(null);
+
 export const Cartcontext = createContext();
 export const Passdata = (props) => {
   const reducer = (state, action) => {
