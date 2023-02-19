@@ -1,6 +1,5 @@
 הרשמה:
 תמונה:
-מידע על עצמו:
 
 מה יהיה באתר:
 כפתור לשינוי שפה: עברית / אנגלית / רוסית 
@@ -9,7 +8,3 @@
 בעמוד הראשי יוצג שחקנים שנולדו באותו יום
 
 questions to ask almog
-can we not do the translation
-how to set up a PUT path/route
-the search is broken
-fix search after applying the movies by age

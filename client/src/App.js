@@ -14,7 +14,7 @@ import {
 import Main from "./view/Main";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(false);
   const [results, setResults] = useState("");
   const [searchCat, setSearchCat] = useState("");
   const [ispremium, setIspremium] = useState(false);

@@ -5,7 +5,7 @@ import { Slider } from "@mui/material";
 function valuetext(value) {
   return `${value}$`;
 }
-const Runtime = (length, setLength) => {
+const Runtime = ({ length, setLength }) => {
   const handleChange = (event, newValue) => {
     setLength(newValue);
   };

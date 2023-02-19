@@ -28,10 +28,9 @@ const SingleUser = () => {
           }
         />
       </div>
-      <Link to={`/profile/${currentUser}`}>got to the real profile</Link>
       <div className="bios">
         <span>{user.Username}</span>
-        <span>{user.bio}</span>
+        <span>{user.Bio}</span>
       </div>
     </div>
   );

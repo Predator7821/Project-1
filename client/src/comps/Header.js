@@ -66,7 +66,7 @@ const Header = () => {
       )}
 
       {isLoggedIn ? (
-        <Link className="bewhiteplz" to={"/login"}>
+        <Link className="bewhiteplz" to={`/profile/${currentUser}`}>
           <span>Hello, {currentUser}!</span>
         </Link>
       ) : (

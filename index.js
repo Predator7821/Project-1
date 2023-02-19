@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import { usersAllowedUpdates } from "./constants/constants.js";
 dotenv.config();
 const {
   PORT,
@@ -276,6 +277,7 @@ const GetUser = new mongoose.Schema({
   Email: {
     type: String,
     required: true,
+    unique: true,
   },
   pfp: {
     type: String,
@@ -318,11 +320,52 @@ app.post("/api/users", async (req, res) => {
   res.json(val);
 });
 app.put(`/api/users/:userid`, async (req, res) => {
-  const data = new User({
-    Bio: req.body.Bio,
-  });
-  const val = await data.save();
-  res.json(val);
+  const updates = Object.keys(req.body);
+  const isValidOperation = updates.every((update) =>
+    usersAllowedUpdates.includes(update)
+  );
+
+  if (!isValidOperation) {
+    res.status(400).send({ message: "Invalid updates" });
+  }
+
+  try {
+    const { userid } = req.params;
+    const user = await User.findOne({ _id: userid });
+    if (!user) {
+      res.status(404).send({ message: "user does not exist" });
+    }
+    updates.forEach((update) => (user[update] = req.body[update]));
+    await user.save();
+    res.status(200).send(user);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({ message: e });
+  }
+});
+app.put(`/api/movies/:movieid`, async (req, res) => {
+  const updates = Object.keys(req.body);
+  const isValidOperation = updates.every((update) =>
+    usersAllowedUpdates.includes(update)
+  );
+
+  if (!isValidOperation) {
+    res.status(400).send({ message: "Invalid updates" });
+  }
+
+  try {
+    const { movieid } = req.params;
+    const movie = await User.findOne({ _id: movieid });
+    if (!movie) {
+      res.status(404).send({ message: "user does not exist" });
+    }
+    updates.forEach((update) => (movie[update] = req.body[update]));
+    await movie.save();
+    res.status(200).send(movie);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({ message: e });
+  }
 });
 mongoose.connect(
   `mongodb+srv://${DB_USER2}:${DB_PASS2}@${DB_HOST2}/${DB_NAME2}?retryWrites=true&w=majority`,

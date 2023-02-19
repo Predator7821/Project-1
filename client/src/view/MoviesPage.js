@@ -18,7 +18,6 @@ import {
   Movieagecontext,
 } from "../context/Passdata";
 import Movietypefilter from "../comps/Movietypefilter";
-import Moviesortfilter from "../comps/Moviesortfilter";
 import Runtime from "../comps/Runtime";
 const MoviesPage = () => {
   const { bestofdabest, setBestofdabest } = useContext(Moviefetchcontext);
@@ -28,11 +27,11 @@ const MoviesPage = () => {
   const [bestmovie, setBestmovie] = useState([]);
   const [length, setLength] = useState([1, 1000]);
   const [cat, setCat] = useState("All Movies");
-  const [typecat, setTypecat] = useState("All types");
   const FetchMovie = async () => {
     const test1 = await fetch("http://127.0.0.1:8000/api/movies");
     const test2 = await test1.json();
     setMovie(test2);
+    setBestmovie(test2);
   };
   setBestofdabest(movie);
   useEffect(() => {
@@ -40,70 +39,58 @@ const MoviesPage = () => {
   }, []);
 
   const onFilterChange = () => {
-    if (cat === "All Movies" && typecat === "All types") {
+    if (cat === "All Movies") {
       setBestmovie(
         movie.filter((t) => t.runtime >= length[0] && t.runtime <= length[1])
       );
     } else {
       const filteredmovies = movie.filter(
         (t) =>
-          t.category === cat &&
-          t.runtime >= length[0] &&
-          t.runtime <= length[1] &&
-          t.type === typecat
+          t.category === cat && t.runtime >= length[0] && t.runtime <= length[1]
       );
       setBestmovie(filteredmovies);
     }
   };
+  let ageofmovie = movie.filter((e) => e.age < movieAge);
+
   const ageonFilterChange = () => {
-    if (cat === "All Movies" && typecat === "All types") {
+    if (cat === "All Movies") {
       setBestmovie(
         ageofmovie.filter(
           (t) => t.runtime >= length[0] && t.runtime <= length[1]
         )
       );
     } else {
-      const filteredmovies = movie.filter(
+      const filteredmovies = ageofmovie.filter(
         (t) =>
-          t.category === cat &&
-          t.runtime >= length[0] &&
-          t.runtime <= length[1] &&
-          t.type === typecat
+          t.category === cat && t.runtime >= length[0] && t.runtime <= length[1]
       );
       setBestmovie(filteredmovies);
     }
   };
   useEffect(() => {
-    onFilterChange();
-  }, [cat, length, typecat]);
+    if (currentUser != false) {
+      ageonFilterChange();
+    } else {
+      onFilterChange();
+    }
+  }, [cat, length]);
   const Globalstate = useContext(Cartcontext);
   const dispatch = Globalstate.dispatch;
-  const ageofmovie = movie.filter((e) => e.age < movieAge);
-  const [test, setTest] = useState([]);
   return (
     <div>
       {movieAge ? (
         <div className="spacer sortthefilters">
           <div className="filtersorter">
             <Movietypefilter
-              ageonFilterChange={ageonFilterChange}
               cat={cat}
               setCat={setCat}
               ageofmovie={ageofmovie}
             />
-            <Moviesortfilter
-              ageonFilterChange={ageonFilterChange}
-              typecat={typecat}
-              ageofmovie={ageofmovie}
-            />
-            <Runtime
-              length={length}
-              setLength={setLength}
-              ageonFilterChange={ageonFilterChange}
-            />
+            <Runtime length={length} setLength={setLength} />
           </div>
           <div className="flexer">
-            {ageofmovie.map((item) => {
+            {bestmovie.map((item) => {
               return (
                 <Card sx={{ minWidth: 345, maxWidth: 345, margin: 5 }}>
                   <CardContent>
@@ -159,26 +146,11 @@ const MoviesPage = () => {
             you the right movies for your age
           </span>
           <div className="filtersorter">
-            <Movietypefilter
-              onFilterChange={onFilterChange}
-              cat={cat}
-              setCat={setCat}
-              movie={movie}
-            />
-            <Moviesortfilter
-              onFilterChange={onFilterChange}
-              typecat={typecat}
-              setTypecat={setTypecat}
-            />
-            <Runtime
-              length={length}
-              setLength={setLength}
-              onFilterChange={onFilterChange}
-              movie={movie}
-            />
+            <Movietypefilter cat={cat} setCat={setCat} movie={movie} />
+            <Runtime length={length} setLength={setLength} movie={movie} />
           </div>
           <div className="flexer">
-            {movie.map((item) => {
+            {bestmovie.map((item) => {
               return (
                 <Card sx={{ minWidth: 345, maxWidth: 345, margin: 5 }}>
                   <CardContent>

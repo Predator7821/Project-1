@@ -14,7 +14,11 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box } from "@mui/system";
 import Tinybox from "../comps/Tinybox";
 import { Currentusercontext, Cartcontext } from "../context/Passdata";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 const Home = () => {
+  const params = useParams();
+  const [userData, setUserData] = useState({ rate: "" });
   const { currentUser, setCurrentUser } = useContext(Currentusercontext);
   const [top, setTop] = useState([]);
   const topmovies = async () => {
@@ -45,6 +49,16 @@ const Home = () => {
   const bdayarr = actor.filter((i) => i.dob.date === date);
   const Globalstate = useContext(Cartcontext);
   const dispatch = Globalstate.dispatch;
+  const handlesubmit = (e) => {
+    e.preventDefault();
+    axios
+      .put(`http://127.0.0.1:8000/api/movies/${params.movieid}`, {
+        Bio: userData.Bio,
+        pfp: userData.pfp,
+        rate: userData.rating.rate,
+      })
+      .then((res) => {});
+  };
   return (
     <div className="enlarge">
       <Box>
