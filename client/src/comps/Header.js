@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import SearchCatSelection from "./SearchCatSelection";
 import SearchBar from "./SearchBar";
 import ManageSearchIcon from "@mui/icons-material/ManageSearch";
-import Lang from "./Lang";
 import { Logincontext, Currentusercontext } from "../context/Passdata";
 const Header = () => {
   const { isLoggedIn, setIsLoggedIn } = useContext(Logincontext);
@@ -76,7 +75,6 @@ const Header = () => {
           </Link>
         </Button>
       )}
-      <Lang />
     </div>
   );
 };

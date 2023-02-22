@@ -23,9 +23,7 @@ const SingleUser = () => {
           alt=""
           height={100}
           width={100}
-          src={
-            "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/7a5e48c6-8e81-4f05-a625-29932f3fd54a/dffcdl7-9ef51616-9dcf-4cde-bf93-95a36ddefebb.png/v1/fill/w_894,h_894,q_70,strp/roblox___small_pfp_by_lilly51701_dffcdl7-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTI4MCIsInBhdGgiOiJcL2ZcLzdhNWU0OGM2LThlODEtNGYwNS1hNjI1LTI5OTMyZjNmZDU0YVwvZGZmY2RsNy05ZWY1MTYxNi05ZGNmLTRjZGUtYmY5My05NWEzNmRkZWZlYmIucG5nIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.N4Yteyk_mzMoYHtjxyasDUaBF4kBcwG2dBoI8LDlkxg"
-          }
+          src={user.pfp}
         />
       </div>
       <div className="bios">

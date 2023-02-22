@@ -16,6 +16,7 @@ import Tinybox from "../comps/Tinybox";
 import { Currentusercontext, Cartcontext } from "../context/Passdata";
 import axios from "axios";
 const Home = () => {
+
   const { currentUser, setCurrentUser } = useContext(Currentusercontext);
   const [top, setTop] = useState([]);
   const topmovies = async () => {

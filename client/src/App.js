@@ -10,6 +10,7 @@ import {
   Moviefetchcontext,
   Passdata,
   Movieagecontext,
+  Langcontext,
 } from "./context/Passdata";
 import Main from "./view/Main";
 function App() {

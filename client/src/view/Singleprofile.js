@@ -11,6 +11,7 @@ import {
   Movieagecontext,
 } from "../context/Passdata";
 import { Link } from "react-router-dom";
+import {Image} from 'cloudinary-react'
 const Singleprofile = () => {
   const [imageSelected, setImageSelected] = useState("");
   const { isLoggedIn, setIsLoggedIn } = useContext(Logincontext);
@@ -22,16 +23,19 @@ const Singleprofile = () => {
   const state = Globalstate.state;
   const dispatch = Globalstate.dispatch;
   const { userid, setUserid } = useContext(User_idcontext);
+let userpic= '';
+
   const [userData, setUserData] = useState({
     Bio: "",
   });
   const handlesubmit = () => {
     axios
       .put(`http://127.0.0.1:8000/api/users/${userid}`, {
-        pfp: userData.pfp,
+        Bio: userData.Bio,
       })
       .then((res) => {});
   };
+
   const fetchbio = async () => {
     const test1 = await fetch(`http://127.0.0.1:8000/api/users/${userid}`);
     const test2 = await test1.json();
@@ -51,18 +55,25 @@ const Singleprofile = () => {
     setCurrentUser(false);
     setMovieAge(false);
   };
-  const uploadImage = () => {
+  const uploadImage = async () => {
     const formData = new FormData();
     formData.append("file", imageSelected);
     formData.append("upload_preset", "mqzvcywi");
-    axios
+    await axios
       .post(`https://api.cloudinary.com/v1_1/dbuindglg/image/upload`, formData)
       .then((res) => {
-        console.log(res);
+        userpic=res.data.url
       });
+      
+    await axios
+      .put(`http://127.0.0.1:8000/api/users/${userid}`, {
+        pfp: userpic,
+      })
+      .then((res) => {console.log(res)});
   };
   return (
     <div className="theheaderissodiff">
+      <Image style={{width:100,height:100}} cloudName='dbuindglg' publicId={userpic}/>
       <textarea
         placeholder={bio.Bio}
         onChange={(e) => handle(e)}

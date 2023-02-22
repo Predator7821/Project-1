@@ -7,12 +7,14 @@ import {
   Currentusercontext,
   Logincontext,
   Movieagecontext,
+  User_idcontext,
 } from "../context/Passdata";
 const Login = () => {
   const { isLoggedIn, setIsLoggedIn } = useContext(Logincontext);
   const { currentUser, setCurrentUser } = useContext(Currentusercontext);
   const { ispremium, setIspremium } = useContext(Checkpremiumcontext);
   const { movieAge, setMovieAge } = useContext(Movieagecontext);
+  const { userid, setUserid } = useContext(User_idcontext);
   const [login, setLogin] = useState(false);
   const [user, setUser] = useState([]);
   const logininfo = {
@@ -29,10 +31,12 @@ const Login = () => {
     setIspremium(false);
     setCurrentUser(false);
     setMovieAge(false);
+    setUserid(false)
   };
   useEffect(() => {
     getUser();
   }, []);
+
   const handleChange = () => {
     for (let i = 0; i < user.length; i++) {
       if (
@@ -41,6 +45,7 @@ const Login = () => {
       ) {
         setMovieAge(user[i].Age);
         setIsLoggedIn(true);
+        setUserid(user[i]._id)
         if (user[i].premium === true) {
           setIspremium(true);
         }

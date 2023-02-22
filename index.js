@@ -7,6 +7,7 @@ import {
   usersAllowedUpdates,
 } from "./constants/constants.js";
 import { filterOnlyTodayBirthDates } from "./utils/dates.js";
+import { actorsController,movieController,singleMovieController,premiumController,userController } from "./controllers/Controllers.js";
 dotenv.config();
 const {
   PORT,
@@ -26,55 +27,11 @@ app.use(cors());
 mongoose.set("strictQuery", true);
 app.use(express.static("client/build"));
 
-// אובייקט
-const Actor_Name = new mongoose.Schema({
-  first_name: {
-    type: String,
-    required: true,
-  },
-  last_name: {
-    type: String,
-    required: true,
-  },
-});
-const actordob = new mongoose.Schema({
-  date: {
-    type: String,
-    required: true,
-  },
-  location: {
-    type: String,
-    required: true,
-  },
-}); // מקשר אותו לפה
-const GetActor = new mongoose.Schema({
-  name: {
-    type: Actor_Name,
-  },
-  dob: {
-    type: actordob,
-  },
-  picture: {
-    type: String,
-    required: true,
-  },
-  biography: {
-    type: String,
-    required: true,
-  },
-});
+app.get("/api/actors", actorsController);
+app.get("/api/movies", movieController);
+app.get("/api/premiums", premiumController);
+app.get("/api/users", userController);
 
-const Actor = mongoose.model("Actors", GetActor);
-
-app.get("/api/actors", async (req, res) => {
-  try {
-    const data = await Actor.find({});
-    res.status(200).send(data);
-  } catch (e) {
-    console.log(e);
-    res.status(500).send({ message: e });
-  }
-});
 app.get("/api/actorsDateOfBirth", async (req, res) => {
   try {
     const data = await Actor.find({});
@@ -85,145 +42,8 @@ app.get("/api/actorsDateOfBirth", async (req, res) => {
     res.status(500).send({ message: e });
   }
 });
-const GetRating = new mongoose.Schema({
-  rate: {
-    type: Number,
-    required: true,
-  },
-  count: {
-    type: Number,
-    required: true,
-  },
-});
 
-const GetPremiumRating = new mongoose.Schema({
-  rate: {
-    type: Number,
-    required: true,
-  },
-  count: {
-    type: Number,
-    required: true,
-  },
-});
-
-const GetPremiumMovie = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  category: {
-    type: String,
-    required: true,
-  },
-  picture: {
-    type: String,
-    required: true,
-  },
-  type: {
-    type: String,
-    required: true,
-  },
-  rating: {
-    type: GetPremiumRating,
-    required: true,
-  },
-  runtime: {
-    type: Number,
-    required: true,
-  },
-  date: {
-    type: Number,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  trailer: {
-    type: String,
-    required: true,
-  },
-});
-
-const GetMovie = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  category: {
-    type: String,
-    required: true,
-  },
-  picture: {
-    type: String,
-    required: true,
-  },
-  type: {
-    type: String,
-    required: true,
-  },
-  rating: {
-    type: GetRating,
-    required: true,
-  },
-  runtime: {
-    type: Number,
-    required: true,
-  },
-  date: {
-    type: Number,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  trailer: {
-    type: String,
-    required: true,
-  },
-  age: {
-    type: Number,
-  },
-});
-
-const Movie = mongoose.model("Movies", GetMovie);
-
-app.get("/api/movies", async (req, res) => {
-  try {
-    const data = await Movie.find({});
-    res.status(200).send(data);
-  } catch (e) {
-    console.log(e);
-    res.status(500).send({ message: e });
-  }
-});
-
-app.get("/api/movies/:movieid", async (req, res) => {
-  try {
-    const movie = await Movie.findOne({ _id: req.params.movieid });
-    if (!movie) {
-      res.status(404).send({ message: "no such movie in the DB" });
-    }
-    res.send(movie);
-  } catch (e) {
-    console.log(e);
-    res.status(500).send({ message: e });
-  }
-});
-
-const PremiumMovie = mongoose.model("Premiums", GetPremiumMovie);
-
-app.get("/api/premiums", async (req, res) => {
-  try {
-    const data = await PremiumMovie.find({});
-    res.status(200).send(data);
-  } catch (e) {
-    console.log(e);
-    res.status(500).send({ message: e });
-  }
-});
+app.get("/api/movies/:movieid", singleMovieController);
 
 app.get("/api/premiums/:premiumsid", async (req, res) => {
   try {
@@ -278,49 +98,7 @@ app.get("/api/profile/:Username", async (req, res) => {
     res.status(500).send({ message: e });
   }
 });
-const GetUser = new mongoose.Schema({
-  Username: {
-    type: String,
-    required: true,
-  },
-  Password: {
-    type: String,
-    required: true,
-  },
-  Email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  pfp: {
-    type: String,
-  },
-  Bio: {
-    type: String,
-  },
-  fullname: {
-    type: String,
-  },
-  premium: {
-    type: Boolean,
-  },
-  Age: {
-    type: Number,
-    required: true,
-  },
-});
 
-const User = mongoose.model("Users", GetUser);
-
-app.get("/api/users", async (req, res) => {
-  try {
-    const data = await User.find({});
-    res.status(200).send(data);
-  } catch (e) {
-    console.log(e);
-    res.status(500).send({ message: e });
-  }
-});
 app.post("/api/users", async (req, res) => {
   const data = User({
     Username: req.body.Username,

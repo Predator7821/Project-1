@@ -1,2 +1,2 @@
-export const usersAllowedUpdates = ["pfp", "Bio", "premium", "rate"];
+export const usersAllowedUpdates = ["pfp", "Bio", "premium"];
 export const movieAllowedUpdates = ["rating"];
