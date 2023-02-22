@@ -15,10 +15,7 @@ import { Box } from "@mui/system";
 import Tinybox from "../comps/Tinybox";
 import { Currentusercontext, Cartcontext } from "../context/Passdata";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 const Home = () => {
-  const params = useParams();
-  const [userData, setUserData] = useState({ rate: "" });
   const { currentUser, setCurrentUser } = useContext(Currentusercontext);
   const [top, setTop] = useState([]);
   const topmovies = async () => {
@@ -30,11 +27,13 @@ const Home = () => {
     topmovies();
   }, []);
   const ranNum = useMemo(() => parseInt(Math.random() * top.length + 1), [top]);
-  const [actor, setActor] = useState([]);
+  const [actor, setActor] = useState(false);
   const bdayactor = async () => {
-    const test1 = await fetch("http://127.0.0.1:8000/api/actors");
+    const test1 = await fetch("http://127.0.0.1:8000/api/actorsDateOfBirth");
     const test2 = await test1.json();
-    setActor(test2);
+    if (test2[0] != null) {
+      setActor(test2);
+    }
   };
   useEffect(() => {
     bdayactor();
@@ -43,21 +42,27 @@ const Home = () => {
   const toparr = top.filter((i) => i.rating.rate >= 9);
   const ratearr = top.filter((i) => i.rating.count >= 750000);
 
-  const current = new Date();
-  const date = `${current.getDate()}/0${current.getMonth() + 1}`;
-
-  const bdayarr = actor.filter((i) => i.dob.date === date);
   const Globalstate = useContext(Cartcontext);
   const dispatch = Globalstate.dispatch;
-  const handlesubmit = (e) => {
-    e.preventDefault();
-    axios
-      .put(`http://127.0.0.1:8000/api/movies/${params.movieid}`, {
-        Bio: userData.Bio,
-        pfp: userData.pfp,
-        rate: userData.rating.rate,
-      })
-      .then((res) => {});
+  const handlesubmit = (item) => {
+    if (item.rating.rate >= 10) {
+      alert("this movie is a master piece and you cant change that");
+    } else {
+      axios
+        .put(`http://127.0.0.1:8000/api/movies/${item._id}`, {
+          rating: {
+            rate: (item.rating.rate += 0.1),
+            count: item.rating.count,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          const clone = [...top];
+          const movieIndex = clone.findIndex((mv) => mv._id === res.data._id);
+          clone[movieIndex].rating = res.data.rating;
+          setTop(clone);
+        });
+    }
   };
   return (
     <div className="enlarge">
@@ -107,10 +112,18 @@ const Home = () => {
               <CardContent>
                 <Typography>
                   <StarIcon></StarIcon>
-                  {item.rating.rate}
-                  <Button>
-                    <StarBorderIcon></StarBorderIcon>
-                  </Button>
+                  {item.rating.rate.toFixed(1)}
+                  {currentUser ? (
+                    <Button onClick={() => handlesubmit(item)}>
+                      <StarBorderIcon></StarBorderIcon>
+                    </Button>
+                  ) : (
+                    <Button>
+                      <Link to={"/login"}>
+                        <StarBorderIcon></StarBorderIcon>
+                      </Link>
+                    </Button>
+                  )}
                 </Typography>
                 <Typography>{item.name}</Typography>
                 <Button>
@@ -154,10 +167,18 @@ const Home = () => {
               <CardContent>
                 <Typography>
                   <StarIcon></StarIcon>
-                  {item.rating.rate}
-                  <Button>
-                    <StarBorderIcon></StarBorderIcon>
-                  </Button>
+                  {item.rating.rate.toFixed(1)}
+                  {currentUser ? (
+                    <Button onClick={() => handlesubmit(item)}>
+                      <StarBorderIcon></StarBorderIcon>
+                    </Button>
+                  ) : (
+                    <Button>
+                      <Link to={"/login"}>
+                        <StarBorderIcon></StarBorderIcon>
+                      </Link>
+                    </Button>
+                  )}
                 </Typography>
                 <Typography>{item.name}</Typography>
                 <Button>
@@ -168,26 +189,36 @@ const Home = () => {
           );
         })}
       </div>
-      <h1 className="putmewhereineedtobe">Todays Birthdays</h1>
-      <div className="pop">
-        {bdayarr.map((item) => {
-          return (
-            <div className="fixmybdays">
-              <img
-                width={150}
-                height={150}
-                className="smallpfp"
-                src={item.picture}
-                alt=""
-              />
-              <span>
-                {item.name.first_name} {item.name.last_name}{" "}
-              </span>
-              <span>{item.dob.date}</span>
-            </div>
-          );
-        })}
-      </div>
+      {actor ? (
+        <div>
+          <h1 className="putmewhereineedtobe">Todays Birthdays</h1>
+          <div className="pop">
+            {actor.map((item) => {
+              return (
+                <div className="fixmybdays">
+                  <Link to={`/actors/${item._id}`}>
+                    <img
+                      width={150}
+                      height={150}
+                      className="smallpfp"
+                      src={item.picture}
+                      alt=""
+                    />
+                  </Link>
+                  <span>
+                    {item.name.first_name} {item.name.last_name}{" "}
+                  </span>
+                  <span>{item.dob.date}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ) : (
+        <h1 className="putmewhereineedtobe">
+          no one is having a birthday today
+        </h1>
+      )}
     </div>
   );
 };

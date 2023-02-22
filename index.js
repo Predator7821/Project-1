@@ -2,7 +2,11 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import { usersAllowedUpdates } from "./constants/constants.js";
+import {
+  movieAllowedUpdates,
+  usersAllowedUpdates,
+} from "./constants/constants.js";
+import { filterOnlyTodayBirthDates } from "./utils/dates.js";
 dotenv.config();
 const {
   PORT,
@@ -71,7 +75,16 @@ app.get("/api/actors", async (req, res) => {
     res.status(500).send({ message: e });
   }
 });
-
+app.get("/api/actorsDateOfBirth", async (req, res) => {
+  try {
+    const data = await Actor.find({});
+    const currentActorsBirthDays = filterOnlyTodayBirthDates(data);
+    res.send(currentActorsBirthDays);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({ message: e });
+  }
+});
 const GetRating = new mongoose.Schema({
   rate: {
     type: Number,
@@ -346,7 +359,7 @@ app.put(`/api/users/:userid`, async (req, res) => {
 app.put(`/api/movies/:movieid`, async (req, res) => {
   const updates = Object.keys(req.body);
   const isValidOperation = updates.every((update) =>
-    usersAllowedUpdates.includes(update)
+    movieAllowedUpdates.includes(update)
   );
 
   if (!isValidOperation) {
@@ -355,7 +368,7 @@ app.put(`/api/movies/:movieid`, async (req, res) => {
 
   try {
     const { movieid } = req.params;
-    const movie = await User.findOne({ _id: movieid });
+    const movie = await Movie.findOne({ _id: movieid });
     if (!movie) {
       res.status(404).send({ message: "user does not exist" });
     }

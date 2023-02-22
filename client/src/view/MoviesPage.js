@@ -19,6 +19,7 @@ import {
 } from "../context/Passdata";
 import Movietypefilter from "../comps/Movietypefilter";
 import Runtime from "../comps/Runtime";
+import axios from "axios";
 const MoviesPage = () => {
   const { bestofdabest, setBestofdabest } = useContext(Moviefetchcontext);
   const { currentUser, setCurrentUser } = useContext(Currentusercontext);
@@ -27,6 +28,7 @@ const MoviesPage = () => {
   const [bestmovie, setBestmovie] = useState([]);
   const [length, setLength] = useState([1, 1000]);
   const [cat, setCat] = useState("All Movies");
+
   const FetchMovie = async () => {
     const test1 = await fetch("http://127.0.0.1:8000/api/movies");
     const test2 = await test1.json();
@@ -69,7 +71,7 @@ const MoviesPage = () => {
     }
   };
   useEffect(() => {
-    if (currentUser != false) {
+    if (currentUser !== false) {
       ageonFilterChange();
     } else {
       onFilterChange();
@@ -77,6 +79,26 @@ const MoviesPage = () => {
   }, [cat, length]);
   const Globalstate = useContext(Cartcontext);
   const dispatch = Globalstate.dispatch;
+  const handlesubmit = (item) => {
+    if (item.rating.rate >= 10) {
+      alert("this movie is a master piece and you cant change that");
+    } else {
+      axios
+        .put(`http://127.0.0.1:8000/api/movies/${item._id}`, {
+          rating: {
+            rate: (item.rating.rate += 0.1),
+            count: item.rating.count,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          const clone = [...movie];
+          const movieIndex = clone.findIndex((mv) => mv._id === res.data._id);
+          clone[movieIndex].rating = res.data.rating;
+          setMovie(clone);
+        });
+    }
+  };
   return (
     <div>
       {movieAge ? (
@@ -122,13 +144,21 @@ const MoviesPage = () => {
                   <CardContent>
                     <Typography>
                       <StarIcon></StarIcon>
-                      {item.rating.rate}
+                      {item.rating.rate.toFixed(1)}
                     </Typography>
                     <Typography>{item.name}</Typography>
                     <Typography>
-                      <Button>
-                        <StarBorderIcon></StarBorderIcon>
-                      </Button>
+                      {currentUser ? (
+                        <Button onClick={() => handlesubmit(item)}>
+                          <StarBorderIcon></StarBorderIcon>
+                        </Button>
+                      ) : (
+                        <Button>
+                          <Link to={"/login"}>
+                            <StarBorderIcon></StarBorderIcon>
+                          </Link>
+                        </Button>
+                      )}
                     </Typography>
                     <Button>
                       <a href={item.trailer}>Trailer</a>
@@ -186,9 +216,17 @@ const MoviesPage = () => {
                     </Typography>
                     <Typography>{item.name}</Typography>
                     <Typography>
-                      <Button>
-                        <StarBorderIcon></StarBorderIcon>
-                      </Button>
+                      {currentUser ? (
+                        <Button onClick={handlesubmit}>
+                          <StarBorderIcon></StarBorderIcon>
+                        </Button>
+                      ) : (
+                        <Button>
+                          <Link to={"/login"}>
+                            <StarBorderIcon></StarBorderIcon>
+                          </Link>
+                        </Button>
+                      )}
                     </Typography>
                     <Button>
                       <a href={item.trailer}>Trailer</a>
