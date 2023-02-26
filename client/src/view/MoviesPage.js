@@ -1,3 +1,4 @@
+import React, { useEffect, useState, useContext } from "react";
 import {
   Button,
   Card,
@@ -5,12 +6,12 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
+import axios from "axios";
 import { Link } from "react-router-dom";
-import React, { useEffect, useState, useContext } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import "./MoviePage.css";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
+
 import {
   Moviefetchcontext,
   Currentusercontext,
@@ -19,7 +20,8 @@ import {
 } from "../context/Passdata";
 import Movietypefilter from "../comps/Movietypefilter";
 import Runtime from "../comps/Runtime";
-import axios from "axios";
+import "./MoviePage.css";
+
 const MoviesPage = () => {
   const { bestofdabest, setBestofdabest } = useContext(Moviefetchcontext);
   const { currentUser, setCurrentUser } = useContext(Currentusercontext);
@@ -28,17 +30,17 @@ const MoviesPage = () => {
   const [bestmovie, setBestmovie] = useState([]);
   const [length, setLength] = useState([1, 1000]);
   const [cat, setCat] = useState("All Movies");
+  const Globalstate = useContext(Cartcontext);
+  const dispatch = Globalstate.dispatch;
 
   const FetchMovie = async () => {
-    const test1 = await fetch("http://127.0.0.1:8000/api/movies");
-    const test2 = await test1.json();
-    setMovie(test2);
-    setBestmovie(test2);
+    fetch("http://127.0.0.1:8000/api/movies")
+      .then((response) => response.json())
+      .then((data) => {
+        setMovie(data);
+        setBestmovie(data);
+      });
   };
-  setBestofdabest(movie);
-  useEffect(() => {
-    FetchMovie();
-  }, []);
 
   const onFilterChange = () => {
     if (cat === "All Movies") {
@@ -70,6 +72,11 @@ const MoviesPage = () => {
       setBestmovie(filteredmovies);
     }
   };
+  setBestofdabest(movie);
+  useEffect(() => {
+    FetchMovie();
+  }, []);
+
   useEffect(() => {
     if (currentUser !== false) {
       ageonFilterChange();
@@ -77,8 +84,7 @@ const MoviesPage = () => {
       onFilterChange();
     }
   }, [cat, length]);
-  const Globalstate = useContext(Cartcontext);
-  const dispatch = Globalstate.dispatch;
+
   const handlesubmit = (item) => {
     if (item.rating.rate >= 10) {
       alert("this movie is a master piece and you cant change that");
@@ -99,6 +105,7 @@ const MoviesPage = () => {
         });
     }
   };
+
   return (
     <div>
       {movieAge ? (

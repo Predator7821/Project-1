@@ -1,33 +1,35 @@
 import React, { useContext, useEffect, useState } from "react";
-import "./Singleprofile.css";
 import { User_idcontext, Cartcontext } from "../context/Passdata";
 import { Button } from "@mui/material";
 import axios from "axios";
 import { Typography, Card, CardContent } from "@mui/material";
+import { Link } from "react-router-dom";
+import { Image } from "cloudinary-react";
+
 import {
   Logincontext,
   Currentusercontext,
   Checkpremiumcontext,
   Movieagecontext,
 } from "../context/Passdata";
-import { Link } from "react-router-dom";
-import { Image } from "cloudinary-react";
+import "./Singleprofile.css";
+
 const Singleprofile = () => {
-  const [imageSelected, setImageSelected] = useState("");
   const { isLoggedIn, setIsLoggedIn } = useContext(Logincontext);
   const { currentUser, setCurrentUser } = useContext(Currentusercontext);
   const { ispremium, setIspremium } = useContext(Checkpremiumcontext);
   const { movieAge, setMovieAge } = useContext(Movieagecontext);
-  const Globalstate = useContext(Cartcontext);
+  const { userid, setUserid } = useContext(User_idcontext);
+  const [imageSelected, setImageSelected] = useState("");
   const [bio, setBio] = useState([]);
+  const Globalstate = useContext(Cartcontext);
   const state = Globalstate.state;
   const dispatch = Globalstate.dispatch;
-  const { userid, setUserid } = useContext(User_idcontext);
-  let userpic = "";
-
   const [userData, setUserData] = useState({
     Bio: "",
   });
+  let userpic = "";
+
   const handlesubmit = () => {
     axios
       .put(`http://127.0.0.1:8000/api/users/${userid}`, {
@@ -37,24 +39,24 @@ const Singleprofile = () => {
   };
 
   const fetchbio = async () => {
-    const test1 = await fetch(`http://127.0.0.1:8000/api/users/${userid}`);
-    const test2 = await test1.json();
-    setBio(test2);
+    fetch(`http://127.0.0.1:8000/api/users/${userid}`)
+      .then((response) => response.json())
+      .then((data) => setBio(data));
   };
-  useEffect(() => {
-    fetchbio();
-  }, []);
+
   const handle = (e) => {
     const newdata = { ...userData };
     newdata[e.target.name] = e.target.value;
     setUserData(newdata);
   };
+
   const logout = () => {
     setIsLoggedIn(false);
     setIspremium(false);
     setCurrentUser(false);
     setMovieAge(false);
   };
+
   const uploadImage = async () => {
     const formData = new FormData();
     formData.append("file", imageSelected);
@@ -73,6 +75,10 @@ const Singleprofile = () => {
         console.log(res);
       });
   };
+
+  useEffect(() => {
+    fetchbio();
+  }, []);
   return (
     <div className="theheaderissodiff">
       <Image

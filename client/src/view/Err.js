@@ -1,7 +1,9 @@
-import { Button } from "@mui/material";
 import React from "react";
+import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
+
 import "./Err.css";
+
 const Err = () => {
   const mistakeArr = [
     "oh no the page cannot be found",

@@ -6,23 +6,25 @@ import {
   Card,
   Button,
 } from "@mui/material";
-import "./Users.css";
 import { Link } from "react-router-dom";
+
 import { User_idcontext } from "../context/Passdata";
+import "./Users.css";
+
 const Users = () => {
   const { userid, setUserid } = useContext(User_idcontext);
-  
   const [users, setUsers] = useState([]);
 
   const Fetchuser = async () => {
-    const test1 = await fetch("http://127.0.0.1:8000/api/users");
-    const test2 = await test1.json();
-    setUsers(test2);
-    
+    fetch("http://127.0.0.1:8000/api/users")
+      .then((response) => response.json())
+      .then((data) => setUsers(data));
   };
+
   useEffect(() => {
     Fetchuser();
   }, []);
+
   return (
     <div className="theheaderisbroken">
       <div className="cardfixer">
@@ -30,11 +32,7 @@ const Users = () => {
           return (
             <div className="idkanymore">
               <Card sx={{ minWidth: 250, maxWidth: 250, margin: 1 }}>
-                <CardMedia
-                  sx={{ height: 140 }}
-                  image={person.pfp}
-                  alt=""
-                />
+                <CardMedia sx={{ height: 140 }} image={person.pfp} alt="" />
                 <Button>
                   <Link to={`/users/${person._id}`}>More Info</Link>
                 </Button>

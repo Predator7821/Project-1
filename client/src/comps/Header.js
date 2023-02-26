@@ -1,19 +1,22 @@
 import React, { useContext, useState } from "react";
-import Menu from "./Menu";
 import { Box, Button } from "@mui/material";
-import "./Header.css";
 import { Link } from "react-router-dom";
+import ManageSearchIcon from "@mui/icons-material/ManageSearch";
+
 import SearchCatSelection from "./SearchCatSelection";
 import SearchBar from "./SearchBar";
-import ManageSearchIcon from "@mui/icons-material/ManageSearch";
 import { Logincontext, Currentusercontext } from "../context/Passdata";
+import Menu from "./Menu";
+import "./Header.css";
+
 const Header = () => {
   const { isLoggedIn, setIsLoggedIn } = useContext(Logincontext);
   const { currentUser, setCurrentUser } = useContext(Currentusercontext);
-
   const [menu, setMenu] = useState(false);
   const [temp, setTemp] = useState();
+
   const search = () => {};
+
   return (
     <div className="centersize sticker moveabit">
       <Button>

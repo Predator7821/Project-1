@@ -1,34 +1,40 @@
-import { CardContent, Card, Typography, CardMedia } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
+import { CardContent, Card, Typography, CardMedia } from "@mui/material";
 import { Link } from "react-router-dom";
+
 import { Catsearchcontext, Searchresultscontext } from "../context/Passdata";
 import "./Results.css";
+
 const Results = () => {
   const { results, setResults } = useContext(Searchresultscontext);
   const { searchCat, setSearchCat } = useContext(Catsearchcontext);
+
   let allmap = false;
   let moviemap = false;
   let actormap = false;
   let usermap = false;
-
   const [actor, setActor] = useState([]);
   const [movie, setMovie] = useState([]);
   const [user, setUser] = useState([]);
+
   const getmovies = async () => {
     fetch("http://127.0.0.1:8000/api/movies")
       .then((response) => response.json())
       .then((data) => setMovie(data));
   };
+
   const getactor = async () => {
     fetch("http://127.0.0.1:8000/api/actors")
       .then((response) => response.json())
       .then((data) => setActor(data));
   };
+
   const getusers = async () => {
     fetch("http://127.0.0.1:8000/api/users")
       .then((response) => response.json())
       .then((data) => setUser(data));
   };
+
   if (searchCat === "All") {
     getmovies();
     getactor();
@@ -89,12 +95,12 @@ const Results = () => {
                   component="img"
                   alt="green iguana"
                   height="500"
-                  image={e.picture}
+                  image={e.pfp}
                 />
               </Link>
 
               <CardContent className="makeitlookbetter">
-                <Typography>{e.pfp}</Typography>
+                <Typography>{e.Username}</Typography>
               </CardContent>
             </Card>
           );
@@ -135,12 +141,12 @@ const Results = () => {
                   component="img"
                   alt="green iguana"
                   height="500"
-                  image={e.picture}
+                  image={e.pfp}
                 />
               </Link>
 
               <CardContent className="makeitlookbetter">
-                <Typography>{e.pfp}</Typography>
+                <Typography>{e.Username}</Typography>
               </CardContent>
             </Card>
           );

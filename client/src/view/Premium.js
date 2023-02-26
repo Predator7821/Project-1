@@ -1,3 +1,4 @@
+import React, { useEffect, useState, useContext } from "react";
 import {
   Card,
   Typography,
@@ -5,31 +6,35 @@ import {
   CardContent,
   CardMedia,
 } from "@mui/material";
-import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import "./Premium.css";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+
 import {
   Checkpremiumcontext,
   Currentusercontext,
   Cartcontext,
 } from "../context/Passdata";
+import "./Premium.css";
+
 const Premium = () => {
-  const [premium, setPremium] = useState([]);
   const { ispremium, setIspremium } = useContext(Checkpremiumcontext);
   const { currentUser, setCurrentUser } = useContext(Currentusercontext);
+  const [premium, setPremium] = useState([]);
+  const Globalstate = useContext(Cartcontext);
+  const dispatch = Globalstate.dispatch;
+
   const fetchpremium = async () => {
     fetch("http://127.0.0.1:8000/api/premiums")
       .then((response) => response.json())
       .then((data) => setPremium(data));
   };
+
   useEffect(() => {
     fetchpremium();
   }, []);
-  const Globalstate = useContext(Cartcontext);
-  const dispatch = Globalstate.dispatch;
+
   return (
     <div className="worstheader gotothecetner">
       {ispremium ? (

@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from "react";
-import "./SingleMovie.css";
 import { useParams } from "react-router-dom";
 import ReactPlayer from "react-player/youtube";
+
+import "./SingleMovie.css";
+
 const SingleMovie = () => {
   const params = useParams();
   const [movie, setMovie] = useState({});
+
   const movieview = async () => {
-    const test1 = await fetch(
-      `http://127.0.0.1:8000/api/movies/${params.movieid}`
-    );
-    const test2 = await test1.json();
-    setMovie(test2);
+    fetch(`http://127.0.0.1:8000/api/movies/${params.movieid}`)
+      .then((response) => response.json())
+      .then((data) => setMovie(data));
   };
+
   useEffect(() => {
     movieview();
   }, []);
+
   return (
     <div className="fixit">
       <div className="upanddown">

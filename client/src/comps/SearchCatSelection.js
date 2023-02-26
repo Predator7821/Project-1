@@ -1,11 +1,13 @@
-import { MenuItem, Select } from "@mui/material";
 import React, { useContext, useState } from "react";
+import { MenuItem, Select } from "@mui/material";
+
 import { Catsearchcontext } from "../context/Passdata";
 
 const SearchCatSelection = () => {
-  const { searchCat, setSearchCat } = useContext(Catsearchcontext)
+  const { searchCat, setSearchCat } = useContext(Catsearchcontext);
+
   const handleChange = (event) => {
-    setSearchCat(event.target.value)
+    setSearchCat(event.target.value);
     console.log(searchCat);
   };
 

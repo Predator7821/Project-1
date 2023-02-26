@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { TextField, Button } from "@mui/material";
-import "./Register.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
+
+import "./Register.css";
 
 const Register = () => {
   const [userData, setUserData] = useState({
@@ -11,12 +12,14 @@ const Register = () => {
     Email: "",
     Password: "",
   });
+
   const handle = (e) => {
     const newdata = { ...userData };
     newdata[e.target.name] = e.target.value;
     setUserData(newdata);
     console.log(newdata);
   };
+
   const handleRegister = (e) => {
     e.preventDefault();
     axios
@@ -31,6 +34,7 @@ const Register = () => {
         console.log(userData);
       });
   };
+
   return (
     <div className="lotsfopads">
       <TextField

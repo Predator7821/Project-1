@@ -1,8 +1,10 @@
 import React from "react";
 import Drawer from "@mui/material/Drawer";
-import "./Menu.css";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
+
+import "./Menu.css";
+
 const Menu = ({ menu, setMenu }) => {
   return (
     <div>

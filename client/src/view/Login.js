@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Button, TextField } from "@mui/material";
-import "./Login.css";
 import { Link } from "react-router-dom";
+
 import {
   Checkpremiumcontext,
   Currentusercontext,
@@ -9,6 +9,8 @@ import {
   Movieagecontext,
   User_idcontext,
 } from "../context/Passdata";
+import "./Login.css";
+
 const Login = () => {
   const { isLoggedIn, setIsLoggedIn } = useContext(Logincontext);
   const { currentUser, setCurrentUser } = useContext(Currentusercontext);
@@ -21,21 +23,20 @@ const Login = () => {
     name: "",
     password: "",
   };
+
   const getUser = async () => {
-    const test1 = await fetch("http://127.0.0.1:8000/api/users");
-    const test2 = await test1.json();
-    setUser(test2);
+    fetch("http://127.0.0.1:8000/api/users")
+      .then((response) => response.json())
+      .then((data) => setUser(data));
   };
+
   const logout = () => {
     setIsLoggedIn(false);
     setIspremium(false);
     setCurrentUser(false);
     setMovieAge(false);
-    setUserid(false)
+    setUserid(false);
   };
-  useEffect(() => {
-    getUser();
-  }, []);
 
   const handleChange = () => {
     for (let i = 0; i < user.length; i++) {
@@ -45,13 +46,17 @@ const Login = () => {
       ) {
         setMovieAge(user[i].Age);
         setIsLoggedIn(true);
-        setUserid(user[i]._id)
+        setUserid(user[i]._id);
         if (user[i].premium === true) {
           setIspremium(true);
         }
       }
     }
   };
+  useEffect(() => {
+    getUser();
+  }, []);
+
   return (
     <div className="extenedthemistake">
       {isLoggedIn ? (

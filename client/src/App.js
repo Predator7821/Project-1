@@ -1,5 +1,5 @@
-import "./App.css";
 import { useState } from "react";
+
 import {
   Currentusercontext,
   Logincontext,
@@ -10,9 +10,10 @@ import {
   Moviefetchcontext,
   Passdata,
   Movieagecontext,
-  Langcontext,
 } from "./context/Passdata";
 import Main from "./view/Main";
+import "./App.css";
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(false);

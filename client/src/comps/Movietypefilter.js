@@ -1,7 +1,9 @@
 import React, { useContext } from "react";
 import { Box } from "@mui/system";
 import { FormControl, Select, InputLabel, MenuItem } from "@mui/material";
+
 import { Moviefetchcontext, Currentusercontext } from "../context/Passdata";
+
 const Movietypefilter = ({ cat, setCat, ageofmovie }) => {
   const { bestofdabest, setBestofdabest } = useContext(Moviefetchcontext);
   const { currentUser, setCurrentUser } = useContext(Currentusercontext);
@@ -11,6 +13,7 @@ const Movietypefilter = ({ cat, setCat, ageofmovie }) => {
     .filter((value, index, array) => array.indexOf(value) === index);
   categories.unshift("All Movies");
   let agecategories = [];
+
   if (currentUser != false) {
     agecategories = ageofmovie
       .map((p) => p.category)

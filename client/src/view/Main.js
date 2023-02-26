@@ -1,6 +1,7 @@
 import React from "react";
-import Home from "./Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import Home from "./Home";
 import Header from "../comps/Header";
 import Err from "./Err";
 import Footer from "../comps/Footer";
@@ -17,6 +18,7 @@ import SinglePremium from "./SinglePremium";
 import Results from "./Results";
 import Profilepage from "./Profilepage";
 import Singleprofile from "./Singleprofile";
+
 const Main = () => {
   return (
     <>
@@ -24,20 +26,20 @@ const Main = () => {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="*" element={<Err />} />
-          <Route path="actors" element={<ActorsPage />} />
-          <Route path="/movies" element={<MoviesPage />} />
-          <Route path="/movies/:movieid" element={<SingleMovie />} />
-          <Route path="/actors/:actorid" element={<SingleActor />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="/results" element={<Results />} />
+          <Route path="actors" element={<ActorsPage />} />
+          <Route path="/actors/:actorid" element={<SingleActor />} />
+          <Route path="/movies" element={<MoviesPage />} />
+          <Route path="/movies/:movieid" element={<SingleMovie />} />
           <Route path="users" element={<Users />} />
           <Route path="/users/:userid" element={<SingleUser />} />
           <Route path="premiums" element={<Premium />} />
           <Route path="premiums/:premiumsid" element={<SinglePremium />} />
-          <Route path="/results" element={<Results />} />
           <Route path="/profile" element={<Profilepage />} />
           <Route path="/profile/:Username" element={<Singleprofile />} />
+          <Route path="*" element={<Err />} />
         </Routes>
         <Footer />
       </BrowserRouter>
