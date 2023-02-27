@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import {  useParams } from "react-router-dom";
 
-import { Currentusercontext } from "../context/Passdata";
 import "./SingleUser.css";
 
 const SingleUser = () => {
-  const { currentUser, setCurrentUser } = useContext(Currentusercontext);
   const params = useParams();
   const [user, setUser] = useState({});
 

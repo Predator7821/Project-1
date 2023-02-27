@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import {
   CardMedia,
   CardContent,
@@ -8,11 +8,9 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import { User_idcontext } from "../context/Passdata";
 import "./Users.css";
 
 const Users = () => {
-  const { userid, setUserid } = useContext(User_idcontext);
   const [users, setUsers] = useState([]);
 
   const Fetchuser = async () => {

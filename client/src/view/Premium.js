@@ -1,21 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
-import {
-  Card,
-  Typography,
-  Button,
-  CardContent,
-  CardMedia,
-} from "@mui/material";
-import { Link } from "react-router-dom";
-import StarIcon from "@mui/icons-material/Star";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
+import axios from "axios";
 
 import {
   Checkpremiumcontext,
   Currentusercontext,
   Cartcontext,
 } from "../context/Passdata";
+import PremiumCardMap from "../comps/PremiumCardMap";
 import "./Premium.css";
 
 const Premium = () => {
@@ -30,7 +21,26 @@ const Premium = () => {
       .then((response) => response.json())
       .then((data) => setPremium(data));
   };
-
+  const handlesubmit = (item) => {
+    if (item.rating.rate >= 10) {
+      alert("this movie is a master piece and you cant change that");
+    } else {
+      axios
+        .put(`http://127.0.0.1:8000/api/premiums/${item._id}`, {
+          rating: {
+            rate: (item.rating.rate += 0.1),
+            count: item.rating.count,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          const clone = [...premium];
+          const premiumIndex = clone.findIndex((mv) => mv._id === res.data._id);
+          clone[premiumIndex].rating = res.data.rating;
+          setPremium(clone);
+        });
+    }
+  };
   useEffect(() => {
     fetchpremium();
   }, []);
@@ -43,47 +53,12 @@ const Premium = () => {
           <div className="spacer flexer">
             {premium.map((item) => {
               return (
-                <Card sx={{ minWidth: 345, maxWidth: 345, margin: 5 }}>
-                  <CardContent>
-                    {currentUser ? (
-                      <Button
-                        onClick={() => dispatch({ type: "ADD", payload: item })}
-                      >
-                        <AddCircleIcon></AddCircleIcon>
-                      </Button>
-                    ) : (
-                      <Button>
-                        <Link to={"/login"}>
-                          <AddCircleIcon></AddCircleIcon>
-                        </Link>
-                      </Button>
-                    )}
-                  </CardContent>
-                  <Button>
-                    <Link to={`/premiums/${item._id}`}>
-                      <CardMedia
-                        component="img"
-                        alt="green iguana"
-                        height="500"
-                        image={item.picture}
-                      />
-                    </Link>
-                  </Button>
-
-                  <CardContent>
-                    <Typography>
-                      <StarIcon></StarIcon>
-                      {item.rating.rate}
-                    </Typography>
-                    <Typography>{item.name}</Typography>
-                    <Typography>
-                      <Button>
-                        <StarBorderIcon></StarBorderIcon>
-                      </Button>
-                    </Typography>
-                    <Button>trailer</Button>
-                  </CardContent>
-                </Card>
+                <PremiumCardMap
+                  item={item}
+                  currentUser={currentUser}
+                  dispatch={dispatch}
+                  handlesubmit={handlesubmit}
+                />
               );
             })}
           </div>

@@ -1,16 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import {
-  Button,
-  Card,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@mui/material";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import StarIcon from "@mui/icons-material/Star";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
 
 import {
   Moviefetchcontext,
@@ -20,6 +9,7 @@ import {
 } from "../context/Passdata";
 import Movietypefilter from "../comps/Movietypefilter";
 import Runtime from "../comps/Runtime";
+import MoviePageMapAge from "../comps/MoviePageMapAge";
 import "./MoviePage.css";
 
 const MoviesPage = () => {
@@ -110,71 +100,19 @@ const MoviesPage = () => {
     <div>
       {movieAge ? (
         <div className="spacer sortthefilters">
-          <div className="filtersorter">
-            <Movietypefilter
-              cat={cat}
-              setCat={setCat}
-              ageofmovie={ageofmovie}
-            />
-            <Runtime length={length} setLength={setLength} />
-          </div>
-          <div className="flexer">
-            {bestmovie.map((item) => {
-              return (
-                <Card sx={{ minWidth: 345, maxWidth: 345, margin: 5 }}>
-                  <CardContent>
-                    {currentUser ? (
-                      <Button
-                        onClick={() => dispatch({ type: "ADD", payload: item })}
-                      >
-                        <AddCircleIcon></AddCircleIcon>
-                      </Button>
-                    ) : (
-                      <Button>
-                        <Link to={"/login"}>
-                          <AddCircleIcon></AddCircleIcon>
-                        </Link>
-                      </Button>
-                    )}
-                  </CardContent>
-                  <Button>
-                    <Link to={`/movies/${item._id}`}>
-                      <CardMedia
-                        component="img"
-                        alt="green iguana"
-                        height="500"
-                        image={item.picture}
-                      />
-                    </Link>
-                  </Button>
-
-                  <CardContent>
-                    <Typography>
-                      <StarIcon></StarIcon>
-                      {item.rating.rate.toFixed(1)}
-                    </Typography>
-                    <Typography>{item.name}</Typography>
-                    <Typography>
-                      {currentUser ? (
-                        <Button onClick={() => handlesubmit(item)}>
-                          <StarBorderIcon></StarBorderIcon>
-                        </Button>
-                      ) : (
-                        <Button>
-                          <Link to={"/login"}>
-                            <StarBorderIcon></StarBorderIcon>
-                          </Link>
-                        </Button>
-                      )}
-                    </Typography>
-                    <Button>
-                      <a href={item.trailer}>Trailer</a>
-                    </Button>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
+          <MoviePageMapAge
+            handlesubmit={handlesubmit}
+            currentUser={currentUser}
+            cat={cat}
+            setCat={setCat}
+            Runtime={Runtime}
+            ageofmovie={ageofmovie}
+            dispatch={dispatch}
+            setLength={setLength}
+            Movietypefilter={Movietypefilter}
+            bestmovie={bestmovie}
+            length={length}
+          />
         </div>
       ) : (
         <div className="spacer sortthefilters">
@@ -182,67 +120,19 @@ const MoviesPage = () => {
             *Note some movies may not me age apropriate please register to give
             you the right movies for your age
           </span>
-          <div className="filtersorter">
-            <Movietypefilter cat={cat} setCat={setCat} movie={movie} />
-            <Runtime length={length} setLength={setLength} movie={movie} />
-          </div>
-          <div className="flexer">
-            {bestmovie.map((item) => {
-              return (
-                <Card sx={{ minWidth: 345, maxWidth: 345, margin: 5 }}>
-                  <CardContent>
-                    {currentUser ? (
-                      <Button
-                        onClick={() => dispatch({ type: "ADD", payload: item })}
-                      >
-                        <AddCircleIcon></AddCircleIcon>
-                      </Button>
-                    ) : (
-                      <Button>
-                        <Link to={"/login"}>
-                          <AddCircleIcon></AddCircleIcon>
-                        </Link>
-                      </Button>
-                    )}
-                  </CardContent>
-                  <Button>
-                    <Link to={`/movies/${item._id}`}>
-                      <CardMedia
-                        component="img"
-                        alt="green iguana"
-                        height="500"
-                        image={item.picture}
-                      />
-                    </Link>
-                  </Button>
-
-                  <CardContent>
-                    <Typography>
-                      <StarIcon></StarIcon>
-                      {item.rating.rate}
-                    </Typography>
-                    <Typography>{item.name}</Typography>
-                    <Typography>
-                      {currentUser ? (
-                        <Button onClick={handlesubmit}>
-                          <StarBorderIcon></StarBorderIcon>
-                        </Button>
-                      ) : (
-                        <Button>
-                          <Link to={"/login"}>
-                            <StarBorderIcon></StarBorderIcon>
-                          </Link>
-                        </Button>
-                      )}
-                    </Typography>
-                    <Button>
-                      <a href={item.trailer}>Trailer</a>
-                    </Button>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
+          <MoviePageMapAge
+            handlesubmit={handlesubmit}
+            currentUser={currentUser}
+            cat={cat}
+            setCat={setCat}
+            Runtime={Runtime}
+            ageofmovie={ageofmovie}
+            dispatch={dispatch}
+            setLength={setLength}
+            Movietypefilter={Movietypefilter}
+            bestmovie={bestmovie}
+            length={length}
+          />
         </div>
       )}
     </div>

@@ -16,6 +16,7 @@ import {
   movieUpdateController,
   userUpdateController,
   newUserController,
+  premiumUpdateController,
 } from "./controllers/Controllers.js";
 dotenv.config();
 const {
@@ -50,6 +51,7 @@ app.get("/api/profile/:Username", singleUserProfileController);
 app.get("/api/actorsDateOfBirth", birthdayController);
 
 app.put(`/api/movies/:movieid`, movieUpdateController);
+app.put(`/api/premiums/:premiumsid`,premiumUpdateController)
 app.put(`/api/users/:userid`, userUpdateController);
 
 app.post("/api/users", newUserController);

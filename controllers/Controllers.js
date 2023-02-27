@@ -14,6 +14,7 @@ import { filterOnlyTodayBirthDates } from "../utils/dates.js";
 import {
   movieAllowedUpdates,
   usersAllowedUpdates,
+  premiumAllowedUpdates
 } from "../constants/constants.js";
 
 export const actorsController = async (req, res) => {
@@ -190,6 +191,30 @@ export const movieUpdateController = async (req, res) => {
     updates.forEach((update) => (movie[update] = req.body[update]));
     await movie.save();
     res.status(200).send(movie);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({ message: e });
+  }
+};
+export const premiumUpdateController = async (req, res) => {
+  const updates = Object.keys(req.body);
+  const isValidOperation = updates.every((update) =>
+  premiumAllowedUpdates.includes(update)
+  );
+
+  if (!isValidOperation) {
+    res.status(400).send({ message: "Invalid updates" });
+  }
+
+  try {
+    const { premiumsid } = req.params;
+    const premium = await singlePremium({ _id: premiumsid });
+    if (!premium) {
+      res.status(404).send({ message: "user does not exist" });
+    }
+    updates.forEach((update) => (premium[update] = req.body[update]));
+    await premium.save();
+    res.status(200).send(premium);
   } catch (e) {
     console.log(e);
     res.status(500).send({ message: e });
