@@ -17,6 +17,7 @@ import {
   userUpdateController,
   newUserController,
   premiumUpdateController,
+  getResults,
 } from "./controllers/Controllers.js";
 dotenv.config();
 const {
@@ -51,10 +52,11 @@ app.get("/api/profile/:Username", singleUserProfileController);
 app.get("/api/actorsDateOfBirth", birthdayController);
 
 app.put(`/api/movies/:movieid`, movieUpdateController);
-app.put(`/api/premiums/:premiumsid`,premiumUpdateController)
+app.put(`/api/premiums/:premiumsid`, premiumUpdateController);
 app.put(`/api/users/:userid`, userUpdateController);
 
 app.post("/api/users", newUserController);
+app.get("/api/allDataBaseEnterys", getResults);
 
 mongoose.connect(
   `mongodb+srv://${DB_USER2}:${DB_PASS2}@${DB_HOST2}/${DB_NAME2}?retryWrites=true&w=majority`,

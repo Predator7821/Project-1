@@ -1,208 +1,84 @@
-import React, { useContext, useEffect, useState } from "react";
-import { CardContent, Card, Typography, CardMedia } from "@mui/material";
-import { Link } from "react-router-dom";
-
+import React, { useEffect, useState, useContext } from "react";
+import ActorResultMap from "../comps/ActorResultMap";
+import MovieResultMap from "../comps/MovieResultMap";
+import UserResultMap from "../comps/UserResultMap";
 import { Catsearchcontext, Searchresultscontext } from "../context/Passdata";
+
 import "./Results.css";
 
 const Results = () => {
-  const { results, setResults } = useContext(Searchresultscontext);
-  const { searchCat, setSearchCat } = useContext(Catsearchcontext);
+  const { results } = useContext(Searchresultscontext);
+  const { searchCat } = useContext(Catsearchcontext);
+  const [activeCategory, setActiveCategory] = useState([]);
+  const [movies, setMovies] = useState([]);
+  const [actors, setActors] = useState([]);
+  const [users, setUsers] = useState([]);
 
-  let allmap = false;
-  let moviemap = false;
-  let actormap = false;
-  let usermap = false;
-  const [actor, setActor] = useState([]);
-  const [movie, setMovie] = useState([]);
-  const [user, setUser] = useState([]);
-
-  const getmovies = async () => {
-    fetch("http://127.0.0.1:8000/api/movies")
+  const getAllResults = async () => {
+    fetch("http://localhost:8000/api/allDataBaseEnterys")
       .then((response) => response.json())
-      .then((data) => setMovie(data));
+      .then((data) => {
+        setMovies(data?.allValues[0]);
+        setActors(data?.allValues[1]);
+        setUsers(data?.allValues[2]);
+      });
   };
 
-  const getactor = async () => {
-    fetch("http://127.0.0.1:8000/api/actors")
-      .then((response) => response.json())
-      .then((data) => setActor(data));
-  };
+  useEffect(() => {
+    if (searchCat === "Actors") {
+      setActiveCategory(
+        results === ""
+          ? actors
+          : actors.filter((e) =>
+              e.name.first_name
+                .toLowerCase()
+                .includes(
+                  results.toLowerCase() ||
+                    e.name.last_name
+                      .toLowerCase()
+                      .includes(results.toLowerCase())
+                )
+            )
+      );
+    } else if (searchCat === "Movies") {
+      setActiveCategory(
+        results === ""
+          ? movies
+          : movies.filter((e) =>
+              e.name.toLowerCase().includes(results.toLowerCase())
+            )
+      );
+    } else if (searchCat === "Users") {
+      setActiveCategory(
+        results === ""
+          ? users
+          : users.filter((e) =>
+              e.Username.toLowerCase().includes(results.toLowerCase())
+            )
+      );
+    }
+  }, [searchCat, results, movies, actors, users]);
 
-  const getusers = async () => {
-    fetch("http://127.0.0.1:8000/api/users")
-      .then((response) => response.json())
-      .then((data) => setUser(data));
-  };
+  useEffect(() => {
+    getAllResults();
+  }, []);
 
-  if (searchCat === "All") {
-    getmovies();
-    getactor();
-    getusers();
-    allmap = true;
-  } else if (searchCat === "Actors") {
-    getactor();
-    actormap = true;
-  } else if (searchCat === "Movies") {
-    getmovies();
-    moviemap = true;
-  } else {
-    getusers();
-    usermap = true;
-  }
-  const allmovies = movie.filter(
-    (e) => e.name.toLowerCase() === results.toLowerCase()
-  );
-  const allusers = user.filter(
-    (e) => e.Username.toLowerCase() === results.toLowerCase()
-  );
-  const allactors = actor.filter(
-    (e) => e.name.first_name.toLowerCase() === results.toLowerCase()
-  );
+  useEffect(() => {
+    console.log(searchCat, activeCategory);
+  }, [searchCat]);
   return (
     <div className="thatfuckingheader makeitfitthecenter organizedcards">
-      {allmap ? (
-        allmovies.map((e) => {
-          return (
-            <Card sx={{ minWidth: 345, maxWidth: 345, margin: 5 }}>
-              <Link to={`/movies/${e._id}`}>
-                <CardMedia
-                  component="img"
-                  alt="green iguana"
-                  height="500"
-                  image={e.picture}
-                />
-              </Link>
-
-              <CardContent className="makeitlookbetter">
-                <Typography>{e.name}</Typography>
-                <Typography>{e.category}</Typography>
-                <Typography>{e.type}</Typography>
-                <Typography>{e.date}</Typography>
-              </CardContent>
-            </Card>
-          );
-        })
-      ) : (
-        <div></div>
-      )}
-      {allmap ? (
-        allusers.map((e) => {
-          return (
-            <Card sx={{ minWidth: 345, maxWidth: 345, margin: 5 }}>
-              <Link to={`/users/${e._id}`}>
-                <CardMedia
-                  component="img"
-                  alt="green iguana"
-                  height="500"
-                  image={e.pfp}
-                />
-              </Link>
-
-              <CardContent className="makeitlookbetter">
-                <Typography>{e.Username}</Typography>
-              </CardContent>
-            </Card>
-          );
-        })
-      ) : (
-        <div></div>
-      )}
-      {allmap ? (
-        allactors.map((e) => {
-          return (
-            <Card sx={{ minWidth: 345, maxWidth: 345, margin: 5 }}>
-              <Link to={`/actors/${e._id}`}>
-                <CardMedia
-                  component="img"
-                  alt="green iguana"
-                  height="500"
-                  image={e.picture}
-                />
-              </Link>
-
-              <CardContent className="makeitlookbetter">
-                <Typography>
-                  {e.name.first_name} {e.name.last_name}
-                </Typography>
-              </CardContent>
-            </Card>
-          );
-        })
-      ) : (
-        <div></div>
-      )}
-      {usermap ? (
-        allusers.map((e) => {
-          return (
-            <Card sx={{ minWidth: 345, maxWidth: 345, margin: 5 }}>
-              <Link to={`/users/${e._id}`}>
-                <CardMedia
-                  component="img"
-                  alt="green iguana"
-                  height="500"
-                  image={e.pfp}
-                />
-              </Link>
-
-              <CardContent className="makeitlookbetter">
-                <Typography>{e.Username}</Typography>
-              </CardContent>
-            </Card>
-          );
-        })
-      ) : (
-        <div></div>
-      )}
-      {moviemap ? (
-        allmovies.map((e) => {
-          return (
-            <Card sx={{ minWidth: 345, maxWidth: 345, margin: 5 }}>
-              <Link to={`/movies/${e._id}`}>
-                <CardMedia
-                  component="img"
-                  alt="green iguana"
-                  height="500"
-                  image={e.picture}
-                />
-              </Link>
-
-              <CardContent className="makeitlookbetter">
-                <Typography>{e.name}</Typography>
-                <Typography>{e.category}</Typography>
-                <Typography>{e.type}</Typography>
-                <Typography>{e.date}</Typography>
-              </CardContent>
-            </Card>
-          );
-        })
-      ) : (
-        <div></div>
-      )}
-      {actormap ? (
-        allactors.map((e) => {
-          return (
-            <Card sx={{ minWidth: 345, maxWidth: 345, margin: 5 }}>
-              <Link to={`/actors/${e._id}`}>
-                <CardMedia
-                  component="img"
-                  alt="green iguana"
-                  height="500"
-                  image={e.picture}
-                />
-              </Link>
-
-              <CardContent className="makeitlookbetter">
-                <Typography>
-                  {e.name.first_name} {e.name.last_name}
-                </Typography>
-              </CardContent>
-            </Card>
-          );
-        })
-      ) : (
-        <div></div>
-      )}
+      {activeCategory.map((e) => {
+        return searchCat === "Users" ? (
+          <UserResultMap e={e} />
+        ) : searchCat === "Movies" ? (
+          <MovieResultMap e={e} />
+        ) : searchCat === "Actors" ? (
+          <ActorResultMap e={e} />
+        ) : (
+          <>error</>
+        );
+      })}
     </div>
   );
 };

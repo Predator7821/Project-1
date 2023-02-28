@@ -18,7 +18,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(false);
   const [results, setResults] = useState("");
-  const [searchCat, setSearchCat] = useState("");
+  const [searchCat, setSearchCat] = useState("Movies");
   const [ispremium, setIspremium] = useState(false);
   const [userid, setUserid] = useState("");
   const [bestofdabest, setBestofdabest] = useState([]);

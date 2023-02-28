@@ -107,7 +107,6 @@ const MoviesPage = () => {
             setCat={setCat}
             Runtime={Runtime}
             ageofmovie={ageofmovie}
-            dispatch={dispatch}
             setLength={setLength}
             Movietypefilter={Movietypefilter}
             bestmovie={bestmovie}
@@ -127,7 +126,6 @@ const MoviesPage = () => {
             setCat={setCat}
             Runtime={Runtime}
             ageofmovie={ageofmovie}
-            dispatch={dispatch}
             setLength={setLength}
             Movietypefilter={Movietypefilter}
             bestmovie={bestmovie}
