@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import {
   Button,
   Card,
@@ -11,16 +11,9 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { Link } from "react-router-dom";
 
-import { Cartcontext } from "../context/Passdata";
 import MarkMovieActions from "./MarkMovieActions";
 
 const MovieContainer = ({ currentUser, item, actionFunc }) => {
-  const Globalstate = useContext(Cartcontext);
-  const dispatch = Globalstate.dispatch;
-
-  const handleDispatch = (item) => {
-    dispatch({ type: "ADD", payload: item });
-  };
 
   return (
     <Card sx={{ minWidth: 345, maxWidth: 345, margin: 1 }}>
@@ -29,7 +22,6 @@ const MovieContainer = ({ currentUser, item, actionFunc }) => {
           currentUser={currentUser}
           item={item}
           Icon={AddCircleIcon}
-          handleClick={handleDispatch}
         />
       </CardContent>
       <Button>

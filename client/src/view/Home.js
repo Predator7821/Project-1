@@ -7,6 +7,7 @@ import MovieContainer from "../comps/MovieContainer";
 import BirthdayContainer from "../comps/BirthdayContainer";
 import { Currentusercontext } from "../context/Passdata";
 import "./Home.css";
+import Rating from "../comps/Rating";
 
 const Home = () => {
   const { currentUser, setCurrentUser } = useContext(Currentusercontext);

@@ -17,6 +17,7 @@ import {
   userUpdateController,
   newUserController,
   premiumUpdateController,
+  deleteUserController,
 } from "./controllers/Controllers.js";
 dotenv.config();
 const {
@@ -55,6 +56,8 @@ app.put(`/api/premiums/:premiumsid`,premiumUpdateController)
 app.put(`/api/users/:userid`, userUpdateController);
 
 app.post("/api/users", newUserController);
+
+app.delete('/api/users/delete/:userid', deleteUserController)
 
 mongoose.connect(
   `mongodb+srv://${DB_USER2}:${DB_PASS2}@${DB_HOST2}/${DB_NAME2}?retryWrites=true&w=majority`,

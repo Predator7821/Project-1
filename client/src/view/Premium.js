@@ -4,7 +4,6 @@ import axios from "axios";
 import {
   Checkpremiumcontext,
   Currentusercontext,
-  Cartcontext,
 } from "../context/Passdata";
 import PremiumCardMap from "../comps/PremiumCardMap";
 import "./Premium.css";
@@ -13,8 +12,6 @@ const Premium = () => {
   const { ispremium, setIspremium } = useContext(Checkpremiumcontext);
   const { currentUser, setCurrentUser } = useContext(Currentusercontext);
   const [premium, setPremium] = useState([]);
-  const Globalstate = useContext(Cartcontext);
-  const dispatch = Globalstate.dispatch;
 
   const fetchpremium = async () => {
     fetch("http://127.0.0.1:8000/api/premiums")
@@ -56,7 +53,6 @@ const Premium = () => {
                 <PremiumCardMap
                   item={item}
                   currentUser={currentUser}
-                  dispatch={dispatch}
                   handlesubmit={handlesubmit}
                 />
               );

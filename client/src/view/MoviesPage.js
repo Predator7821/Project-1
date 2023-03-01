@@ -4,7 +4,6 @@ import axios from "axios";
 import {
   Moviefetchcontext,
   Currentusercontext,
-  Cartcontext,
   Movieagecontext,
 } from "../context/Passdata";
 import Movietypefilter from "../comps/Movietypefilter";
@@ -20,8 +19,6 @@ const MoviesPage = () => {
   const [bestmovie, setBestmovie] = useState([]);
   const [length, setLength] = useState([1, 1000]);
   const [cat, setCat] = useState("All Movies");
-  const Globalstate = useContext(Cartcontext);
-  const dispatch = Globalstate.dispatch;
 
   const FetchMovie = async () => {
     fetch("http://127.0.0.1:8000/api/movies")
@@ -107,7 +104,6 @@ const MoviesPage = () => {
             setCat={setCat}
             Runtime={Runtime}
             ageofmovie={ageofmovie}
-            dispatch={dispatch}
             setLength={setLength}
             Movietypefilter={Movietypefilter}
             bestmovie={bestmovie}
@@ -127,7 +123,6 @@ const MoviesPage = () => {
             setCat={setCat}
             Runtime={Runtime}
             ageofmovie={ageofmovie}
-            dispatch={dispatch}
             setLength={setLength}
             Movietypefilter={Movietypefilter}
             bestmovie={bestmovie}

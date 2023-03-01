@@ -9,6 +9,7 @@ import {
   singleUser,
   birthday,
   Register,
+  deleteUser,
 } from "../services/Services.js";
 import { filterOnlyTodayBirthDates } from "../utils/dates.js";
 import {
@@ -110,6 +111,19 @@ export const singleUserController = async (req, res) => {
     res.status(500).send({ message: e });
   }
 };
+
+export const deleteUserController = async (req,res)=>{
+  try {
+    const user = await deleteUser({ _id: req.params.userid });
+    if (!user) {
+      res.status(404).send({ message: "That user dose not exsist" });
+    }
+    res.send(user);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({ message: e });
+  }
+}
 
 export const singleUserProfileController = async (req, res) => {
   try {

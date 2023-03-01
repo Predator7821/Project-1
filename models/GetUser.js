@@ -30,6 +30,9 @@ const GetUser = new mongoose.Schema({
       type: Number,
       required: true,
     },
+    Watchlist:{
+      type:Array,
+    }
   });
   
   export const User = mongoose.model("Users", GetUser);

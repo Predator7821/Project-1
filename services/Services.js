@@ -34,7 +34,9 @@ export const users = () => {
 export const singleUser = (_id) => {
   return User.findOne({ _id: _id });
 };
-
+export const deleteUser = (_id) => {
+  return User.findOneAndDelete({ _id: _id });
+};
 export const userProfile = (_id) => {
   return User.findOne({ _id: _id });
 };

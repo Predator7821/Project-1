@@ -8,7 +8,6 @@ import {
   Checkpremiumcontext,
   User_idcontext,
   Moviefetchcontext,
-  Passdata,
   Movieagecontext,
 } from "./context/Passdata";
 import Main from "./view/Main";
@@ -34,13 +33,11 @@ function App() {
                   <Moviefetchcontext.Provider
                     value={{ bestofdabest, setBestofdabest }}
                   >
-                    <Passdata>
                       <Movieagecontext.Provider
                         value={{ movieAge, setMovieAge }}
                       >
                         <Main />
                       </Movieagecontext.Provider>
-                    </Passdata>
                   </Moviefetchcontext.Provider>
                 </User_idcontext.Provider>
               </Checkpremiumcontext.Provider>

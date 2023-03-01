@@ -2,3 +2,6 @@ TALUI BE EDEN
 כפתור תפריט עם ניווט לעמודים מעניינים כמו הסרטים הכי טובים
 
 questions to ask almog
+how to add movies to the watch later
+how to delete them
+why do ratings crash the site
