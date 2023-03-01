@@ -15,7 +15,7 @@ import { filterOnlyTodayBirthDates } from "../utils/dates.js";
 import {
   movieAllowedUpdates,
   usersAllowedUpdates,
-  premiumAllowedUpdates
+  premiumAllowedUpdates,
 } from "../constants/constants.js";
 
 export const actorsController = async (req, res) => {
@@ -213,7 +213,7 @@ export const movieUpdateController = async (req, res) => {
 export const premiumUpdateController = async (req, res) => {
   const updates = Object.keys(req.body);
   const isValidOperation = updates.every((update) =>
-  premiumAllowedUpdates.includes(update)
+    premiumAllowedUpdates.includes(update)
   );
 
   if (!isValidOperation) {
@@ -229,6 +229,21 @@ export const premiumUpdateController = async (req, res) => {
     updates.forEach((update) => (premium[update] = req.body[update]));
     await premium.save();
     res.status(200).send(premium);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({ message: e });
+  }
+};
+
+export const getResults = async (req, res) => {
+  try {
+    const allMovies = movies();
+    const allActors = actors();
+    const allUsers = users();
+    const allValues = await Promise.all([allMovies, allActors, allUsers]);
+
+    console.log(allValues);
+    res.send({ allValues });
   } catch (e) {
     console.log(e);
     res.status(500).send({ message: e });

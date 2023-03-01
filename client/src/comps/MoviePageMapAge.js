@@ -22,72 +22,23 @@ const MoviePageMapAge = ({handlesubmit,currentUser,cat,setCat,Runtime,ageofmovie
   }
   return (
     <>
-    <div className="filtersorter">
-    <Movietypefilter
-      cat={cat}
-      setCat={setCat}
-      ageofmovie={ageofmovie}
-    />
-    <Runtime length={length} setLength={setLength} />
-  </div>
-  <div className="flexer">
-    {bestmovie.map((item) => {
-      return (
-        <Card sx={{ minWidth: 345, maxWidth: 345, margin: 5 }}>
-          <CardContent>
-            {currentUser ? (
-              <Button
-                onClick={() => dispatch({ type: "ADD", payload: item })}
-              >
-                <AddCircleIcon></AddCircleIcon>
-              </Button>
-            ) : (
-              <Button>
-                <Link to={"/login"}>
-                  <AddCircleIcon></AddCircleIcon>
-                </Link>
-              </Button>
-            )}
-          </CardContent>
-          <Button>
-            <Link to={`/movies/${item._id}`}>
-              <CardMedia
-                component="img"
-                alt="green iguana"
-                height="500"
-                image={item.picture}
-              />
-            </Link>
-          </Button>
+      <div className="filtersorter">
+        <Movietypefilter cat={cat} setCat={setCat} ageofmovie={ageofmovie} />
+        <Runtime length={length} setLength={setLength} />
+      </div>
+      <div className="flexer">
+        {bestmovie.map((item) => {
+          return (
+            <MovieContainer
+              item={item}
+              currentUser={currentUser}
+              actionFunc={handlesubmit}
+            />
+          );
+        })}
+      </div>
+    </>
+  );
+};
 
-          <CardContent>
-            <Typography>
-              <StarIcon></StarIcon>
-              {item.rating.rate.toFixed(1)}
-            </Typography>
-            <Typography>{item.name}</Typography>
-            <Typography>
-              {currentUser ? (
-                <Button onClick={() => handlesubmit(item)}>
-                  <StarBorderIcon></StarBorderIcon>
-                </Button>
-              ) : (
-                <Button>
-                  <Link to={"/login"}>
-                    <StarBorderIcon></StarBorderIcon>
-                  </Link>
-                </Button>
-              )}
-            </Typography>
-            <Button>
-              <a href={item.trailer}>Trailer</a>
-            </Button>
-          </CardContent>
-        </Card>
-      );
-    })}
-  </div>
-  </>)
-}
-
-export default MoviePageMapAge
+export default MoviePageMapAge;

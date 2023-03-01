@@ -1,7 +1,18 @@
-.icantsee{
-    padding: 100px;
+.icantsee {
+  padding: 100px;
 }
-.dropittotheside{
-    display: flex;
-    flex-direction: row;
+.dropittotheside {
+  display: flex;
+  flex-direction: row;
+}
+.beautifulname {
+  min-width: 15%;
+  display: flex;
+  justify-content: space-between;
+}
+.namesofimages {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

@@ -18,10 +18,14 @@ const SingleActor = () => {
   }, []);
 
   return (
-    <div className="icantsee">
+    <div className="icantsee namesofimages">
+      <div className="beautifulname">
+        <h1>{actor?.name?.first_name} </h1>
+        <h1> {actor?.name?.last_name}</h1>
+      </div>
       <div className="dropittotheside">
         <img width={400} height={225} src={actor.picture} alt="" />
-        {/* <span>{actor.name.first_name} {actor.name.last}</span> */}
+
         <span>{actor.biography}</span>
       </div>
     </div>
