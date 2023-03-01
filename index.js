@@ -18,6 +18,7 @@ import {
   newUserController,
   premiumUpdateController,
   deleteUserController,
+  getResults,
 } from "./controllers/Controllers.js";
 dotenv.config();
 const {
