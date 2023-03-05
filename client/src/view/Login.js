@@ -8,6 +8,7 @@ import {
   Logincontext,
   Movieagecontext,
   User_idcontext,
+  UserDataContext,
 } from "../context/Passdata";
 import "./Login.css";
 
@@ -17,6 +18,7 @@ const Login = () => {
   const { ispremium, setIspremium } = useContext(Checkpremiumcontext);
   const { movieAge, setMovieAge } = useContext(Movieagecontext);
   const { userid, setUserid } = useContext(User_idcontext);
+  const { setUserData } = useContext(UserDataContext);
   const [login, setLogin] = useState(false);
   const [user, setUser] = useState([]);
   const logininfo = {
@@ -47,6 +49,7 @@ const Login = () => {
         setMovieAge(user[i].Age);
         setIsLoggedIn(true);
         setUserid(user[i]._id);
+        setUserData(user[i]);
         if (user[i].premium === true) {
           setIspremium(true);
         }

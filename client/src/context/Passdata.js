@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext } from "react";
 
 export const Logincontext = createContext(null);
 
@@ -15,3 +15,5 @@ export const User_idcontext = createContext(null);
 export const Moviefetchcontext = createContext(null);
 
 export const Movieagecontext = createContext(null);
+
+export const UserDataContext = createContext(null);

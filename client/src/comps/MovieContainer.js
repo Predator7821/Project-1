@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import {
   Button,
   Card,
@@ -8,13 +8,22 @@ import {
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { Link } from "react-router-dom";
+import { Rating } from "@mui/material";
 
 import MarkMovieActions from "./MarkMovieActions";
+import axios from "axios";
 
-const MovieContainer = ({ currentUser, item, actionFunc }) => {
-
+const MovieContainer = ({ currentUser, item }) => {
+  const [value, setValue] = useState();
+  const sendrate = (newValue) => {
+    setValue(newValue);
+    if (currentUser != false) {
+      if (value === null) {
+        axios.put(`http://127.0.0.1:8000/api/movies/${item._id}`);
+      }
+    }
+  };
   return (
     <Card sx={{ minWidth: 345, maxWidth: 345, margin: 1 }}>
       <CardContent>
@@ -39,18 +48,19 @@ const MovieContainer = ({ currentUser, item, actionFunc }) => {
         <Typography>
           <StarIcon></StarIcon>
           {item.rating.rate.toFixed(1)}
-          <MarkMovieActions
-            item={item}
-            currentUser={currentUser}
-            Icon={StarBorderIcon}
-            handleClick={actionFunc}
-          />
         </Typography>
         <Typography>{item.name}</Typography>
         <Button>
           <a href={item.trailer}>Trailer</a>
         </Button>
       </CardContent>
+      <Rating
+        name="simple-controlled"
+        value={value}
+        onChange={(event, newValue) => {
+          sendrate(newValue);
+        }}
+      />
     </Card>
   );
 };

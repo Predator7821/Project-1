@@ -1,16 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 
-import {
-  Checkpremiumcontext,
-  Currentusercontext,
-} from "../context/Passdata";
+import { Checkpremiumcontext, Currentusercontext } from "../context/Passdata";
 import PremiumCardMap from "../comps/PremiumCardMap";
 import "./Premium.css";
 
 const Premium = () => {
-  const { ispremium, setIspremium } = useContext(Checkpremiumcontext);
-  const { currentUser, setCurrentUser } = useContext(Currentusercontext);
+  const { ispremium } = useContext(Checkpremiumcontext);
+  const { currentUser } = useContext(Currentusercontext);
   const [premium, setPremium] = useState([]);
 
   const fetchpremium = async () => {

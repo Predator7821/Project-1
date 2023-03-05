@@ -14,10 +14,10 @@ import {
 import "./Singleprofile.css";
 
 const Singleprofile = () => {
-  const {  setIsLoggedIn } = useContext(Logincontext);
-  const {  setCurrentUser } = useContext(Currentusercontext);
-  const {  setIspremium } = useContext(Checkpremiumcontext);
-  const {  setMovieAge } = useContext(Movieagecontext);
+  const { setIsLoggedIn } = useContext(Logincontext);
+  const { setCurrentUser } = useContext(Currentusercontext);
+  const { setIspremium } = useContext(Checkpremiumcontext);
+  const { setMovieAge } = useContext(Movieagecontext);
   const { userid } = useContext(User_idcontext);
   const [imageSelected, setImageSelected] = useState("");
   const [bio, setBio] = useState([]);
@@ -37,7 +37,10 @@ const Singleprofile = () => {
   const fetchbio = async () => {
     fetch(`http://127.0.0.1:8000/api/users/${userid}`)
       .then((response) => response.json())
-      .then((data) => setBio(data));
+      .then((data) => {
+        console.log(data);
+        setBio(data);
+      });
   };
 
   const handle = (e) => {
@@ -67,23 +70,37 @@ const Singleprofile = () => {
       .put(`http://127.0.0.1:8000/api/users/${userid}`, {
         pfp: userpic,
       })
-      .then((res) => {console.log(res);
+      .then((res) => {
+        console.log(res);
       });
   };
-  const deleteuser = async()=>{
+  const deleteuser = async () => {
     await axios
       .delete(`http://127.0.0.1:8000/api/users/delete/${userid}`)
       .then((res) => {
         userpic = res.data.url;
       });
-      setCurrentUser(false)
-      setIsLoggedIn(false);
+    setCurrentUser(false);
+    setIsLoggedIn(false);
     setIspremium(false);
     setMovieAge(false);
-  }
-  const removie = async()=>{
-    axios.delete(``)
-  }
+  };
+  const removie = (movieName) => {
+    console.log(movieName);
+    const clone = { ...bio };
+    const index = clone.Watchlist.findIndex((mv) => mv === movieName);
+    clone.Watchlist.splice(index, 1);
+
+    axios
+      .put(`http://127.0.0.1:8000/api/users/${userid}`, {
+        Watchlist: clone.Watchlist,
+      })
+      .then((res) => {
+        console.log(res);
+        setBio(res.data);
+      });
+  };
+
   useEffect(() => {
     fetchbio();
   }, []);
@@ -111,16 +128,18 @@ const Singleprofile = () => {
           onChange={(event) => setImageSelected(event.target.files[0])}
         />
         <button onClick={uploadImage}>submit</button>
-        <Button onClick={deleteuser}><Link to={'/'}>Delete User</Link></Button>
-        {bio?.Watchlist?.map(e=>{
+        <Button onClick={deleteuser}>
+          <Link to={"/"}>Delete User</Link>
+        </Button>
+        {bio?.Watchlist?.map((e) => {
+          console.log(e);
           return (
-          <div>
-            <h1>{e}</h1>
-            <Button onClick={removie}>Remove</Button>
+            <div>
+              <h1>{e}</h1>
+              <Button onClick={() => removie(e)}>Remove</Button>
             </div>
-            )
-        }
-        )}
+          );
+        })}
       </div>
     </div>
   );

@@ -7,7 +7,6 @@ import MovieContainer from "../comps/MovieContainer";
 import BirthdayContainer from "../comps/BirthdayContainer";
 import { Currentusercontext } from "../context/Passdata";
 import "./Home.css";
-import Rating from "../comps/Rating";
 
 const Home = () => {
   const { currentUser, setCurrentUser } = useContext(Currentusercontext);
@@ -17,7 +16,6 @@ const Home = () => {
   const tinyBoxesArr = [1, 2, 3];
   const toparr = top.filter((i) => i.rating.rate >= 9);
   const ratearr = top.filter((i) => i.rating.count >= 750000);
-
   const topmovies = async () => {
     fetch("http://127.0.0.1:8000/api/movies")
       .then((response) => response.json())
@@ -89,11 +87,13 @@ const Home = () => {
       <div className="pop">
         {ratearr.map((item) => {
           return (
-            <MovieContainer
-              currentUser={currentUser}
-              item={item}
-              actionFunc={handlesubmit}
-            />
+            <>
+              <MovieContainer
+                currentUser={currentUser}
+                item={item}
+                actionFunc={handlesubmit}
+              />
+            </>
           );
         })}
       </div>
