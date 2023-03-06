@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -16,14 +16,31 @@ import axios from "axios";
 
 const MovieContainer = ({ currentUser, item }) => {
   const [value, setValue] = useState();
-  const sendrate = (newValue) => {
+  const [movieData,setMovieData]=useState([])
+  const getrating= async()=>{
+    fetch(`http://127.0.0.1:8000/api/movies/`)
+  .then((response) => response.json())
+  .then((data) => setMovieData(data));
+
+  }
+  const [rate,setRate]=useState({
+    Rate:"",
+    count:"",
+  })
+  const sendrate = (newValue,item) => {
     setValue(newValue);
     if (currentUser != false) {
       if (value === null) {
-        axios.put(`http://127.0.0.1:8000/api/movies/${item._id}`);
+        axios.put(`http://127.0.0.1:8000/api/movies/${item._id}`,{
+          Rate: 5,
+          count: 1,
+        }).then((res)=>{console.log(res)})
       }
     }
   };
+  useEffect(()=>{
+    getrating()
+  },[])
   return (
     <Card sx={{ minWidth: 345, maxWidth: 345, margin: 1 }}>
       <CardContent>
@@ -57,8 +74,8 @@ const MovieContainer = ({ currentUser, item }) => {
       <Rating
         name="simple-controlled"
         value={value}
-        onChange={(event, newValue) => {
-          sendrate(newValue);
+        onChange={(event, newValue,item) => {
+          sendrate(newValue,item);
         }}
       />
     </Card>

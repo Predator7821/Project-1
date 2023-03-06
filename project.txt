@@ -2,3 +2,4 @@ TALUI BE EDEN
 כפתור תפריט עם ניווט לעמודים מעניינים כמו הסרטים הכי טובים
 
 questions to ask almog
+how to set up rating
