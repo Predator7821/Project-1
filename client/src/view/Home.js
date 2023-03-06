@@ -14,7 +14,7 @@ const Home = () => {
   const [actor, setActor] = useState(false);
   const ranNum = useMemo(() => parseInt(Math.random() * top.length + 1), [top]);
   const tinyBoxesArr = [1, 2, 3];
-  const toparr = top.filter((i) => i.rating.rate >= 9);
+  const toparr = top.filter((i) => i.rating.rate >= 4);
   const ratearr = top.filter((i) => i.rating.count >= 750000);
   const topmovies = async () => {
     fetch("http://127.0.0.1:8000/api/movies")

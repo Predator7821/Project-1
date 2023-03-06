@@ -23,17 +23,16 @@ const MovieContainer = ({ currentUser, item }) => {
   .then((data) => setMovieData(data));
 
   }
-  const [rate,setRate]=useState({
-    Rate:"",
-    count:"",
-  })
-  const sendrate = (newValue,item) => {
+  const sendrate = (newValue) => {
     setValue(newValue);
-    if (currentUser != false) {
+    if (currentUser !== false) {
       if (value === null) {
         axios.put(`http://127.0.0.1:8000/api/movies/${item._id}`,{
-          Rate: 5,
-          count: 1,
+          rating:{
+            rate: newValue,
+            count: item.rating.count++,
+          }
+          
         }).then((res)=>{console.log(res)})
       }
     }
@@ -74,8 +73,8 @@ const MovieContainer = ({ currentUser, item }) => {
       <Rating
         name="simple-controlled"
         value={value}
-        onChange={(event, newValue,item) => {
-          sendrate(newValue,item);
+        onChange={(event, newValue) => {
+          sendrate(newValue);
         }}
       />
     </Card>
