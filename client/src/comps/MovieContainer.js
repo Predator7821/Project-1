@@ -10,36 +10,56 @@ import StarIcon from "@mui/icons-material/Star";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Link } from "react-router-dom";
 import { Rating } from "@mui/material";
-
-import MarkMovieActions from "./MarkMovieActions";
 import axios from "axios";
 
-const MovieContainer = ({ currentUser, item }) => {
-  const [value, setValue] = useState();
-  const [movieData,setMovieData]=useState([])
-  const getrating= async()=>{
-    fetch(`http://127.0.0.1:8000/api/movies/`)
-  .then((response) => response.json())
-  .then((data) => setMovieData(data));
+import MarkMovieActions from "./MarkMovieActions";
+import { UserDataContext } from "../context/Passdata";
 
-  }
+const MovieContainer = ({ currentUser, item }) => {
+  const { userData } = useContext(UserDataContext);
+  const [value, setValue] = useState();
+  const [movieData, setMovieData] = useState([]);
+  const [ratedMovie, setRatedMovie] = useState({});
+  const getrating = async () => {
+    fetch(`http://127.0.0.1:8000/api/movies/`)
+      .then((response) => response.json())
+      .then((data) => setMovieData(data));
+  };
+
   const sendrate = (newValue) => {
     setValue(newValue);
     if (currentUser !== false) {
-      if (value === null) {
-        axios.put(`http://127.0.0.1:8000/api/movies/${item._id}`,{
-          rating:{
-            rate: newValue,
-            count: item.rating.count++,
-          }
-          
-        }).then((res)=>{console.log(res)})
+      if (newValue >= 1 && newValue <= 5) {
+        axios
+          .put(`http://127.0.0.1:8000/api/${userData._id}/movies/${item._id}`, {
+            rating: {
+              rate: newValue,
+              count: item.rating.count++,
+            },
+          })
+          .then((res) => {
+            console.log(res);
+          });
       }
     }
   };
-  useEffect(()=>{
-    getrating()
-  },[])
+  useEffect(() => {
+    getrating();
+  }, []);
+
+  useEffect(() => {
+    if (currentUser !== false) {
+      if (userData) {
+        const ratedMovieExsists = userData.MovieRating.filter(
+          (mv) => mv.Movieid === item._id
+        );
+        if (ratedMovieExsists.length > 0) {
+          setRatedMovie(ratedMovieExsists[0]);
+        }
+      }
+    }
+  }, [userData]);
+
   return (
     <Card sx={{ minWidth: 345, maxWidth: 345, margin: 1 }}>
       <CardContent>
@@ -63,7 +83,9 @@ const MovieContainer = ({ currentUser, item }) => {
       <CardContent>
         <Typography>
           <StarIcon></StarIcon>
-          {item.rating.rate.toFixed(1)}
+          {item.rating.rate.map((e) => {
+            return e / item.rating.rate.length;
+          })}
         </Typography>
         <Typography>{item.name}</Typography>
         <Button>
@@ -72,7 +94,7 @@ const MovieContainer = ({ currentUser, item }) => {
       </CardContent>
       <Rating
         name="simple-controlled"
-        value={value}
+        value={value || ratedMovie.rate}
         onChange={(event, newValue) => {
           sendrate(newValue);
         }}

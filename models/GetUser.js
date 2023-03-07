@@ -1,5 +1,14 @@
 import mongoose from "mongoose";
 
+const MovieRated = new mongoose.Schema({
+  Movieid: {
+    type: String,
+  },
+  rate: {
+    type: Number,
+  },
+});
+
 const GetUser = new mongoose.Schema({
   Username: {
     type: String,
@@ -33,6 +42,9 @@ const GetUser = new mongoose.Schema({
   Watchlist: {
     type: [String],
     default: [],
+  },
+  MovieRating: {
+    type: [MovieRated],
   },
 });
 

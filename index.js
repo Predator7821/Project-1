@@ -52,14 +52,14 @@ app.get("/api/profile/:Username", singleUserProfileController);
 
 app.get("/api/actorsDateOfBirth", birthdayController);
 
-app.put(`/api/movies/:movieid`, movieUpdateController);
+app.put(`/api/:userid/movies/:movieid`, movieUpdateController);
 app.put(`/api/premiums/:premiumsid`, premiumUpdateController);
 app.put(`/api/users/:userid`, userUpdateController);
 
 app.post("/api/users", newUserController);
 app.get("/api/allDataBaseEnterys", getResults);
 
-app.delete('/api/users/delete/:userid', deleteUserController)
+app.delete("/api/users/delete/:userid", deleteUserController);
 
 mongoose.connect(
   `mongodb+srv://${DB_USER2}:${DB_PASS2}@${DB_HOST2}/${DB_NAME2}?retryWrites=true&w=majority`,

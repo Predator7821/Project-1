@@ -2,8 +2,7 @@ import mongoose from "mongoose";
 
 const GetRating = new mongoose.Schema({
     rate: {
-      type: Number,
-      required: true,
+      type: Array,
     },
     count: {
       type: Number,

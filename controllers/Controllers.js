@@ -112,7 +112,7 @@ export const singleUserController = async (req, res) => {
   }
 };
 
-export const deleteUserController = async (req,res)=>{
+export const deleteUserController = async (req, res) => {
   try {
     const user = await deleteUser({ _id: req.params.userid });
     if (!user) {
@@ -123,7 +123,7 @@ export const deleteUserController = async (req,res)=>{
     console.log(e);
     res.status(500).send({ message: e });
   }
-}
+};
 
 export const singleUserProfileController = async (req, res) => {
   try {
@@ -197,13 +197,19 @@ export const movieUpdateController = async (req, res) => {
   }
 
   try {
-    const { movieid } = req.params;
+    const { movieid, userid } = req.params;
     const movie = await singleMovie({ _id: movieid });
     if (!movie) {
-      res.status(404).send({ message: "user does not exist" });
+      res.status(404).send({ message: "movie does not exist" });
     }
     updates.forEach((update) => (movie[update] = req.body[update]));
+    const user = await singleUser(userid);
+    if (!user) {
+      res.status(404).send({ message: "user does not exist" });
+    }
+    user.MovieRating.push({ Movieid: movieid, rate: req.body.rating.rate });
     await movie.save();
+    await user.save();
     res.status(200).send(movie);
   } catch (e) {
     console.log(e);

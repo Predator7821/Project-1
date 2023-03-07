@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState, useContext } from "react";
 import { Box } from "@mui/system";
-import axios from "axios";
 
 import Tinybox from "../comps/Tinybox";
 import MovieContainer from "../comps/MovieContainer";
@@ -16,31 +15,11 @@ const Home = () => {
   const tinyBoxesArr = [1, 2, 3];
   const toparr = top.filter((i) => i.rating.rate >= 4);
   const ratearr = top.filter((i) => i.rating.count >= 750000);
+
   const topmovies = async () => {
     fetch("http://127.0.0.1:8000/api/movies")
       .then((response) => response.json())
       .then((data) => setTop(data));
-  };
-
-  const handlesubmit = (item) => {
-    if (item.rating.rate >= 10) {
-      alert("this movie is a master piece and you cant change that");
-    } else {
-      axios
-        .put(`http://127.0.0.1:8000/api/movies/${item._id}`, {
-          rating: {
-            rate: (item.rating.rate += 0.1),
-            count: item.rating.count,
-          },
-        })
-        .then((res) => {
-          console.log(res);
-          const clone = [...top];
-          const movieIndex = clone.findIndex((mv) => mv._id === res.data._id);
-          clone[movieIndex].rating = res.data.rating;
-          setTop(clone);
-        });
-    }
   };
 
   const bdayactor = async () => {
@@ -74,13 +53,7 @@ const Home = () => {
       <h1 className="putmewhereineedtobe">Top Rated Movies</h1>
       <div className="pop">
         {toparr.map((item) => {
-          return (
-            <MovieContainer
-              currentUser={currentUser}
-              item={item}
-              actionFunc={handlesubmit}
-            />
-          );
+          return <MovieContainer currentUser={currentUser} item={item} />;
         })}
       </div>
       <h1 className="putmewhereineedtobe">Fan Choice</h1>
@@ -88,11 +61,7 @@ const Home = () => {
         {ratearr.map((item) => {
           return (
             <>
-              <MovieContainer
-                currentUser={currentUser}
-                item={item}
-                actionFunc={handlesubmit}
-              />
+              <MovieContainer currentUser={currentUser} item={item} />
             </>
           );
         })}
