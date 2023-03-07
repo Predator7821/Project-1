@@ -16,7 +16,7 @@ import MarkMovieActions from "./MarkMovieActions";
 import { UserDataContext } from "../context/Passdata";
 
 const MovieContainer = ({ currentUser, item }) => {
-  const { userData } = useContext(UserDataContext);
+  const { userData, setUserData } = useContext(UserDataContext);
   const [value, setValue] = useState();
   const [movieData, setMovieData] = useState([]);
   const [ratedMovie, setRatedMovie] = useState({});
@@ -38,6 +38,7 @@ const MovieContainer = ({ currentUser, item }) => {
             },
           })
           .then((res) => {
+            setUserData(res);
             console.log(res);
           });
       }
@@ -50,10 +51,10 @@ const MovieContainer = ({ currentUser, item }) => {
   useEffect(() => {
     if (currentUser !== false) {
       if (userData) {
-        const ratedMovieExsists = userData.MovieRating.filter(
+        const ratedMovieExsists = userData?.MovieRating?.filter(
           (mv) => mv.Movieid === item._id
         );
-        if (ratedMovieExsists.length > 0) {
+        if (ratedMovieExsists?.length > 0) {
           setRatedMovie(ratedMovieExsists[0]);
         }
       }
@@ -83,9 +84,7 @@ const MovieContainer = ({ currentUser, item }) => {
       <CardContent>
         <Typography>
           <StarIcon></StarIcon>
-          {item.rating.rate.map((e) => {
-            return e / item.rating.rate.length;
-          })}
+          {item.rating.rate}
         </Typography>
         <Typography>{item.name}</Typography>
         <Button>
@@ -96,6 +95,13 @@ const MovieContainer = ({ currentUser, item }) => {
         name="simple-controlled"
         value={value || ratedMovie.rate}
         onChange={(event, newValue) => {
+          const wasMovieRated = userData?.MovieRating.findIndex(
+            (mv) => mv.Movieid === item._id
+          );
+          console.log(wasMovieRated, item._id);
+          if (wasMovieRated > -1) {
+            return;
+          }
           sendrate(newValue);
         }}
       />

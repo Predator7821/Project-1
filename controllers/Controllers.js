@@ -210,7 +210,7 @@ export const movieUpdateController = async (req, res) => {
     user.MovieRating.push({ Movieid: movieid, rate: req.body.rating.rate });
     await movie.save();
     await user.save();
-    res.status(200).send(movie);
+    res.status(200).send({ movie, user });
   } catch (e) {
     console.log(e);
     res.status(500).send({ message: e });
