@@ -14,12 +14,15 @@ import axios from "axios";
 
 import MarkMovieActions from "./MarkMovieActions";
 import { UserDataContext } from "../context/Passdata";
+import "./MovieContainer.css";
 
 const MovieContainer = ({ currentUser, item }) => {
   const { userData, setUserData } = useContext(UserDataContext);
   const [value, setValue] = useState();
   const [movieData, setMovieData] = useState([]);
   const [ratedMovie, setRatedMovie] = useState({});
+  const [loading, setLoading] = useState(true);
+  const avrageMovieRating = item.rating.rate / item.rating.count || 0;
   const getrating = async () => {
     fetch(`http://127.0.0.1:8000/api/movies/`)
       .then((response) => response.json())
@@ -27,20 +30,23 @@ const MovieContainer = ({ currentUser, item }) => {
   };
 
   const sendrate = (newValue) => {
+    setLoading(false);
     setValue(newValue);
     if (currentUser !== false) {
       if (newValue >= 1 && newValue <= 5) {
         axios
           .put(`http://127.0.0.1:8000/api/${userData._id}/movies/${item._id}`, {
             rating: {
-              rate: newValue,
-              count: item.rating.count++,
+              rate: newValue + item.rating.rate,
+              count: item.rating.count + 1,
             },
           })
           .then((res) => {
-            setUserData(res);
+            setUserData(res.data.user);
             console.log(res);
-          });
+          })
+          .catch((e) => console.log(e))
+          .finally(() => setLoading(true));
       }
     }
   };
@@ -82,29 +88,43 @@ const MovieContainer = ({ currentUser, item }) => {
       </Button>
 
       <CardContent>
-        <Typography>
+        <Typography className="starstonight">
           <StarIcon></StarIcon>
-          {item.rating.rate}
+          {avrageMovieRating} ({item.rating.count})
         </Typography>
         <Typography>{item.name}</Typography>
         <Button>
           <a href={item.trailer}>Trailer</a>
         </Button>
       </CardContent>
-      <Rating
-        name="simple-controlled"
-        value={value || ratedMovie.rate}
-        onChange={(event, newValue) => {
-          const wasMovieRated = userData?.MovieRating.findIndex(
-            (mv) => mv.Movieid === item._id
-          );
-          console.log(wasMovieRated, item._id);
-          if (wasMovieRated > -1) {
-            return;
-          }
-          sendrate(newValue);
-        }}
-      />
+      {loading ? (
+        <>
+          <Rating
+            name="simple-controlled"
+            value={value || ratedMovie.rate}
+            onChange={(event, newValue) => {
+              console.log(userData);
+              const wasMovieRated = userData?.MovieRating.findIndex(
+                (mv) => mv.Movieid === item._id
+              );
+              console.log(wasMovieRated, item._id);
+              if (wasMovieRated > -1) {
+                return;
+              }
+              sendrate(newValue);
+            }}
+          />
+        </>
+      ) : (
+        <div>
+          <img
+            width={50}
+            height={50}
+            src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmVlNWQ3ODMzMjBiOGYwYjAxYjAwYzY1MGQ4NTE0ODJmZGQ5YjQ0YSZjdD1n/2oLtN5SdHX6J4cm9d1/giphy.gif"
+            alt=""
+          />
+        </div>
+      )}
     </Card>
   );
 };

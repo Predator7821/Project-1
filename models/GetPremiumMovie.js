@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const GetPremiumRating = new mongoose.Schema({
   rate: {
-    type: Array,
+    type: Number,
   },
   count: {
     type: Number,
