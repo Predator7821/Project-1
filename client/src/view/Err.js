@@ -17,9 +17,9 @@ const Err = () => {
 
   const ranNum = parseInt(Math.random() * mistakeArr.length);
   return (
-    <div className="brokenheader">
-      <div className="movesidetoside">
-        <div className="oneabovetheother">
+    <div className="brokenHeader">
+      <div className="moveSideToSide">
+        <div className="oneAboveTheOther">
           <img
             src="https://cdn.discordapp.com/attachments/1027536882483085315/1073594609114042398/images.jpg"
             alt=""

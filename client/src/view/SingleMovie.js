@@ -7,19 +7,32 @@ import SingleMovieMap from "../comps/SingleMovieMap";
 
 const SingleMovie = () => {
   const params = useParams();
+  const [loading, setLoading]=useState(false)
   const [movie, setMovie] = useState({});
 
-  const movieview = async () => {
+  const movieView = async () => {
+    setLoading(true)
     fetch(`http://127.0.0.1:8000/api/movies/${params.movieid}`)
       .then((response) => response.json())
-      .then((data) => setMovie(data));
+      .then((data) => setMovie(data)).finally(setLoading(false));
   };
 
   useEffect(() => {
-    movieview();
+    setLoading(true)
+    movieView();
+    setLoading(false)
   }, []);
 
-  return <SingleMovieMap x={movie} ReactPlayer={ReactPlayer} />;
+  return (
+    <>
+    {
+      loading &&(
+      <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmVlNWQ3ODMzMjBiOGYwYjAxYjAwYzY1MGQ4NTE0ODJmZGQ5YjQ0YSZjdD1n/2oLtN5SdHX6J4cm9d1/giphy.gif" alt=""/>
+    )}
+  <SingleMovieMap x={movie} ReactPlayer={ReactPlayer} />
+  </>
+  
+  )
 };
 
 export default SingleMovie;

@@ -9,7 +9,7 @@
   justify-content: center;
   align-items: center;
 }
-.upanddown {
+.upAndDown {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -30,7 +30,7 @@
   flex-direction: row;
   overflow-x: scroll;
 }
-.smallpfp {
+.smallPFP {
   border-radius: 75%;
 }
 .putmewhereineedtobe {
@@ -41,7 +41,7 @@
 .spacethosethings {
   padding: 10px;
 }
-.fixmybdays{
+.fixMyBDays{
   display: flex;
   flex-direction: column;
   align-items: center;

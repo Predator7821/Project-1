@@ -1,24 +1,25 @@
 import React, { useContext, useEffect, useState } from "react";
-import { User_idcontext } from "../context/Passdata";
+import { User_IdContext } from "../context/Passdata";
 import { Button } from "@mui/material";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Image } from "cloudinary-react";
 
 import {
-  Logincontext,
-  Currentusercontext,
-  Checkpremiumcontext,
-  Movieagecontext,
+  LoginContext,
+  CurrentUserContext,
+  CheckPremiumContext,
+  MovieAgeContext,
 } from "../context/Passdata";
-import "./Singleprofile.css";
+import "./SingleProfile.css";
 
-const Singleprofile = () => {
-  const { setIsLoggedIn } = useContext(Logincontext);
-  const { setCurrentUser } = useContext(Currentusercontext);
-  const { setIspremium } = useContext(Checkpremiumcontext);
-  const { setMovieAge } = useContext(Movieagecontext);
-  const { userid } = useContext(User_idcontext);
+const SingleProfile = () => {
+  const { setIsLoggedIn } = useContext(LoginContext);
+  const { setCurrentUser } = useContext(CurrentUserContext);
+  const { setIspremium } = useContext(CheckPremiumContext);
+  const { setMovieAge } = useContext(MovieAgeContext);
+  const { userid } = useContext(User_IdContext);
+  const [loading, setLoading]=useState(false)
   const [imageSelected, setImageSelected] = useState("");
   const [bio, setBio] = useState([]);
   const [userData, setUserData] = useState({
@@ -26,21 +27,23 @@ const Singleprofile = () => {
   });
   let userpic = "";
 
-  const handlesubmit = () => {
+  const handleSubmit = () => {
+    setLoading(true)
     axios
       .put(`http://127.0.0.1:8000/api/users/${userid}`, {
         Bio: userData.Bio,
       })
-      .then((res) => {});
+      .then((res) => {}).finally(setLoading(false));
   };
 
-  const fetchbio = async () => {
+  const fetchBio = async () => {
+    setLoading(true)
     fetch(`http://127.0.0.1:8000/api/users/${userid}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
         setBio(data);
-      });
+      }).finally(setLoading(false));
   };
 
   const handle = (e) => {
@@ -57,6 +60,7 @@ const Singleprofile = () => {
   };
 
   const uploadImage = async () => {
+    setLoading(true)
     const formData = new FormData();
     formData.append("file", imageSelected);
     formData.append("upload_preset", "mqzvcywi");
@@ -64,28 +68,30 @@ const Singleprofile = () => {
       .post(`https://api.cloudinary.com/v1_1/dbuindglg/image/upload`, formData)
       .then((res) => {
         userpic = res.data.url;
-      });
-
+      }).finally(setLoading(false));
+setLoading(true)
     await axios
       .put(`http://127.0.0.1:8000/api/users/${userid}`, {
         pfp: userpic,
       })
       .then((res) => {
         console.log(res);
-      });
+      }).finally(setLoading(false));
   };
-  const deleteuser = async () => {
+  const deleteUser = async () => {
+    setLoading(true)
     await axios
       .delete(`http://127.0.0.1:8000/api/users/delete/${userid}`)
       .then((res) => {
         userpic = res.data.url;
-      });
+      }).finally(setLoading(false));
     setCurrentUser(false);
     setIsLoggedIn(false);
     setIspremium(false);
     setMovieAge(false);
   };
   const removie = (movieName) => {
+    setLoading(true)
     console.log(movieName);
     const clone = { ...bio };
     const index = clone.Watchlist.findIndex((mv) => mv === movieName);
@@ -98,14 +104,17 @@ const Singleprofile = () => {
       .then((res) => {
         console.log(res);
         setBio(res.data);
-      });
+      }).finally(setLoading(false));
   };
 
   useEffect(() => {
-    fetchbio();
+    fetchBio();
   }, []);
   return (
-    <div className="theheaderissodiff">
+    <div className="theHeaderIsSoDiff">
+      {loading &&(
+        <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmVlNWQ3ODMzMjBiOGYwYjAxYjAwYzY1MGQ4NTE0ODJmZGQ5YjQ0YSZjdD1n/2oLtN5SdHX6J4cm9d1/giphy.gif" alt=""/>
+      )}
       <Image
         style={{ width: 100, height: 100 }}
         cloudName="dbuindglg"
@@ -116,9 +125,9 @@ const Singleprofile = () => {
         onChange={(e) => handle(e)}
         value={userData.Bio}
         name="Bio"
-        className="sizebio"
+        className="sizeBio"
       ></textarea>
-      <Button onClick={handlesubmit}>update bio</Button>
+      <Button onClick={handleSubmit}>update bio</Button>
       <div>
         <Button onClick={() => logout()}>
           <Link to={"/login"}>Logout</Link>
@@ -128,7 +137,7 @@ const Singleprofile = () => {
           onChange={(event) => setImageSelected(event.target.files[0])}
         />
         <button onClick={uploadImage}>submit</button>
-        <Button onClick={deleteuser}>
+        <Button onClick={deleteUser}>
           <Link to={"/"}>Delete User</Link>
         </Button>
         {bio?.Watchlist?.map((e) => {
@@ -145,4 +154,4 @@ const Singleprofile = () => {
   );
 };
 
-export default Singleprofile;
+export default SingleProfile;

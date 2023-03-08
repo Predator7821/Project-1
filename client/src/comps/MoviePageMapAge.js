@@ -2,30 +2,30 @@ import React, { useContext } from "react";
 
 import MovieContainer from "./MovieContainer";
 const MoviePageMapAge = ({
-  handlesubmit,
+  handleSubmit,
   currentUser,
   cat,
   setCat,
   Runtime,
-  ageofmovie,
+  ageOfMovie,
   setLength,
-  Movietypefilter,
-  bestmovie,
+  MovieTypeFilter,
+  bestMovie,
   length,
 }) => {
   return (
     <>
-      <div className="filtersorter">
-        <Movietypefilter cat={cat} setCat={setCat} ageofmovie={ageofmovie} />
+      <div className="filterSorter">
+        <MovieTypeFilter cat={cat} setCat={setCat} ageOfMovie={ageOfMovie} />
         <Runtime length={length} setLength={setLength} />
       </div>
       <div className="flexer">
-        {bestmovie.map((item) => {
+        {bestMovie.map((item) => {
           return (
             <MovieContainer
               item={item}
               currentUser={currentUser}
-              actionFunc={handlesubmit}
+              actionFunc={handleSubmit}
             />
           );
         })}

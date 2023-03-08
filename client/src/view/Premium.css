@@ -1,4 +1,4 @@
-.worstheader {
+.worstHeader {
   padding: 100px;
 }
 .placeholder {
@@ -7,7 +7,7 @@
   justify-content: center;
   align-items: center;
 }
-.gotothecetner{
+.goToTheCetner{
   display: flex;
   justify-content: center;
   align-items: center;

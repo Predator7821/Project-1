@@ -14,7 +14,7 @@ const UserResultMap = ({ e }) => {
         />
       </Link>
 
-      <CardContent className="makeitlookbetter">
+      <CardContent className="makeItLookBetter">
         <Typography>{e.Username}</Typography>
       </CardContent>
     </Card>

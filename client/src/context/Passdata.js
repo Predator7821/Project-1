@@ -1,19 +1,19 @@
 import { createContext } from "react";
 
-export const Logincontext = createContext(null);
+export const LoginContext = createContext(null);
 
-export const Currentusercontext = createContext(null);
+export const CurrentUserContext = createContext(null);
 
-export const Searchresultscontext = createContext(null);
+export const SearchResultsContext = createContext(null);
 
-export const Catsearchcontext = createContext(null);
+export const CatSearchContext = createContext(null);
 
-export const Checkpremiumcontext = createContext(null);
+export const CheckPremiumContext = createContext(null);
 
-export const User_idcontext = createContext(null);
+export const User_IdContext = createContext(null);
 
-export const Moviefetchcontext = createContext(null);
+export const MovieFetchContext = createContext(null);
 
-export const Movieagecontext = createContext(null);
+export const MovieAgeContext = createContext(null);
 
 export const UserDataContext = createContext(null);

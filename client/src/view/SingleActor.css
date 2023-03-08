@@ -1,16 +1,16 @@
-.icantsee {
+.iCantSee {
   padding: 100px;
 }
-.dropittotheside {
+.dropItToTheSide {
   display: flex;
   flex-direction: row;
 }
-.beautifulname {
+.beautifulName {
   min-width: 15%;
   display: flex;
   justify-content: space-between;
 }
-.namesofimages {
+.namesOfImages {
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -14,19 +14,19 @@ const Menu = ({ menu, setMenu }) => {
         open={menu}
         onClose={() => setMenu(false)}
       >
-        <div className="changeit">
+        <div className="changeIt">
           <Button>
-            <Link className="bewhiteplz" to={`actors`}>
+            <Link className="beWhitePlz" to={`actors`}>
               Actors
             </Link>
           </Button>
           <Button>
-            <Link className="bewhiteplz" to={`movies`}>
+            <Link className="beWhitePlz" to={`movies`}>
               movies
             </Link>
           </Button>
           <Button>
-            <Link className="bewhiteplz" to={`users`}>
+            <Link className="beWhitePlz" to={`users`}>
               users
             </Link>
           </Button>

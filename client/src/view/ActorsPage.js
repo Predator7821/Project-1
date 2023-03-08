@@ -7,24 +7,32 @@ import {
   Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 import "./ActorsPage.css";
 
 const ActorsPage = () => {
   const [actor, setActor] = useState([]);
-
-  const FetchActor = async () => {
-    fetch("http://127.0.0.1:8000/api/actors")
-      .then((response) => response.json())
-      .then((data) => setActor(data));
-  };
-
+  const [loading, setLoading]=useState(false)
+  
   useEffect(() => {
-    FetchActor();
+    setLoading(true)
+    axios({
+      method:"GET",
+      url:"http://127.0.0.1:8000/api/actors"
+    }).then((res)=>{
+      console.log(res.data);
+      setActor(res.data)
+    }).catch((e)=>console.log(e)).finally(()=>setLoading(false))
   }, []);
 
   return (
-    <div className="actorcards">
+    <div className="actorCards">
+      {loading &&(
+        <div className="loading">
+        <img className="loading" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmVlNWQ3ODMzMjBiOGYwYjAxYjAwYzY1MGQ4NTE0ODJmZGQ5YjQ0YSZjdD1n/2oLtN5SdHX6J4cm9d1/giphy.gif" alt=""/>
+        </div>
+      )}
       {actor.map((person) => {
         return (
           <Card sx={{ maxWidth: 400 }}>

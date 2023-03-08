@@ -5,25 +5,32 @@ import "./SingleActor.css";
 
 const SingleActor = () => {
   const params = useParams();
+  const [loading, setLoading]=useState(false)
   const [actor, setActor] = useState({});
 
-  const actorview = async () => {
+  const actorView = async () => {
+    setLoading(true)
     fetch(`http://127.0.0.1:8000/api/actors/${params.actorid}`)
       .then((response) => response.json())
-      .then((data) => setActor(data));
+      .then((data) => setActor(data)).finally(setLoading(false));
   };
 
   useEffect(() => {
-    actorview();
+    setLoading(true)
+    actorView();
+    setLoading(false)
   }, []);
 
   return (
-    <div className="icantsee namesofimages">
-      <div className="beautifulname">
+    <div className="iCantSee namesOfImages">
+      {loading &&(
+        <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmVlNWQ3ODMzMjBiOGYwYjAxYjAwYzY1MGQ4NTE0ODJmZGQ5YjQ0YSZjdD1n/2oLtN5SdHX6J4cm9d1/giphy.gif" alt=""/>
+      )}
+      <div className="beautifulName">
         <h1>{actor?.name?.first_name} </h1>
         <h1> {actor?.name?.last_name}</h1>
       </div>
-      <div className="dropittotheside">
+      <div className="dropItToTheSide">
         <img width={400} height={225} src={actor.picture} alt="" />
 
         <span>{actor.biography}</span>

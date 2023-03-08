@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import MovieContainer from "./MovieContainer";
 
-const PremiumCardMap = ({ item, currentUser, handlesubmit }) => {
+const PremiumCardMap = ({ item, currentUser, handleSubmit }) => {
   return (
     <MovieContainer
       item={item}
       currentUser={currentUser}
-      handlesubmit={handlesubmit}
+      handleSubmit={handleSubmit}
     />
   );
 };

@@ -1,16 +1,16 @@
-.upanddown {
+.upAndDown {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.sidetoside {
+.sideToSide {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
-.fixit {
+.fixIt {
   padding: 100px;
 }
 span{

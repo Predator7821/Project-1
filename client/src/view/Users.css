@@ -1,11 +1,11 @@
-.theheaderisbroken {
+.theHeaderIsBroken {
   padding: 100px;
 }
-.cardfixer {
+.cardFixer {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
-.idkanymore {
+.idkAnymore {
   padding: 25px;
 }

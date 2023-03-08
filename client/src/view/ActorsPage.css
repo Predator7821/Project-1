@@ -1,6 +1,12 @@
-.actorcards {
+.actorCards {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   padding: 100px;
+}
+.loading{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }

@@ -1,14 +1,14 @@
 import { useState } from "react";
 
 import {
-  Currentusercontext,
-  Logincontext,
-  Searchresultscontext,
-  Catsearchcontext,
-  Checkpremiumcontext,
-  User_idcontext,
-  Moviefetchcontext,
-  Movieagecontext,
+  CurrentUserContext,
+  LoginContext,
+  SearchResultsContext,
+  CatSearchContext,
+  CheckPremiumContext,
+  User_IdContext,
+  MovieFetchContext,
+  MovieAgeContext,
   UserDataContext,
 } from "./context/Passdata";
 import Main from "./view/Main";
@@ -19,36 +19,36 @@ function App() {
   const [currentUser, setCurrentUser] = useState(false);
   const [results, setResults] = useState("");
   const [searchCat, setSearchCat] = useState("Movies");
-  const [ispremium, setIspremium] = useState(false);
+  const [isPremium, setIsPremium] = useState(false);
   const [userid, setUserid] = useState("");
-  const [bestofdabest, setBestofdabest] = useState([]);
+  const [bestOfDaBest, setBestOfDaBest] = useState([]);
   const [movieAge, setMovieAge] = useState("");
   const [userData, setUserData] = useState({});
   return (
     <>
-      <Logincontext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
-        <Currentusercontext.Provider value={{ currentUser, setCurrentUser }}>
-          <Searchresultscontext.Provider value={{ results, setResults }}>
-            <Catsearchcontext.Provider value={{ searchCat, setSearchCat }}>
-              <Checkpremiumcontext.Provider value={{ ispremium, setIspremium }}>
-                <User_idcontext.Provider value={{ userid, setUserid }}>
-                  <Moviefetchcontext.Provider
-                    value={{ bestofdabest, setBestofdabest }}
+      <LoginContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+        <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
+          <SearchResultsContext.Provider value={{ results, setResults }}>
+            <CatSearchContext.Provider value={{ searchCat, setSearchCat }}>
+              <CheckPremiumContext.Provider value={{ isPremium, setIsPremium }}>
+                <User_IdContext.Provider value={{ userid, setUserid }}>
+                  <MovieFetchContext.Provider
+                    value={{ bestOfDaBest, setBestOfDaBest }}
                   >
-                    <Movieagecontext.Provider value={{ movieAge, setMovieAge }}>
+                    <MovieAgeContext.Provider value={{ movieAge, setMovieAge }}>
                       <UserDataContext.Provider
                         value={{ userData, setUserData }}
                       >
                         <Main />
                       </UserDataContext.Provider>
-                    </Movieagecontext.Provider>
-                  </Moviefetchcontext.Provider>
-                </User_idcontext.Provider>
-              </Checkpremiumcontext.Provider>
-            </Catsearchcontext.Provider>
-          </Searchresultscontext.Provider>
-        </Currentusercontext.Provider>
-      </Logincontext.Provider>
+                    </MovieAgeContext.Provider>
+                  </MovieFetchContext.Provider>
+                </User_IdContext.Provider>
+              </CheckPremiumContext.Provider>
+            </CatSearchContext.Provider>
+          </SearchResultsContext.Provider>
+        </CurrentUserContext.Provider>
+      </LoginContext.Provider>
     </>
   );
 }

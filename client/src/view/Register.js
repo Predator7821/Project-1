@@ -14,10 +14,10 @@ const Register = () => {
   });
 
   const handle = (e) => {
-    const newdata = { ...userData };
-    newdata[e.target.name] = e.target.value;
-    setUserData(newdata);
-    console.log(newdata);
+    const newData = { ...userData };
+    newData[e.target.name] = e.target.value;
+    setUserData(newData);
+    console.log(newData);
   };
 
   const handleRegister = (e) => {
@@ -36,7 +36,7 @@ const Register = () => {
   };
 
   return (
-    <div className="lotsfopads">
+    <div className="lotsOfPads">
       <TextField
         name="Username"
         onChange={(e) => handle(e)}

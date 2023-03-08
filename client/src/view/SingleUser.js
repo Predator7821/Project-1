@@ -6,18 +6,25 @@ import "./SingleUser.css";
 const SingleUser = () => {
   const params = useParams();
   const [user, setUser] = useState({});
+  const [loading, setLoading]=useState(false)
 
-  const userview = async () => {
+  const userView = async () => {
+    setLoading(true)
     fetch(`http://127.0.0.1:8000/api/users/${params.userid}`)
       .then((response) => response.json())
-      .then((data) => setUser(data));
+      .then((data) => setUser(data)).finally(setLoading(false));
   };
 
   useEffect(() => {
-    userview();
+    setLoading(true)
+    userView();
+    setLoading(false)
   }, []);
   return (
-    <div className="ihatestickyheaders">
+    <div className="iHateStickyHeaders">
+      {loading &&(
+        <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmVlNWQ3ODMzMjBiOGYwYjAxYjAwYzY1MGQ4NTE0ODJmZGQ5YjQ0YSZjdD1n/2oLtN5SdHX6J4cm9d1/giphy.gif" alt=""/>
+      )}
       <div className="profile">
         <img alt="" height={100} width={100} src={user.pfp} />
       </div>

@@ -3,10 +3,10 @@ import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-import { UserDataContext, User_idcontext } from "../context/Passdata";
+import { UserDataContext, User_IdContext } from "../context/Passdata";
 
 const MarkMovieActions = ({ currentUser, Icon, item }) => {
-  const { userid } = useContext(User_idcontext);
+  const { userid } = useContext(User_IdContext);
   const { userData, setUserData } = useContext(UserDataContext);
 
   const handleClick = async () => {

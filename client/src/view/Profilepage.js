@@ -1,9 +1,9 @@
 import React from "react";
 
-import "./Profilepage.css";
+import "./ProfilePage.css";
 
-const Profilepage = () => {
-  return <div className="omgthisheaderisawful"></div>;
+const ProfilePage = () => {
+  return <div className="omgThisHeaderIsAwful"></div>;
 };
 
-export default Profilepage;
+export default ProfilePage;

@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 
 const BirthdayContainer = ({ item }) => {
   return (
-    <div className="fixmybdays">
+    <div className="fixMyBDays">
       <Link to={`/actors/${item._id}`}>
         <img
           width={150}
           height={150}
-          className="smallpfp"
+          className="smallPFP"
           src={item.picture}
           alt=""
         />

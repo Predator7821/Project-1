@@ -1,76 +1,84 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Button, TextField } from "@mui/material";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 import {
-  Checkpremiumcontext,
-  Currentusercontext,
-  Logincontext,
-  Movieagecontext,
-  User_idcontext,
+  CheckPremiumContext,
+  CurrentUserContext,
+  LoginContext,
+  MovieAgeContext,
+  User_IdContext,
   UserDataContext,
 } from "../context/Passdata";
 import "./Login.css";
 
 const Login = () => {
-  const { isLoggedIn, setIsLoggedIn } = useContext(Logincontext);
-  const { currentUser, setCurrentUser } = useContext(Currentusercontext);
-  const { ispremium, setIspremium } = useContext(Checkpremiumcontext);
-  const { movieAge, setMovieAge } = useContext(Movieagecontext);
-  const { userid, setUserid } = useContext(User_idcontext);
+  const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const { isPremium, setIsPremium } = useContext(CheckPremiumContext);
+  const { movieAge, setMovieAge } = useContext(MovieAgeContext);
+  const { userId, setUserid } = useContext(User_IdContext);
   const { setUserData } = useContext(UserDataContext);
+  const [loading, setLoading]=useState(false)
   const [login, setLogin] = useState(false);
   const [user, setUser] = useState([]);
-  const logininfo = {
+  const loginInfo = {
     name: "",
     password: "",
   };
-
-  const getUser = async () => {
-    fetch("http://127.0.0.1:8000/api/users")
-      .then((response) => response.json())
-      .then((data) => setUser(data));
-  };
-
+  
   const logout = () => {
     setIsLoggedIn(false);
-    setIspremium(false);
+    setIsPremium(false);
     setCurrentUser(false);
     setMovieAge(false);
     setUserid(false);
   };
-
+ 
   const handleChange = () => {
+    console.log(loginInfo);
     for (let i = 0; i < user.length; i++) {
       if (
-        logininfo.name === user[i].Username &&
-        logininfo.password === user[i].Password
+        loginInfo.name === user[i].Username &&
+        loginInfo.password === user[i].Password
       ) {
         setMovieAge(user[i].Age);
         setIsLoggedIn(true);
         setUserid(user[i]._id);
         setUserData(user[i]);
         if (user[i].premium === true) {
-          setIspremium(true);
+          setIsPremium(true);
         }
       }
     }
   };
+  
   useEffect(() => {
-    getUser();
+    setLoading(true)
+    axios({
+      method:"GET",
+      url:"http://127.0.0.1:8000/api/users"
+    }).then((res)=>{
+      console.log(res.data);
+      setUser(res.data)
+    }).catch((e)=>console.log(e)).finally(()=>setLoading(false))
   }, []);
 
   return (
-    <div className="extenedthemistake">
+    <div className="extenedTheMistake">
+      {loading &&(
+        <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmVlNWQ3ODMzMjBiOGYwYjAxYjAwYzY1MGQ4NTE0ODJmZGQ5YjQ0YSZjdD1n/2oLtN5SdHX6J4cm9d1/giphy.gif" alt=""/>
+      )}
       {isLoggedIn ? (
         <div>
           <Button onClick={() => logout()}>Logout</Button>
         </div>
       ) : (
-        <div className="lotsfopads">
+        <div className="lotsOfPads">
           <TextField
             onBlur={(event) => {
-              logininfo.name = event.target.value;
+              loginInfo.name = event.target.value;
               setCurrentUser(event.target.value);
             }}
             name="username"
@@ -83,7 +91,7 @@ const Login = () => {
             type="password"
             variant="outlined"
             onBlur={(event) => {
-              logininfo.password = event.target.value;
+              loginInfo.password = event.target.value;
             }}
           />
           <div>

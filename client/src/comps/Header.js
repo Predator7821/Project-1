@@ -5,20 +5,18 @@ import ManageSearchIcon from "@mui/icons-material/ManageSearch";
 
 import SearchCatSelection from "./SearchCatSelection";
 import SearchBar from "./SearchBar";
-import { Logincontext, Currentusercontext } from "../context/Passdata";
+import { LoginContext, CurrentUserContext } from "../context/Passdata";
 import Menu from "./Menu";
 import "./Header.css";
 
 const Header = () => {
-  const { isLoggedIn, setIsLoggedIn } = useContext(Logincontext);
-  const { currentUser, setCurrentUser } = useContext(Currentusercontext);
+  const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const [menu, setMenu] = useState(false);
   const [temp, setTemp] = useState();
 
-  const search = () => {};
-
   return (
-    <div className="centersize sticker moveabit">
+    <div className="centersize sticker moveAbit">
       <Button>
         <Link to={`/`}>
           <img
@@ -36,9 +34,9 @@ const Header = () => {
       <Box>
         <SearchCatSelection />
         <SearchBar />
-        <Button onClick={() => search()}>
+        <Button>
           <Link to={"/results"}>
-            <ManageSearchIcon className="bewhiteplz"></ManageSearchIcon>
+            <ManageSearchIcon className="beWhitePlz"></ManageSearchIcon>
           </Link>
         </Button>
       </Box>
@@ -55,25 +53,25 @@ const Header = () => {
       </Button>
       {currentUser ? (
         <Button>
-          <Link className="pleasebewhite" to={`/profile/${currentUser}`}>
+          <Link className="pleaseBeWhite" to={`/profile/${currentUser}`}>
             Watch Later
           </Link>
         </Button>
       ) : (
         <Button>
-          <Link className="pleasebewhite" to={"/login"}>
+          <Link className="pleaseBeWhite" to={"/login"}>
             Watch Later
           </Link>
         </Button>
       )}
 
       {isLoggedIn ? (
-        <Link className="bewhiteplz" to={`/profile/${currentUser}`}>
+        <Link className="beWhitePlz" to={`/profile/${currentUser}`}>
           <span>Hello, {currentUser}!</span>
         </Link>
       ) : (
         <Button>
-          <Link className="bewhiteplz" to={"login"}>
+          <Link className="beWhitePlz" to={"login"}>
             Login
           </Link>
         </Button>

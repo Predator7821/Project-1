@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { TextField } from "@mui/material";
 
-import { Searchresultscontext } from "../context/Passdata";
+import { SearchResultsContext } from "../context/Passdata";
 
 const SearchBar = () => {
-  const { results, setResults } = useContext(Searchresultscontext);
+  const { results, setResults } = useContext(SearchResultsContext);
 
   return (
     <>

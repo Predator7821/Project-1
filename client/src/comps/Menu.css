@@ -1,4 +1,4 @@
-.changeit {
+.changeIt {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -7,6 +7,6 @@
   color: white;
   text-decoration: none;
 }
-.bewhiteplz {
+.beWhitePlz {
   color: white;
 }

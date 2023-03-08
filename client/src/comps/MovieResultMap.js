@@ -14,7 +14,7 @@ const MovieResultMap = ({ e }) => {
         />
       </Link>
 
-      <CardContent className="makeitlookbetter">
+      <CardContent className="makeItLookBetter">
         <Typography>{e.name}</Typography>
         <Typography>{e.category}</Typography>
         <Typography>{e.type}</Typography>

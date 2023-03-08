@@ -21,16 +21,12 @@ const MovieContainer = ({ currentUser, item }) => {
   const [value, setValue] = useState();
   const [movieData, setMovieData] = useState([]);
   const [ratedMovie, setRatedMovie] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [loadingRating, setLoadingRating] = useState(true);
   const avrageMovieRating = item.rating.rate / item.rating.count || 0;
-  const getrating = async () => {
-    fetch(`http://127.0.0.1:8000/api/movies/`)
-      .then((response) => response.json())
-      .then((data) => setMovieData(data));
-  };
 
-  const sendrate = (newValue) => {
-    setLoading(false);
+  const sendRate = (newValue) => {
+    setLoadingRating(false);
     setValue(newValue);
     if (currentUser !== false) {
       if (newValue >= 1 && newValue <= 5) {
@@ -46,12 +42,19 @@ const MovieContainer = ({ currentUser, item }) => {
             console.log(res);
           })
           .catch((e) => console.log(e))
-          .finally(() => setLoading(true));
+          .finally(() => setLoadingRating(true));
       }
     }
   };
   useEffect(() => {
-    getrating();
+    setLoading(true)
+    axios({
+      method:"GET",
+      url:"http://127.0.0.1:8000/api/movies/"
+    }).then((res)=>{
+      console.log(res.data);
+      setMovieData(res.data)
+    }).catch((e)=>console.log(e)).finally(()=>setLoading(false))
   }, []);
 
   useEffect(() => {
@@ -68,6 +71,10 @@ const MovieContainer = ({ currentUser, item }) => {
   }, [userData]);
 
   return (
+    <>
+    {loading && (
+      <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmVlNWQ3ODMzMjBiOGYwYjAxYjAwYzY1MGQ4NTE0ODJmZGQ5YjQ0YSZjdD1n/2oLtN5SdHX6J4cm9d1/giphy.gif" alt="" />
+    )}
     <Card sx={{ minWidth: 345, maxWidth: 345, margin: 1 }}>
       <CardContent>
         <MarkMovieActions
@@ -88,7 +95,7 @@ const MovieContainer = ({ currentUser, item }) => {
       </Button>
 
       <CardContent>
-        <Typography className="starstonight">
+        <Typography className="starsTonight">
           <StarIcon></StarIcon>
           {avrageMovieRating} ({item.rating.count})
         </Typography>
@@ -97,7 +104,7 @@ const MovieContainer = ({ currentUser, item }) => {
           <a href={item.trailer}>Trailer</a>
         </Button>
       </CardContent>
-      {loading ? (
+      {loadingRating ? (
         <>
           <Rating
             name="simple-controlled"
@@ -111,7 +118,7 @@ const MovieContainer = ({ currentUser, item }) => {
               if (wasMovieRated > -1) {
                 return;
               }
-              sendrate(newValue);
+              sendRate(newValue);
             }}
           />
         </>
@@ -126,6 +133,7 @@ const MovieContainer = ({ currentUser, item }) => {
         </div>
       )}
     </Card>
+    </>
   );
 };
 

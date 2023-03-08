@@ -1,18 +1,18 @@
-.thatfuckingheader {
+.ThatFuckingHeader {
   padding: 100px;
 }
-.makeitfitthecenter {
+.makeItFitTheCenter {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.makeitlookbetter {
+.makeItLookBetter {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
-.organizedcards {
+.organizedCards {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

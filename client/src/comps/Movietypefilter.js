@@ -2,23 +2,23 @@ import React, { useContext } from "react";
 import { Box } from "@mui/system";
 import { FormControl, Select, InputLabel, MenuItem } from "@mui/material";
 
-import { Moviefetchcontext, Currentusercontext } from "../context/Passdata";
+import { MovieFetchContext, CurrentUserContext } from "../context/Passdata";
 
-const Movietypefilter = ({ cat, setCat, ageofmovie }) => {
-  const { bestofdabest, setBestofdabest } = useContext(Moviefetchcontext);
-  const { currentUser, setCurrentUser } = useContext(Currentusercontext);
+const MovieTypeFilter = ({ cat, setCat, ageOfMovie }) => {
+  const { bestOfDaBest, setBestOfDaBest } = useContext(MovieFetchContext);
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
-  const categories = bestofdabest
+  const categories = bestOfDaBest
     .map((p) => p.category)
     .filter((value, index, array) => array.indexOf(value) === index);
   categories.unshift("All Movies");
-  let agecategories = [];
+  let ageCategories = [];
 
   if (currentUser != false) {
-    agecategories = ageofmovie
+    ageCategories = ageOfMovie
       .map((p) => p.category)
       .filter((value, index, array) => array.indexOf(value) === index);
-    agecategories.unshift("All Movies");
+      ageCategories.unshift("All Movies");
   }
 
   const handleSelect = (e) => {
@@ -37,7 +37,7 @@ const Movietypefilter = ({ cat, setCat, ageofmovie }) => {
               label="categories:"
               onChange={handleSelect}
             >
-              {agecategories.map((i, index) => (
+              {ageCategories.map((i, index) => (
                 <MenuItem value={i} key={index}>
                   {i}
                 </MenuItem>
@@ -69,4 +69,4 @@ const Movietypefilter = ({ cat, setCat, ageofmovie }) => {
   );
 };
 
-export default Movietypefilter;
+export default MovieTypeFilter;
