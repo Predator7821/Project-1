@@ -19,7 +19,7 @@ const SingleProfile = () => {
   const { setIspremium } = useContext(CheckPremiumContext);
   const { setMovieAge } = useContext(MovieAgeContext);
   const { userid } = useContext(User_IdContext);
-  const [loading, setLoading]=useState(false)
+  const [loading, setLoading] = useState(false);
   const [imageSelected, setImageSelected] = useState("");
   const [bio, setBio] = useState([]);
   const [userData, setUserData] = useState({
@@ -28,22 +28,24 @@ const SingleProfile = () => {
   let userpic = "";
 
   const handleSubmit = () => {
-    setLoading(true)
+    setLoading(true);
     axios
       .put(`http://127.0.0.1:8000/api/users/${userid}`, {
         Bio: userData.Bio,
       })
-      .then((res) => {}).finally(setLoading(false));
+      .then((res) => {})
+      .finally(setLoading(false));
   };
 
   const fetchBio = async () => {
-    setLoading(true)
+    setLoading(true);
     fetch(`http://127.0.0.1:8000/api/users/${userid}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
         setBio(data);
-      }).finally(setLoading(false));
+      })
+      .finally(setLoading(false));
   };
 
   const handle = (e) => {
@@ -57,10 +59,11 @@ const SingleProfile = () => {
     setIspremium(false);
     setCurrentUser(false);
     setMovieAge(false);
+    localStorage.removeItem("auth");
   };
 
   const uploadImage = async () => {
-    setLoading(true)
+    setLoading(true);
     const formData = new FormData();
     formData.append("file", imageSelected);
     formData.append("upload_preset", "mqzvcywi");
@@ -68,30 +71,34 @@ const SingleProfile = () => {
       .post(`https://api.cloudinary.com/v1_1/dbuindglg/image/upload`, formData)
       .then((res) => {
         userpic = res.data.url;
-      }).finally(setLoading(false));
-setLoading(true)
+      })
+      .finally(setLoading(false));
+    setLoading(true);
     await axios
       .put(`http://127.0.0.1:8000/api/users/${userid}`, {
         pfp: userpic,
       })
       .then((res) => {
         console.log(res);
-      }).finally(setLoading(false));
+      })
+      .finally(setLoading(false));
   };
   const deleteUser = async () => {
-    setLoading(true)
+    setLoading(true);
     await axios
       .delete(`http://127.0.0.1:8000/api/users/delete/${userid}`)
       .then((res) => {
         userpic = res.data.url;
-      }).finally(setLoading(false));
+      })
+      .finally(setLoading(false));
     setCurrentUser(false);
     setIsLoggedIn(false);
     setIspremium(false);
     setMovieAge(false);
+    localStorage.removeItem("auth");
   };
   const removie = (movieName) => {
-    setLoading(true)
+    setLoading(true);
     console.log(movieName);
     const clone = { ...bio };
     const index = clone.Watchlist.findIndex((mv) => mv === movieName);
@@ -104,7 +111,8 @@ setLoading(true)
       .then((res) => {
         console.log(res);
         setBio(res.data);
-      }).finally(setLoading(false));
+      })
+      .finally(setLoading(false));
   };
 
   useEffect(() => {
@@ -112,8 +120,11 @@ setLoading(true)
   }, []);
   return (
     <div className="theHeaderIsSoDiff">
-      {loading &&(
-        <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmVlNWQ3ODMzMjBiOGYwYjAxYjAwYzY1MGQ4NTE0ODJmZGQ5YjQ0YSZjdD1n/2oLtN5SdHX6J4cm9d1/giphy.gif" alt=""/>
+      {loading && (
+        <img
+          src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmVlNWQ3ODMzMjBiOGYwYjAxYjAwYzY1MGQ4NTE0ODJmZGQ5YjQ0YSZjdD1n/2oLtN5SdHX6J4cm9d1/giphy.gif"
+          alt=""
+        />
       )}
       <Image
         style={{ width: 100, height: 100 }}

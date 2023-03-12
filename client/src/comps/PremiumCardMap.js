@@ -7,6 +7,7 @@ const PremiumCardMap = ({ item, currentUser, handleSubmit }) => {
       item={item}
       currentUser={currentUser}
       handleSubmit={handleSubmit}
+      isPremium
     />
   );
 };

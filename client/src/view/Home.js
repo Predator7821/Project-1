@@ -5,11 +5,12 @@ import Tinybox from "../comps/Tinybox";
 import MovieContainer from "../comps/MovieContainer";
 import BirthdayContainer from "../comps/BirthdayContainer";
 import { CurrentUserContext } from "../context/Passdata";
+import { SERVER_URL } from "../constants/const";
 import "./Home.css";
 
 const Home = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
-  const [loading, setLoading]=useState(false)
+  const [loading, setLoading] = useState(false);
   const [top, setTop] = useState([]);
   const [actor, setActor] = useState(false);
   const ranNum = useMemo(() => parseInt(Math.random() * top.length + 1), [top]);
@@ -18,14 +19,15 @@ const Home = () => {
   const rateArr = top.filter((i) => i.rating.count >= 500);
 
   const topmovies = async () => {
-    setLoading(true)
-    fetch("http://127.0.0.1:8000/api/movies")
+    setLoading(true);
+    fetch(`${SERVER_URL}/api/movies`)
       .then((response) => response.json())
-      .then((data) => setTop(data)).finally(setLoading(false));
+      .then((data) => setTop(data))
+      .finally(setLoading(false));
   };
 
   const bdayactor = async () => {
-    setLoading(true)
+    setLoading(true);
 
     fetch("http://127.0.0.1:8000/api/actorsDateOfBirth")
       .then((response) => response.json())
@@ -33,22 +35,26 @@ const Home = () => {
         if (data[0] != null) {
           setActor(data);
         }
-      }).finally(setLoading(false));
+      })
+      .finally(setLoading(false));
   };
 
   useEffect(() => {
-setLoading(true)
+    setLoading(true);
     bdayactor();
     topmovies();
-
   }, []);
   return (
-    
     <div className="enlarge">
-      {loading &&
-      <>
-        <img className="loading" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmVlNWQ3ODMzMjBiOGYwYjAxYjAwYzY1MGQ4NTE0ODJmZGQ5YjQ0YSZjdD1n/2oLtN5SdHX6J4cm9d1/giphy.gif" alt=""/>
-      </>}
+      {loading && (
+        <>
+          <img
+            className="loading"
+            src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmVlNWQ3ODMzMjBiOGYwYjAxYjAwYzY1MGQ4NTE0ODJmZGQ5YjQ0YSZjdD1n/2oLtN5SdHX6J4cm9d1/giphy.gif"
+            alt=""
+          />
+        </>
+      )}
       <Box>
         <h1 className="putmewhereineedtobe">discover somthing random</h1>
         <div className="sides">

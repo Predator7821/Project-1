@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import {
   CurrentUserContext,
@@ -10,9 +10,11 @@ import {
   MovieFetchContext,
   MovieAgeContext,
   UserDataContext,
+  AchiveThePremiumContext,
 } from "./context/Passdata";
 import Main from "./view/Main";
 import "./App.css";
+import { AMOUNT_OF_TIME_TO_STAY_LOGGED_IN_WITH_MS } from "./constants/const";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -24,6 +26,20 @@ function App() {
   const [bestOfDaBest, setBestOfDaBest] = useState([]);
   const [movieAge, setMovieAge] = useState("");
   const [userData, setUserData] = useState({});
+  const [premium, setPremium] = useState([]);
+
+  useEffect(() => {
+    localStorage.getItem("auth") >
+    Date.now() - AMOUNT_OF_TIME_TO_STAY_LOGGED_IN_WITH_MS
+      ? setIsLoggedIn(true)
+      : setIsLoggedIn(false);
+  }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      localStorage.getItem("user");
+    }
+  }, [isLoggedIn]);
   return (
     <>
       <LoginContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
@@ -39,7 +55,11 @@ function App() {
                       <UserDataContext.Provider
                         value={{ userData, setUserData }}
                       >
-                        <Main />
+                        <AchiveThePremiumContext.Provider
+                          value={{ premium, setPremium }}
+                        >
+                          <Main />
+                        </AchiveThePremiumContext.Provider>
                       </UserDataContext.Provider>
                     </MovieAgeContext.Provider>
                   </MovieFetchContext.Provider>

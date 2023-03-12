@@ -227,14 +227,20 @@ export const premiumUpdateController = async (req, res) => {
   }
 
   try {
-    const { premiumsid } = req.params;
-    const premium = await singlePremium({ _id: premiumsid });
-    if (!premium) {
+    const { premiumsid, userid } = req.params;
+    const premiums = await singlePremium({ _id: premiumsid });
+    if (!premiums) {
+      res.status(404).send({ message: "movie does not exist" });
+    }
+    updates.forEach((update) => (premiums[update] = req.body[update]));
+    const user = await singleUser(userid);
+    if (!user) {
       res.status(404).send({ message: "user does not exist" });
     }
-    updates.forEach((update) => (premium[update] = req.body[update]));
-    await premium.save();
-    res.status(200).send(premium);
+    user.MovieRating.push({ Movieid: premiumsid, rate: req.body.rating.rate });
+    await premiums.save();
+    await user.save();
+    res.status(200).send({ premiums, user });
   } catch (e) {
     console.log(e);
     res.status(500).send({ message: e });
