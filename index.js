@@ -1,3 +1,4 @@
+import { dirname } from "path";
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
@@ -62,7 +63,7 @@ app.get("/api/allDataBaseEnterys", getResults);
 app.delete("/api/users/delete/:userid", deleteUserController);
 
 app.get("*", (req, res) => {
-  res.sendFile(__dirname + "/client/build/index.html");
+  res.sendFile(dirname + "/client/build/index.html");
 });
 
 mongoose.connect(
