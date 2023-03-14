@@ -17,9 +17,9 @@ import { SERVER_URL } from "../constants/const";
 const SingleProfile = () => {
   const { setIsLoggedIn } = useContext(LoginContext);
   const { setCurrentUser } = useContext(CurrentUserContext);
-  const { setIspremium } = useContext(CheckPremiumContext);
+  const { setIsPremium } = useContext(CheckPremiumContext);
   const { setMovieAge } = useContext(MovieAgeContext);
-  const { userid } = useContext(User_IdContext);
+  const { userid, setUserId } = useContext(User_IdContext);
   const [loading, setLoading] = useState(false);
   const [imageSelected, setImageSelected] = useState("");
   const [bio, setBio] = useState([]);
@@ -57,10 +57,18 @@ const SingleProfile = () => {
 
   const logout = () => {
     setIsLoggedIn(false);
-    setIspremium(false);
+    setIsPremium(false);
     setCurrentUser(false);
     setMovieAge(false);
+    setUserId(false);
     localStorage.removeItem("auth");
+    localStorage.removeItem("user");
+    localStorage.removeItem("MOVIE_AGE_STORAGE");
+    localStorage.removeItem("IS_LOGGED_IN_SOTRAGE");
+    localStorage.removeItem("USER_ID_STORAGE");
+    localStorage.removeItem("USER_DATA_STORAGE");
+    localStorage.removeItem("IS_PREMIUM_STORAGE");
+    localStorage.removeItem("CURRENT_USER");
   };
 
   const uploadImage = async () => {
@@ -94,7 +102,7 @@ const SingleProfile = () => {
       .finally(setLoading(false));
     setCurrentUser(false);
     setIsLoggedIn(false);
-    setIspremium(false);
+    setIsPremium(false);
     setMovieAge(false);
     localStorage.removeItem("auth");
   };
@@ -141,9 +149,7 @@ const SingleProfile = () => {
       ></textarea>
       <Button onClick={handleSubmit}>update bio</Button>
       <div>
-        <Button onClick={() => logout()}>
-          <Link to={"/login"}>Logout</Link>
-        </Button>
+        <Button onClick={() => logout()}>Logout</Button>
         <input
           type="file"
           onChange={(event) => setImageSelected(event.target.files[0])}

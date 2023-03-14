@@ -22,7 +22,7 @@ function App() {
   const [results, setResults] = useState("");
   const [searchCat, setSearchCat] = useState("Movies");
   const [isPremium, setIsPremium] = useState(false);
-  const [userid, setUserid] = useState("");
+  const [userId, setUserId] = useState("");
   const [bestOfDaBest, setBestOfDaBest] = useState([]);
   const [movieAge, setMovieAge] = useState("");
   const [userData, setUserData] = useState({});
@@ -47,7 +47,7 @@ function App() {
           <SearchResultsContext.Provider value={{ results, setResults }}>
             <CatSearchContext.Provider value={{ searchCat, setSearchCat }}>
               <CheckPremiumContext.Provider value={{ isPremium, setIsPremium }}>
-                <User_IdContext.Provider value={{ userid, setUserid }}>
+                <User_IdContext.Provider value={{ userId, setUserId }}>
                   <MovieFetchContext.Provider
                     value={{ bestOfDaBest, setBestOfDaBest }}
                   >
