@@ -64,7 +64,7 @@ app.get("/api/allDataBaseEnterys", getResults);
 app.delete("/api/users/delete/:userid", deleteUserController);
 
 app.get("*", (req, res) => {
-  res.sendFile(dirname + "/client/public/index.html");
+  res.sendFile(dirname + "/client/build/index.html");
 });
 
 mongoose.connect(
