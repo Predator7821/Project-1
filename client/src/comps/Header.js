@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import ManageSearchIcon from "@mui/icons-material/ManageSearch";
@@ -15,6 +15,10 @@ const Header = () => {
   const [menu, setMenu] = useState(false);
   const [temp, setTemp] = useState();
 
+  useEffect(() => {
+    const currUser = JSON.parse(localStorage.getItem("CURRENT_USER"));
+    setCurrentUser(currUser);
+  }, []);
   return (
     <div className="centersize sticker moveAbit">
       <Button>

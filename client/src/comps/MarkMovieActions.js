@@ -7,7 +7,7 @@ import { UserDataContext, User_IdContext } from "../context/Passdata";
 import { SERVER_URL } from "../constants/const";
 
 const MarkMovieActions = ({ currentUser, Icon, item }) => {
-  const { userid } = useContext(User_IdContext);
+  const { userId } = useContext(User_IdContext);
   const { userData, setUserData } = useContext(UserDataContext);
 
   const handleClick = async () => {
@@ -21,7 +21,7 @@ const MarkMovieActions = ({ currentUser, Icon, item }) => {
     setUserData(newdata);
     console.log(newdata.Watchlist);
     axios
-      .put(`${SERVER_URL}/api/users/${userid}`, {
+      .put(`${SERVER_URL}/api/users/${userId}`, {
         Watchlist: newdata.Watchlist,
       })
       .then((res) => console.log(res.data));

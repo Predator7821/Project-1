@@ -19,7 +19,7 @@ const SingleProfile = () => {
   const { setCurrentUser } = useContext(CurrentUserContext);
   const { setIsPremium } = useContext(CheckPremiumContext);
   const { setMovieAge } = useContext(MovieAgeContext);
-  const { userid, setUserId } = useContext(User_IdContext);
+  const { userId, setUserId } = useContext(User_IdContext);
   const [loading, setLoading] = useState(false);
   const [imageSelected, setImageSelected] = useState("");
   const [bio, setBio] = useState([]);
@@ -31,16 +31,16 @@ const SingleProfile = () => {
   const handleSubmit = () => {
     setLoading(true);
     axios
-      .put(`${SERVER_URL}/api/users/${userid}`, {
+      .put(`${SERVER_URL}/api/users/${userId}`, {
         Bio: userData.Bio,
       })
       .then((res) => {})
       .finally(setLoading(false));
   };
 
-  const fetchBio = async () => {
+  const fetchBio = async (id) => {
     setLoading(true);
-    fetch(`${SERVER_URL}/api/users/${userid}`)
+    fetch(`${SERVER_URL}/api/users/${id}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -61,14 +61,7 @@ const SingleProfile = () => {
     setCurrentUser(false);
     setMovieAge(false);
     setUserId(false);
-    localStorage.removeItem("auth");
-    localStorage.removeItem("user");
-    localStorage.removeItem("MOVIE_AGE_STORAGE");
-    localStorage.removeItem("IS_LOGGED_IN_SOTRAGE");
-    localStorage.removeItem("USER_ID_STORAGE");
-    localStorage.removeItem("USER_DATA_STORAGE");
-    localStorage.removeItem("IS_PREMIUM_STORAGE");
-    localStorage.removeItem("CURRENT_USER");
+    localStorage.clear();
   };
 
   const uploadImage = async () => {
@@ -84,7 +77,7 @@ const SingleProfile = () => {
       .finally(setLoading(false));
     setLoading(true);
     await axios
-      .put(`${SERVER_URL}/api/users/${userid}`, {
+      .put(`${SERVER_URL}/api/users/${userId}`, {
         pfp: userpic,
       })
       .then((res) => {
@@ -95,7 +88,7 @@ const SingleProfile = () => {
   const deleteUser = async () => {
     setLoading(true);
     await axios
-      .delete(`${SERVER_URL}/api/users/delete/${userid}`)
+      .delete(`${SERVER_URL}/api/users/delete/${userId}`)
       .then((res) => {
         userpic = res.data.url;
       })
@@ -114,7 +107,7 @@ const SingleProfile = () => {
     clone.Watchlist.splice(index, 1);
 
     axios
-      .put(`${SERVER_URL}/api/users/${userid}`, {
+      .put(`${SERVER_URL}/api/users/${userId}`, {
         Watchlist: clone.Watchlist,
       })
       .then((res) => {
@@ -125,7 +118,9 @@ const SingleProfile = () => {
   };
 
   useEffect(() => {
-    fetchBio();
+    const id = JSON.parse(localStorage.getItem("USER_ID_STORAGE"));
+    fetchBio(id);
+    setUserId(id);
   }, []);
   return (
     <div className="theHeaderIsSoDiff">

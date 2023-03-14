@@ -10,11 +10,22 @@ import "./Premium.css";
 import { SERVER_URL } from "../constants/const";
 
 const Premium = () => {
-  const { isPremium } = useContext(CheckPremiumContext);
-  const { currentUser } = useContext(CurrentUserContext);
+  const { isPremium, setIsPremium } = useContext(CheckPremiumContext);
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const { premium, setPremium } = useContext(AchiveThePremiumContext);
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    if (!isPremium) {
+      const isPrm = JSON.parse(localStorage.getItem("IS_PREMIUM_STORAGE"));
+      setIsPremium(isPrm);
+    }
+
+    if (!currentUser) {
+      const currUser = JSON.parse(localStorage.getItem("CURRENT_USER"));
+      setCurrentUser(currUser);
+    }
+  }, []);
   const fetchPremium = async () => {
     setLoading(true);
     fetch(`${SERVER_URL}/api/premiums`)

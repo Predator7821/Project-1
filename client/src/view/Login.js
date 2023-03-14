@@ -63,35 +63,28 @@ const Login = () => {
   };
 
   useEffect(() => {
-    const movieAgeStorage = window.localStorage.getItem("MOVIE_AGE_STORAGE");
+    const movieAgeStorage = localStorage.getItem("MOVIE_AGE_STORAGE");
     if (movieAgeStorage !== null) setMovieAge(JSON.parse(movieAgeStorage));
-    const isLoggedInStorage = window.localStorage.getItem(
-      "IS_LOGGED_IN_SOTRAGE"
-    );
+    const isLoggedInStorage = localStorage.getItem("IS_LOGGED_IN_SOTRAGE");
     setIsLoggedIn(JSON.parse(isLoggedInStorage));
-    const userIdStorage = window.localStorage.getItem("USER_ID_STORAGE");
+    const userIdStorage = localStorage.getItem("USER_ID_STORAGE");
     setUserId(JSON.parse(userIdStorage));
-    const userDataStorage = window.localStorage.getItem("USER_DATA_STORAGE");
+    const userDataStorage = localStorage.getItem("USER_DATA_STORAGE");
     setUserData(JSON.parse(userDataStorage));
-    const isPremiumStorage = window.localStorage.getItem("IS_PREMIUM_STORAGE");
+    const isPremiumStorage = localStorage.getItem("IS_PREMIUM_STORAGE");
     setIsPremium(JSON.parse(isPremiumStorage));
-    const currentUserStorage = window.localStorage.getItem("CURRENT_USER");
+    const currentUserStorage = localStorage.getItem("CURRENT_USER");
     setCurrentUser(JSON.parse(currentUserStorage));
+    console.log(currentUserStorage);
   }, []);
 
   useEffect(() => {
-    window.localStorage.setItem("MOVIE_AGE_STORAGE", JSON.stringify(movieAge));
-    window.localStorage.setItem(
-      "IS_LOGGED_IN_SOTRAGE",
-      JSON.stringify(isLoggedIn)
-    );
-    window.localStorage.setItem("USER_ID_STORAGE", JSON.stringify(userId));
-    window.localStorage.setItem("USER_DATA_STORAGE", JSON.stringify(userData));
-    window.localStorage.setItem(
-      "IS_PREMIUM_STORAGE",
-      JSON.stringify(isPremium)
-    );
-    window.localStorage.setItem("CURRENT_USER", JSON.stringify(currentUser));
+    localStorage.setItem("MOVIE_AGE_STORAGE", JSON.stringify(movieAge));
+    localStorage.setItem("IS_LOGGED_IN_SOTRAGE", JSON.stringify(isLoggedIn));
+    localStorage.setItem("USER_ID_STORAGE", JSON.stringify(userId));
+    localStorage.setItem("USER_DATA_STORAGE", JSON.stringify(userData));
+    localStorage.setItem("IS_PREMIUM_STORAGE", JSON.stringify(isPremium));
+    localStorage.setItem("CURRENT_USER", JSON.stringify(currentUser));
   }, [movieAge, isLoggedIn, userId, userData, isPremium, currentUser]);
 
   useEffect(() => {
