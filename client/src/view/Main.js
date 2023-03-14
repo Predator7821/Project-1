@@ -16,7 +16,7 @@ import SingleUser from "./SingleUser";
 import Premium from "./Premium";
 import SinglePremium from "./SinglePremium";
 import Results from "./Results";
-import ProfilePage from "./check";
+import ProfilePage from "./ProfilePage";
 import SingleProfile from "./SingleProfile";
 
 const Main = () => {
