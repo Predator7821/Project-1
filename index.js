@@ -1,4 +1,3 @@
-import path from "path";
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
@@ -34,7 +33,6 @@ const {
   DB_USER2,
 } = process.env;
 const app = express();
-const dirname = path.resolve("./");
 
 app.use(express.json());
 app.use(cors());
@@ -64,7 +62,7 @@ app.get("/api/allDataBaseEnterys", getResults);
 app.delete("/api/users/delete/:userid", deleteUserController);
 
 app.get("*", (req, res) => {
-  res.sendFile(dirname + "/client/build/index.html");
+  res.sendFile(__dirname + "/client/build/index.html");
 });
 
 mongoose.connect(
