@@ -12,6 +12,7 @@ import {
   UserDataContext,
 } from "../context/Passdata";
 import "./Login.css";
+import { SERVER_URL } from "../constants/const";
 
 const Login = () => {
   const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
@@ -58,7 +59,7 @@ const Login = () => {
     setLoading(true);
     axios({
       method: "GET",
-      url: "http://127.0.0.1:8000/api/users",
+      url: `${SERVER_URL}/api/users`,
     })
       .then((res) => {
         console.log(res.data);

@@ -15,6 +15,7 @@ import axios from "axios";
 import MarkMovieActions from "./MarkMovieActions";
 import { AchiveThePremiumContext, UserDataContext } from "../context/Passdata";
 import "./MovieContainer.css";
+import { SERVER_URL } from "../constants/const";
 
 const MovieContainer = ({ currentUser, item, isPremium }) => {
   const { userData, setUserData } = useContext(UserDataContext);
@@ -34,8 +35,8 @@ const MovieContainer = ({ currentUser, item, isPremium }) => {
         axios
           .put(
             isPremium
-              ? `http://127.0.0.1:8000/api/${userData._id}/premiums/${item._id}`
-              : `http://127.0.0.1:8000/api/${userData._id}/movies/${item._id}`,
+              ? `${SERVER_URL}/api/${userData._id}/premiums/${item._id}`
+              : `${SERVER_URL}/api/${userData._id}/movies/${item._id}`,
             {
               rating: {
                 rate: newValue + item.rating.rate,
@@ -57,7 +58,7 @@ const MovieContainer = ({ currentUser, item, isPremium }) => {
     setLoading(true);
     axios({
       method: "GET",
-      url: "http://127.0.0.1:8000/api/movies/",
+      url: `${SERVER_URL}/api/movies/`,
     })
       .then((res) => {
         console.log(res.data);

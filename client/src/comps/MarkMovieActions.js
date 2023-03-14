@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 import { UserDataContext, User_IdContext } from "../context/Passdata";
+import { SERVER_URL } from "../constants/const";
 
 const MarkMovieActions = ({ currentUser, Icon, item }) => {
   const { userid } = useContext(User_IdContext);
@@ -20,7 +21,7 @@ const MarkMovieActions = ({ currentUser, Icon, item }) => {
     setUserData(newdata);
     console.log(newdata.Watchlist);
     axios
-      .put(`http://127.0.0.1:8000/api/users/${userid}`, {
+      .put(`${SERVER_URL}/api/users/${userid}`, {
         Watchlist: newdata.Watchlist,
       })
       .then((res) => console.log(res.data));

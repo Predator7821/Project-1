@@ -4,6 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 import "./Register.css";
+import { SERVER_URL } from "../constants/const";
 
 const Register = () => {
   const [userData, setUserData] = useState({
@@ -23,7 +24,7 @@ const Register = () => {
   const handleRegister = (e) => {
     e.preventDefault();
     axios
-      .post("http://127.0.0.1:8000/api/users", {
+      .post(`${SERVER_URL}/api/users`, {
         Username: userData.Username,
         fullname: userData.fullname,
         Email: userData.Email,

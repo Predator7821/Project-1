@@ -4,6 +4,7 @@ import ReactPlayer from "react-player/youtube";
 
 import SingleMovieMap from "../comps/SingleMovieMap";
 import { AchiveThePremiumContext } from "../context/Passdata";
+import { SERVER_URL } from "../constants/const";
 
 const SinglePremium = () => {
   const { premium, setPremium } = useContext(AchiveThePremiumContext);
@@ -12,7 +13,7 @@ const SinglePremium = () => {
 
   const fetchPremium = async () => {
     setLoading(true);
-    fetch(`http://127.0.0.1:8000/api/premiums/${params.premiumsid}`)
+    fetch(`${SERVER_URL}/api/premiums/${params.premiumsid}`)
       .then((response) => response.json())
       .then((data) => setPremium(data))
       .finally(setLoading(false));

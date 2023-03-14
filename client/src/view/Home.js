@@ -29,7 +29,7 @@ const Home = () => {
   const bdayactor = async () => {
     setLoading(true);
 
-    fetch("http://127.0.0.1:8000/api/actorsDateOfBirth")
+    fetch(`${SERVER_URL}/api/actorsDateOfBirth`)
       .then((response) => response.json())
       .then((data) => {
         if (data[0] != null) {

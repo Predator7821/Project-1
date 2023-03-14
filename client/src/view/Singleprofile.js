@@ -12,6 +12,7 @@ import {
   MovieAgeContext,
 } from "../context/Passdata";
 import "./SingleProfile.css";
+import { SERVER_URL } from "../constants/const";
 
 const SingleProfile = () => {
   const { setIsLoggedIn } = useContext(LoginContext);
@@ -30,7 +31,7 @@ const SingleProfile = () => {
   const handleSubmit = () => {
     setLoading(true);
     axios
-      .put(`http://127.0.0.1:8000/api/users/${userid}`, {
+      .put(`${SERVER_URL}/api/users/${userid}`, {
         Bio: userData.Bio,
       })
       .then((res) => {})
@@ -39,7 +40,7 @@ const SingleProfile = () => {
 
   const fetchBio = async () => {
     setLoading(true);
-    fetch(`http://127.0.0.1:8000/api/users/${userid}`)
+    fetch(`${SERVER_URL}/api/users/${userid}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -75,7 +76,7 @@ const SingleProfile = () => {
       .finally(setLoading(false));
     setLoading(true);
     await axios
-      .put(`http://127.0.0.1:8000/api/users/${userid}`, {
+      .put(`${SERVER_URL}/api/users/${userid}`, {
         pfp: userpic,
       })
       .then((res) => {
@@ -86,7 +87,7 @@ const SingleProfile = () => {
   const deleteUser = async () => {
     setLoading(true);
     await axios
-      .delete(`http://127.0.0.1:8000/api/users/delete/${userid}`)
+      .delete(`${SERVER_URL}/api/users/delete/${userid}`)
       .then((res) => {
         userpic = res.data.url;
       })
@@ -105,7 +106,7 @@ const SingleProfile = () => {
     clone.Watchlist.splice(index, 1);
 
     axios
-      .put(`http://127.0.0.1:8000/api/users/${userid}`, {
+      .put(`${SERVER_URL}/api/users/${userid}`, {
         Watchlist: clone.Watchlist,
       })
       .then((res) => {

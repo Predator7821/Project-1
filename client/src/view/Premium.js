@@ -7,6 +7,7 @@ import {
 } from "../context/Passdata";
 import PremiumCardMap from "../comps/PremiumCardMap";
 import "./Premium.css";
+import { SERVER_URL } from "../constants/const";
 
 const Premium = () => {
   const { isPremium } = useContext(CheckPremiumContext);
@@ -16,7 +17,7 @@ const Premium = () => {
 
   const fetchPremium = async () => {
     setLoading(true);
-    fetch("http://127.0.0.1:8000/api/premiums")
+    fetch(`${SERVER_URL}/api/premiums`)
       .then((response) => response.json())
       .then((data) => setPremium(data))
       .finally(setLoading(false));
