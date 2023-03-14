@@ -1,4 +1,4 @@
-import { dirname } from "path";
+import path from "path";
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
@@ -34,6 +34,7 @@ const {
   DB_USER2,
 } = process.env;
 const app = express();
+const dirname = path.resolve("./");
 
 app.use(express.json());
 app.use(cors());
