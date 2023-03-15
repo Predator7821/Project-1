@@ -20,7 +20,6 @@ const MoviesPage = () => {
   const [bestMovie, setBestMovie] = useState([]);
   const [length, setLength] = useState([1, 1000]);
   const [cat, setCat] = useState("All Movies");
-
   const FetchMovie = async () => {
     setLoading(true);
     fetch(`${SERVER_URL}/api/movies`)
@@ -76,6 +75,14 @@ const MoviesPage = () => {
       onFilterChange();
     }
   }, [cat, length]);
+
+  useEffect(() => {
+    const currUser = JSON.parse(localStorage.getItem("CURRENT_USER"));
+    setCurrentUser(currUser);
+    const mvAge= JSON.parse(localStorage.getItem("MOVIE_AGE_STORAGE"))
+    setMovieAge(mvAge)
+  }, []);
+
 
   return (
     <div>

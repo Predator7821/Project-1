@@ -32,14 +32,7 @@ const Login = () => {
     setCurrentUser(false);
     setMovieAge(false);
     setUserId(false);
-    localStorage.removeItem("auth");
-    localStorage.removeItem("user");
-    localStorage.removeItem("MOVIE_AGE_STORAGE");
-    localStorage.removeItem("IS_LOGGED_IN_SOTRAGE");
-    localStorage.removeItem("USER_ID_STORAGE");
-    localStorage.removeItem("USER_DATA_STORAGE");
-    localStorage.removeItem("IS_PREMIUM_STORAGE");
-    localStorage.removeItem("CURRENT_USER");
+    localStorage.clear();
   };
 
   const handleChange = () => {

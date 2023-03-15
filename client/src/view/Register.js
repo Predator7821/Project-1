@@ -14,6 +14,14 @@ const Register = () => {
     Password: "",
   });
 
+  const passLowCap = /[a-z]/;
+  const passCap= /[A-Z]/;
+  const weakRegExp = /(?=.*?[0-9])/;
+  const strongRegExp = /(?=.*?[#?!@$%^&*-])/;
+  const whitespaceRegExp = /^$|\s+/;
+
+
+
   const handle = (e) => {
     const newData = { ...userData };
     newData[e.target.name] = e.target.value;
@@ -23,6 +31,7 @@ const Register = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
+    if(userData.Password.includes(passLowCap)){
     axios
       .post(`${SERVER_URL}/api/users`, {
         Username: userData.Username,
@@ -33,7 +42,10 @@ const Register = () => {
       })
       .then((res) => {
         console.log(userData);
+        console.log(res);
       });
+    }
+    
   };
 
   return (
@@ -75,7 +87,7 @@ const Register = () => {
         onChange={(e) => handle(e)}
       />
       <Button onClick={(e) => handleRegister(e)} variant="outlined">
-        <Link to={"/login"}>Register</Link>
+        Register
       </Button>
     </div>
   );
