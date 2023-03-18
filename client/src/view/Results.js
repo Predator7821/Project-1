@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
+
 import ActorResultMap from "../comps/ActorResultMap";
 import MovieResultMap from "../comps/MovieResultMap";
 import UserResultMap from "../comps/UserResultMap";
 import { CatSearchContext, SearchResultsContext } from "../context/Passdata";
-
 import "./Results.css";
 
 const Results = () => {

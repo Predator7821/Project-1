@@ -62,6 +62,7 @@ const MoviesPage = () => {
     }
   };
   setBestOfDaBest(movie);
+  
   useEffect(() => {
     setLoading(true);
     FetchMovie();
