@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card, CardMedia, CardContent, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const MovieResultMap = ({ e }) => {
   return (
     <Card sx={{ minWidth: 345, maxWidth: 345, margin: 5 }}>
-      <Link to={`/movies/${e._id}`}>
+      <Link to={`/movies/${e.name}`}>
         <CardMedia
           component="img"
           alt="green iguana"

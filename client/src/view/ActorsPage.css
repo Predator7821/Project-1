@@ -4,7 +4,7 @@
   flex-wrap: wrap;
   padding: 100px;
 }
-.loading{
+.loading {
   display: flex;
   justify-content: center;
   align-items: center;

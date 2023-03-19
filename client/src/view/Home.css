@@ -1,7 +1,7 @@
 .sides {
   display: flex;
   flex-direction: row;
-  overflow: scroll;
+  overflow: auto;
 }
 .topbotom {
   display: flex;
@@ -28,7 +28,7 @@
 .pop {
   display: flex;
   flex-direction: row;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 .smallPFP {
   border-radius: 75%;
@@ -41,7 +41,7 @@
 .spacethosethings {
   padding: 10px;
 }
-.fixMyBDays{
+.fixMyBDays {
   display: flex;
   flex-direction: column;
   align-items: center;

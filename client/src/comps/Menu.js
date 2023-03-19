@@ -15,17 +15,17 @@ const Menu = ({ menu, setMenu }) => {
         onClose={() => setMenu(false)}
       >
         <div className="changeIt">
-          <Button>
+          <Button onClick={() => setMenu(false)}>
             <Link className="beWhitePlz" to={`actors`}>
               Actors
             </Link>
           </Button>
-          <Button>
+          <Button onClick={() => setMenu(false)}>
             <Link className="beWhitePlz" to={`movies`}>
               movies
             </Link>
           </Button>
-          <Button>
+          <Button onClick={() => setMenu(false)}>
             <Link className="beWhitePlz" to={`users`}>
               users
             </Link>

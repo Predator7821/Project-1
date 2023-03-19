@@ -4,6 +4,7 @@ import ActorResultMap from "../comps/ActorResultMap";
 import MovieResultMap from "../comps/MovieResultMap";
 import UserResultMap from "../comps/UserResultMap";
 import { CatSearchContext, SearchResultsContext } from "../context/Passdata";
+import { SERVER_URL } from "../constants/const";
 import "./Results.css";
 
 const Results = () => {
@@ -17,7 +18,7 @@ const Results = () => {
 
   const getAllResults = async () => {
     setLoading(true);
-    fetch("SERVER_URL/api/allDataBaseEnterys")
+    fetch(`${SERVER_URL}/api/allDataBaseEnterys`)
       .then((response) => response.json())
       .then((data) => {
         setMovies(data?.allValues[0]);
@@ -33,14 +34,7 @@ const Results = () => {
         results === ""
           ? actors
           : actors.filter((e) =>
-              e.name.first_name
-                .toLowerCase()
-                .includes(
-                  results.toLowerCase() ||
-                    e.name.last_name
-                      .toLowerCase()
-                      .includes(results.toLowerCase())
-                )
+              e.name.toLowerCase().includes(results.toLowerCase())
             )
       );
     } else if (searchCat === "Movies") {

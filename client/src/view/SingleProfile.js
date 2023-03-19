@@ -1,9 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import { User_IdContext } from "../context/Passdata";
+import React, { useContext, useEffect, useState, useMemo } from "react";
+import { AchiveThePremiumContext, User_IdContext } from "../context/Passdata";
 import { Button } from "@mui/material";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Image } from "cloudinary-react";
+import IconButton from "@mui/material/IconButton";
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
 import {
   LoginContext,
@@ -20,6 +22,7 @@ const SingleProfile = () => {
   const { setIsPremium } = useContext(CheckPremiumContext);
   const { setMovieAge } = useContext(MovieAgeContext);
   const { userId, setUserId } = useContext(User_IdContext);
+  const { premium, setPremium } = useContext(AchiveThePremiumContext);
   const [loading, setLoading] = useState(false);
   const [imageSelected, setImageSelected] = useState("");
   const [bio, setBio] = useState([]);
@@ -28,6 +31,10 @@ const SingleProfile = () => {
   });
   let userpic = "";
 
+  const listOfPremiumsNames = useMemo(
+    () => premium?.map((p) => p.name),
+    [premium]
+  );
   const handleSubmit = () => {
     setLoading(true);
     axios
@@ -64,6 +71,13 @@ const SingleProfile = () => {
     localStorage.clear();
   };
 
+  const fetchPremium = async () => {
+    setLoading(true);
+    fetch(`${SERVER_URL}/api/premiums`)
+      .then((response) => response.json())
+      .then((data) => setPremium(data))
+      .finally(setLoading(false));
+  };
   const uploadImage = async () => {
     setLoading(true);
     const formData = new FormData();
@@ -120,6 +134,9 @@ const SingleProfile = () => {
   useEffect(() => {
     const id = JSON.parse(localStorage.getItem("USER_ID_STORAGE"));
     fetchBio(id);
+    if (premium.length === 0) {
+      fetchPremium();
+    }
     setUserId(id);
   }, []);
   return (
@@ -143,25 +160,41 @@ const SingleProfile = () => {
         className="sizeBio"
       ></textarea>
       <Button onClick={handleSubmit}>update bio</Button>
-      <div>
-        <Button onClick={() => logout()}>Logout</Button>
-        <input
-          type="file"
+      <div className="fixMyBio">
+        <IconButton
+          color="primary"
+          aria-label="upload picture"
+          component="label"
           onChange={(event) => setImageSelected(event.target.files[0])}
-        />
-        <button onClick={uploadImage}>submit</button>
-        <Button onClick={deleteUser}>
-          <Link to={"/"}>Delete User</Link>
-        </Button>
+        >
+          <input hidden accept="image/*" type="file" />
+          <PhotoCamera />
+        </IconButton>
+        <Button onClick={uploadImage}>Upload the selected image</Button>
+
         {bio?.Watchlist?.map((e) => {
           console.log(e);
           return (
-            <div>
-              <h1>{e}</h1>
+            <div className="dosomthingelse">
+              <Link
+                to={
+                  listOfPremiumsNames.includes(e)
+                    ? `/premiums/${e}`
+                    : `/movies/${e}`
+                }
+              >
+                <h1>{e}</h1>
+              </Link>
               <Button onClick={() => removie(e)}>Remove</Button>
             </div>
           );
         })}
+        <Button onClick={() => logout()}>
+          <Link to={"/"}>Logout</Link>
+        </Button>
+        <Button sx={{ bgcolor: "red" }} color="warning" onClick={deleteUser}>
+          <Link to={"/"}>Delete User</Link>
+        </Button>
       </div>
     </div>
   );

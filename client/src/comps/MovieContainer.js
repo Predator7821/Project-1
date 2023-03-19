@@ -99,7 +99,7 @@ const MovieContainer = ({ currentUser, item, isPremium }) => {
         </CardContent>
         <Button>
           <Link
-            to={isPremium ? `/premiums/${item._id}` : `/movies/${item._id}`}
+            to={isPremium ? `/premiums/${item.name}` : `/movies/${item.name}`}
           >
             <CardMedia
               component="img"

@@ -228,7 +228,7 @@ export const premiumUpdateController = async (req, res) => {
 
   try {
     const { premiumsid, userid } = req.params;
-    const premiums = await singlePremium({ _id: premiumsid });
+    const premiums = await singlePremium({ name: premiumsid });
     if (!premiums) {
       res.status(404).send({ message: "movie does not exist" });
     }
@@ -254,8 +254,14 @@ export const getResults = async (req, res) => {
     const allUsers = users();
     const allValues = await Promise.all([allMovies, allActors, allUsers]);
 
-    console.log(allValues);
-    res.send({ allValues });
+    const actorsClone = allValues[1].map((actor) => ({
+      ...actor.toObject(),
+      name: actor.name.first_name + " " + actor.name.last_name,
+    }));
+
+    allValues[1] = actorsClone;
+    console.log(actorsClone);
+    res.status(200).send({ allValues });
   } catch (e) {
     console.log(e);
     res.status(500).send({ message: e });

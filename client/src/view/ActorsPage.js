@@ -43,8 +43,8 @@ const ActorsPage = () => {
       )}
       {actor.map((person) => {
         return (
-          <Card sx={{ maxWidth: 400 }}>
-            <CardMedia sx={{ height: 300 }} image={person.picture} />
+          <Card sx={{ margin: 1, maxWidth: 400 }}>
+            <CardMedia sx={{ height: 600 }} image={person.picture} />
             <Button>
               <Link to={`/actors/${person._id}`}>More Info</Link>
             </Button>

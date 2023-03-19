@@ -47,7 +47,7 @@ const MarkMovieActions = ({ currentUser, Icon, item }) => {
   }, []);
 
   useEffect(() => {
-    if (Object.keys(userData).length === 0 && userId) {
+    if (userData && Object.keys(userData).length === 0 && userId) {
       getUserInfo();
     }
   }, [userId]);

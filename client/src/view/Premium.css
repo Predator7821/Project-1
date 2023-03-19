@@ -1,5 +1,5 @@
 .worstHeader {
-  padding: 100px;
+  padding-top: 100px;
 }
 .placeholder {
   display: flex;
@@ -7,7 +7,12 @@
   justify-content: center;
   align-items: center;
 }
-.goToTheCetner{
+.goToTheCetner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.centerprem {
   display: flex;
   justify-content: center;
   align-items: center;

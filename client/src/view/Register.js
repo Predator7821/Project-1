@@ -1,22 +1,23 @@
 import React, { useState } from "react";
 import { TextField, Button } from "@mui/material";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 import "./Register.css";
 import { SERVER_URL } from "../constants/const";
 
 const Register = () => {
   const [pass, setPass] = useState();
+  const [flag, setFlag] = useState(false);
   const [userData, setUserData] = useState({
     Username: "",
     fullname: "",
     Email: "",
     Password: "",
   });
-
   const passwordStrength =
     /^.*(?=.{12,20})(?!.*\s)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\!\@\#\$\%\^\&\*\(\)\-\=\¡\£\_\+\`\~\.\,\<\>\/\?\;\:\'\"\\\|\[\]\{\}]).*$/;
-    
+
   const handle = (e) => {
     const newData = { ...userData };
     newData[e.target.name] = e.target.value;
@@ -40,6 +41,7 @@ const Register = () => {
           console.log(userData);
           console.log(res);
         });
+      setFlag(true);
     } else {
       console.log("err");
       setPass(false);
@@ -49,6 +51,7 @@ const Register = () => {
   return (
     <div className="lotsOfPads">
       <TextField
+        sx={{ margin: 1 }}
         name="Username"
         onChange={(e) => handle(e)}
         value={userData.Username}
@@ -56,6 +59,7 @@ const Register = () => {
         variant="outlined"
       />
       <TextField
+        sx={{ margin: 1 }}
         name="fullname"
         value={userData.fullname}
         onChange={(e) => handle(e)}
@@ -63,6 +67,7 @@ const Register = () => {
         variant="outlined"
       />
       <TextField
+        sx={{ margin: 1 }}
         name="Email"
         value={userData.Email}
         onChange={(e) => handle(e)}
@@ -71,6 +76,7 @@ const Register = () => {
       />
       <div className="wrongpass">
         <TextField
+          sx={{ margin: 1 }}
           label="password"
           type="password"
           variant="outlined"
@@ -88,15 +94,22 @@ const Register = () => {
         )}
       </div>
       <TextField
+        sx={{ margin: 1 }}
         label="Age"
         variant="outlined"
         name="Age"
         value={userData.Age}
         onChange={(e) => handle(e)}
       />
-      <Button onClick={(e) => handleRegister(e)} variant="outlined">
-        Register
-      </Button>
+      {flag ? (
+        <Button onClick={(e) => handleRegister(e)} variant="outlined">
+          <Link to={"/"}>Register</Link>
+        </Button>
+      ) : (
+        <Button onClick={(e) => handleRegister(e)} variant="outlined">
+          Register
+        </Button>
+      )}
     </div>
   );
 };

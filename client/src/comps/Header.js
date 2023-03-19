@@ -34,7 +34,7 @@ const Header = () => {
       </Button>
 
       <Button onClick={() => setMenu(true)}>menu</Button>
-      <Menu menu={menu} setMenu={setMenu} />
+      <Menu className="beWhitePlz" menu={menu} setMenu={setMenu} />
       <Box>
         <SearchCatSelection />
         <SearchBar />

@@ -34,9 +34,11 @@ const Premium = () => {
       .finally(setLoading(false));
   };
   useEffect(() => {
-    setLoading(true);
-    fetchPremium();
-    setLoading(false);
+    if (premium.length === 0) {
+      setLoading(true);
+      fetchPremium();
+      setLoading(false);
+    }
   }, []);
 
   return (
@@ -51,13 +53,15 @@ const Premium = () => {
         <div className="worstHeader">
           <h1 className="placeholder">Premium Movies EB Exclusives</h1>
           <div className="spacer flexer">
-            {premium.map((item) => {
+            {premium?.map((item) => {
               return <PremiumCardMap item={item} currentUser={currentUser} />;
             })}
           </div>
         </div>
       ) : (
-        <div>please register for a premium user</div>
+        <div className="centerprem">
+          <h1>please register for a premium user</h1>
+        </div>
       )}
     </div>
   );

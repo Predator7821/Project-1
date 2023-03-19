@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { Button, TextField } from "@mui/material";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 import {
   CheckPremiumContext,
   CurrentUserContext,
@@ -15,6 +15,7 @@ import "./Login.css";
 import { SERVER_URL } from "../constants/const";
 
 const Login = () => {
+  const navigate = useNavigate();
   const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const { isPremium, setIsPremium } = useContext(CheckPremiumContext);
@@ -78,6 +79,9 @@ const Login = () => {
     localStorage.setItem("USER_DATA_STORAGE", JSON.stringify(userData));
     localStorage.setItem("IS_PREMIUM_STORAGE", JSON.stringify(isPremium));
     localStorage.setItem("CURRENT_USER", JSON.stringify(currentUser));
+    if (isLoggedIn) {
+      navigate("/");
+    }
   }, [movieAge, isLoggedIn, userId, userData, isPremium, currentUser]);
 
   useEffect(() => {
@@ -109,6 +113,7 @@ const Login = () => {
       ) : (
         <div className="lotsOfPads">
           <TextField
+            sx={{ margin: 1 }}
             onBlur={(event) => {
               setCurrentUser(event.target.value);
               setLoginInfo({ ...loginInfo, name: event.target.value });
@@ -128,7 +133,7 @@ const Login = () => {
           />
           <div>
             <Button onClick={handleChange} variant="outlined">
-              Login
+              LOGIN
             </Button>
             <Button variant="outlined">
               <Link to={"/register"}>Register</Link>
