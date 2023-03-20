@@ -25,7 +25,8 @@ const MovieContainer = ({ currentUser, item, isPremium }) => {
   const [ratedMovie, setRatedMovie] = useState({});
   const [loading, setLoading] = useState(false);
   const [loadingRating, setLoadingRating] = useState(true);
-  const avrageMovieRating = item.rating.rate / item.rating.count || 0;
+  const avrageMovieRating =
+    (item.rating.rate / item.rating.count).toFixed(1) || 0;
 
   const sendRate = (newValue) => {
     setLoadingRating(false);
