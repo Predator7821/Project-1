@@ -40,6 +40,8 @@ const Home = () => {
   };
 
   useEffect(() => {
+    const currUser = JSON.parse(localStorage.getItem("CURRENT_USER"));
+    setCurrentUser(currUser);
     setLoading(true);
     bdayactor();
     topmovies();

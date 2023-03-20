@@ -15,18 +15,21 @@ export const movies = () => {
   return Movie.find({});
 };
 
-export const singleMovie = (name) => {
+export const singleMovieByName = (name) => {
   return Movie.findOne({ name: name });
 };
-
+export const singleMovieById = (_id) => {
+  return Movie.findOne({ _id: _id });
+};
 export const premiums = () => {
   return PremiumMovie.find({});
 };
-
-export const singlePremium = (name) => {
+export const singlePremiumByName = (name) => {
   return PremiumMovie.findOne({ name: name });
 };
-
+export const singlePremiumById = (_id) => {
+  return PremiumMovie.findOne({ _id: _id });
+};
 export const users = () => {
   return User.find({});
 };

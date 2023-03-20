@@ -16,9 +16,7 @@ const ActorResultMap = ({ e }) => {
       </Link>
 
       <CardContent className="makeItLookBetter">
-        <Typography>
-          {e?.name?.first_name} {e?.name?.last_name}
-        </Typography>
+        <Typography>{e.name}</Typography>
       </CardContent>
     </Card>
   );

@@ -2,9 +2,11 @@ import {
   actors,
   singleActor,
   movies,
-  singleMovie,
+  singleMovieByName,
+  singleMovieById,
   premiums,
-  singlePremium,
+  singlePremiumById,
+  singlePremiumByName,
   users,
   singleUser,
   birthday,
@@ -53,7 +55,7 @@ export const movieController = async (req, res) => {
 
 export const singleMovieController = async (req, res) => {
   try {
-    const movie = await singleMovie(req.params.movieid);
+    const movie = await singleMovieByName(req.params.movieid);
     if (!movie) {
       res.status(404).send({ message: "no such movie in the DB" });
     }
@@ -76,9 +78,7 @@ export const premiumController = async (req, res) => {
 
 export const singlePremiumController = async (req, res) => {
   try {
-    const premiummovie = await singlePremium({
-      _id: req.params.premiumsid,
-    });
+    const premiummovie = await singlePremiumByName(req.params.premiumsid);
     if (!premiummovie) {
       res.status(404).send({ message: "no such movie in the DB" });
     }
@@ -198,7 +198,7 @@ export const movieUpdateController = async (req, res) => {
 
   try {
     const { movieid, userid } = req.params;
-    const movie = await singleMovie({ _id: movieid });
+    const movie = await singleMovieById({ _id: movieid });
     if (!movie) {
       res.status(404).send({ message: "movie does not exist" });
     }
@@ -228,7 +228,7 @@ export const premiumUpdateController = async (req, res) => {
 
   try {
     const { premiumsid, userid } = req.params;
-    const premiums = await singlePremium({ name: premiumsid });
+    const premiums = await singlePremiumById({ _id: premiumsid });
     if (!premiums) {
       res.status(404).send({ message: "movie does not exist" });
     }

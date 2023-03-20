@@ -159,7 +159,9 @@ const SingleProfile = () => {
         name="Bio"
         className="sizeBio"
       ></textarea>
-      <Button onClick={handleSubmit}>update bio</Button>
+      <Button variant="outlined" onClick={handleSubmit}>
+        update bio
+      </Button>
       <div className="fixMyBio">
         <IconButton
           color="primary"
@@ -170,7 +172,9 @@ const SingleProfile = () => {
           <input hidden accept="image/*" type="file" />
           <PhotoCamera />
         </IconButton>
-        <Button onClick={uploadImage}>Upload the selected image</Button>
+        <Button variant="outlined" onClick={uploadImage}>
+          Upload the selected image
+        </Button>
 
         {bio?.Watchlist?.map((e) => {
           console.log(e);
@@ -185,7 +189,9 @@ const SingleProfile = () => {
               >
                 <h1>{e}</h1>
               </Link>
-              <Button onClick={() => removie(e)}>Remove</Button>
+              <Button variant="outlined" onClick={() => removie(e)}>
+                Remove
+              </Button>
             </div>
           );
         })}

@@ -44,6 +44,8 @@ const MarkMovieActions = ({ currentUser, Icon, item }) => {
       );
       setUserId(userIdFromStorage);
     }
+    const usedat = JSON.parse(localStorage.getItem("USER_DATA_STORAGE"));
+    setUserData(usedat);
   }, []);
 
   useEffect(() => {

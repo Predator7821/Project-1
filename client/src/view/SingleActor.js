@@ -35,9 +35,13 @@ const SingleActor = () => {
         <h1>{actor?.name?.first_name} </h1>
         <h1> {actor?.name?.last_name}</h1>
       </div>
+      <div>
+        <span>born {actor?.dob?.date}</span>
+        <span>in {actor?.dob?.location}</span>
+      </div>
+
       <div className="dropItToTheSide">
         <img width={400} height={225} src={actor.picture} alt="" />
-
         <span>{actor.biography}</span>
       </div>
     </div>
