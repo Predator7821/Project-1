@@ -62,7 +62,6 @@ const MovieContainer = ({ currentUser, item, isPremium }) => {
       url: `${SERVER_URL}/api/movies/`,
     })
       .then((res) => {
-        console.log(res.data);
         setMovieData(res.data);
       })
       .catch((e) => console.log(e))

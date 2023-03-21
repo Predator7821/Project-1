@@ -25,7 +25,10 @@ const MarkMovieActions = ({ currentUser, Icon, item }) => {
       .put(`${SERVER_URL}/api/users/${userId}`, {
         Watchlist: newdata.Watchlist,
       })
-      .then((res) => console.log(res.data));
+      .then((res) => {
+        setUserData(res.data);
+        localStorage.setItem("USER_DATA_STORAGE", JSON.stringify(res.data));
+      });
   };
 
   const getUserInfo = async () => {
@@ -46,7 +49,7 @@ const MarkMovieActions = ({ currentUser, Icon, item }) => {
     }
     const usedat = JSON.parse(localStorage.getItem("USER_DATA_STORAGE"));
     setUserData(usedat);
-  }, []);
+  }, [userData]);
 
   useEffect(() => {
     if (userData && Object.keys(userData).length === 0 && userId) {
