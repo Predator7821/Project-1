@@ -13,7 +13,6 @@ const Header = () => {
   const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const [menu, setMenu] = useState(false);
-  const [temp, setTemp] = useState();
 
   useEffect(() => {
     const currUser = JSON.parse(localStorage.getItem("CURRENT_USER"));
@@ -33,8 +32,8 @@ const Header = () => {
         </Link>
       </Button>
 
-      <Button onClick={() => setMenu(true)}>menu</Button>
-      <Menu className="beWhitePlz" menu={menu} setMenu={setMenu} />
+      <Button className="pleaseBeWhite" onClick={() => setMenu(true)}>menu</Button>
+      <Menu menu={menu} setMenu={setMenu} />
       <Box>
         <SearchCatSelection />
         <SearchBar />

@@ -1,23 +1,31 @@
 import React, { useState } from "react";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, FormControl,OutlinedInput,InputAdornment,IconButton } from "@mui/material";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import "./Register.css";
 import { SERVER_URL } from "../constants/const";
 
 const Register = () => {
+  const navigate = useNavigate()
   const [pass, setPass] = useState();
-  const [flag, setFlag] = useState(false);
+  const [showPassword, setShowPassword]=useState(false);
   const [userData, setUserData] = useState({
     Username: "",
     fullname: "",
     Email: "",
     Password: "",
   });
+
   const passwordStrength =
     /^.*(?=.{12,20})(?!.*\s)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\!\@\#\$\%\^\&\*\(\)\-\=\¡\£\_\+\`\~\.\,\<\>\/\?\;\:\'\"\\\|\[\]\{\}]).*$/;
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
 
+    const handleMouseDownPassword = (event) => {
+      event.preventDefault();
+    };
   const handle = (e) => {
     const newData = { ...userData };
     newData[e.target.name] = e.target.value;
@@ -40,8 +48,8 @@ const Register = () => {
         .then((res) => {
           console.log(userData);
           console.log(res);
+          navigate('/login');
         });
-      setFlag(true);
     } else {
       console.log("err");
       setPass(false);
@@ -50,40 +58,66 @@ const Register = () => {
 
   return (
     <div className="lotsOfPads">
-      <TextField
-        sx={{ margin: 1 }}
-        name="Username"
-        onChange={(e) => handle(e)}
-        value={userData.Username}
-        label="Username"
-        variant="outlined"
-      />
-      <TextField
-        sx={{ margin: 1 }}
-        name="fullname"
-        value={userData.fullname}
-        onChange={(e) => handle(e)}
-        label="fullname"
-        variant="outlined"
-      />
-      <TextField
-        sx={{ margin: 1 }}
-        name="Email"
-        value={userData.Email}
-        onChange={(e) => handle(e)}
-        label="Email"
-        variant="outlined"
-      />
-      <div className="wrongpass">
+      <div className="flexTheFields">
+      <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
         <TextField
           sx={{ margin: 1 }}
-          label="password"
-          type="password"
+          name="Username"
+          onChange={(e) => handle(e)}
+          value={userData.Username}
+          label="Username"
           variant="outlined"
-          name="Password"
-          value={userData.Password}
+        />
+        <TextField
+          sx={{ margin: 1 }}
+          name="fullname"
+          value={userData.fullname}
+          onChange={(e) => handle(e)}
+          label="fullname"
+          variant="outlined"
+        />
+        <TextField
+          sx={{ margin: 1 }}
+          name="Email"
+          value={userData.Email}
+          onChange={(e) => handle(e)}
+          label="Email"
+          variant="outlined"
+        />
+          <OutlinedInput
+            label="password"
+            variant="outlined"
+            name="Password"
+            type={showPassword ? "text" : "password"}
+            value={userData.Password}
+            onChange={(e) => handle(e)}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+        <TextField
+          sx={{ margin: 1 }}
+          label="Age"
+          variant="outlined"
+          name="Age"
+          value={userData.Age}
           onChange={(e) => handle(e)}
         />
+        </FormControl>
+
+        <Button onClick={(e) => handleRegister(e)} variant="outlined">
+            Register
+          </Button>
+      </div>
+      <div className="wrongpass">
         {pass ? (
           <p></p>
         ) : (
@@ -93,23 +127,6 @@ const Register = () => {
           </p>
         )}
       </div>
-      <TextField
-        sx={{ margin: 1 }}
-        label="Age"
-        variant="outlined"
-        name="Age"
-        value={userData.Age}
-        onChange={(e) => handle(e)}
-      />
-      {flag ? (
-        <Button onClick={(e) => handleRegister(e)} variant="outlined">
-          <Link to={"/"}>Register</Link>
-        </Button>
-      ) : (
-        <Button onClick={(e) => handleRegister(e)} variant="outlined">
-          Register
-        </Button>
-      )}
     </div>
   );
 };

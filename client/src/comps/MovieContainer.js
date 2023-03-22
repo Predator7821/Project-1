@@ -71,7 +71,7 @@ const MovieContainer = ({ currentUser, item, isPremium }) => {
   useEffect(() => {
     if (currentUser !== false) {
       if (userData) {
-        const ratedMovieExsists = userData?.MovieRating?.filter(
+        const ratedMovieExsists = userData.MovieRating?.filter(
           (mv) => mv.Movieid === item._id
         );
         if (ratedMovieExsists?.length > 0) {
@@ -124,7 +124,7 @@ const MovieContainer = ({ currentUser, item, isPremium }) => {
           <>
             <Rating
               name="simple-controlled"
-              value={value || ratedMovie.rate}
+              value={ratedMovie.rate || value}
               onChange={(event, newValue) => {
                 console.log(userData);
                 const wasMovieRated = userData?.MovieRating.findIndex(

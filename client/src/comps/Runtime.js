@@ -13,6 +13,7 @@ const Runtime = ({ length, setLength }) => {
   return (
     <>
       <Box sx={{ width: 300 }}>
+      <span>Runtime Slider:(in minutes)</span>
         <Slider
           getAriaLabel={() => "Runtime"}
           value={length}

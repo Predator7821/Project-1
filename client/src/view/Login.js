@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Button, TextField } from "@mui/material";
+import { Button, TextField,FormControl,OutlinedInput,InputAdornment,IconButton } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import {
   CheckPremiumContext,
@@ -16,17 +18,24 @@ import { SERVER_URL } from "../constants/const";
 
 const Login = () => {
   const navigate = useNavigate();
+  
   const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const { isPremium, setIsPremium } = useContext(CheckPremiumContext);
   const { movieAge, setMovieAge } = useContext(MovieAgeContext);
   const { userId, setUserId } = useContext(User_IdContext);
   const { userData, setUserData } = useContext(UserDataContext);
+  const [showPassword, setShowPassword]=useState(false);
   const [loading, setLoading] = useState(false);
   const [login, setLogin] = useState(false);
   const [user, setUser] = useState([]);
   const [loginInfo, setLoginInfo] = useState({ name: "", password: "" });
 
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
   const logout = () => {
     setIsLoggedIn(false);
     setIsPremium(false);
@@ -91,7 +100,6 @@ const Login = () => {
       url: `${SERVER_URL}/api/users`,
     })
       .then((res) => {
-        console.log(res.data);
         setUser(res.data);
       })
       .catch((e) => console.log(e))
@@ -111,26 +119,40 @@ const Login = () => {
           <Button onClick={() => logout()}>Logout</Button>
         </div>
       ) : (
-        <div className="lotsOfPads">
-          <TextField
-            sx={{ margin: 1 }}
-            onBlur={(event) => {
-              setCurrentUser(event.target.value);
-              setLoginInfo({ ...loginInfo, name: event.target.value });
-            }}
-            name="username"
-            label="UsernName/Email"
-            variant="outlined"
-          />
-          <TextField
-            name="password"
+        <div className="fixMyLog">
+           <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+        <TextField
+          sx={{ margin: 1 }}
+          onBlur={(event) => {
+            setCurrentUser(event.target.value);
+            setLoginInfo({ ...loginInfo, name: event.target.value });
+          }}
+          name="username"
+          label="UsernName/Email"
+          variant="outlined"
+        />
+          <OutlinedInput
             label="password"
-            type="password"
             variant="outlined"
+            name="Password"
+            type={showPassword ? "text" : "password"}
             onBlur={(event) => {
               setLoginInfo({ ...loginInfo, password: event.target.value });
             }}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
           />
+        </FormControl>
           <div>
             <Button onClick={handleChange} variant="outlined">
               LOGIN

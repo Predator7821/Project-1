@@ -18,6 +18,7 @@ const MarkMovieActions = ({ currentUser, Icon, item }) => {
 
     console.log(userData, item);
     let newdata = { ...userData };
+    console.log(newdata);
     newdata.Watchlist.push(item.name);
     setUserData(newdata);
     console.log(newdata.Watchlist);

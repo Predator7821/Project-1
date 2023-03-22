@@ -127,6 +127,7 @@ const SingleProfile = () => {
       .then((res) => {
         console.log(res);
         setBio(res.data);
+        localStorage.setItem("USER_DATA_STORAGE", JSON.stringify(res.data));
       })
       .finally(setLoading(false));
   };

@@ -7,7 +7,7 @@ import "./Menu.css";
 
 const Menu = ({ menu, setMenu }) => {
   return (
-    <div>
+    <div className="beWhitePlz">
       <Drawer
         anchor={"top"}
         variant={"temporary"}
@@ -30,7 +30,7 @@ const Menu = ({ menu, setMenu }) => {
               users
             </Link>
           </Button>
-          <Button onClick={() => setMenu(false)}>close menu</Button>
+          <Button className="beWhitePlz" onClick={() => setMenu(false)}>close menu</Button>
         </div>
       </Drawer>
     </div>
