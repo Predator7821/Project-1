@@ -17,7 +17,7 @@ const Home = () => {
   const ranNum = useMemo(() => parseInt(Math.random() * top.length + 1), [top]);
   const tinyBoxesArr = [1, 2, 3];
   const topArr = top.filter((i) => i.rating.rate >= 4);
-  const rateArr = top.filter((i) => i.rating.count >= 500);
+  const rateArr = top.filter((i) => i.rating.count >= 10);
 
   const topmovies = async () => {
     setLoading(true);
