@@ -1,9 +1,16 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Button, TextField,FormControl,OutlinedInput,InputAdornment,IconButton } from "@mui/material";
+import {
+  Button,
+  TextField,
+  FormControl,
+  OutlinedInput,
+  InputAdornment,
+  IconButton,
+} from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 import {
   CheckPremiumContext,
@@ -18,14 +25,14 @@ import { SERVER_URL } from "../constants/const";
 
 const Login = () => {
   const navigate = useNavigate();
-  
+
   const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const { isPremium, setIsPremium } = useContext(CheckPremiumContext);
   const { movieAge, setMovieAge } = useContext(MovieAgeContext);
   const { userId, setUserId } = useContext(User_IdContext);
   const { userData, setUserData } = useContext(UserDataContext);
-  const [showPassword, setShowPassword]=useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [login, setLogin] = useState(false);
   const [user, setUser] = useState([]);
@@ -56,7 +63,7 @@ const Login = () => {
         setIsLoggedIn(true);
         setUserId(user[i]._id);
         setUserData(user[i]);
-        if (user[i].premium === true) {
+        if (user[i].premium === true || user[i].premium === "true") {
           setIsPremium(true);
         }
         localStorage.setItem("auth", Date.now());
@@ -120,39 +127,38 @@ const Login = () => {
         </div>
       ) : (
         <div className="fixMyLog">
-           <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-        <TextField
-          sx={{ margin: 1 }}
-          onBlur={(event) => {
-            setCurrentUser(event.target.value);
-            setLoginInfo({ ...loginInfo, name: event.target.value });
-          }}
-          name="username"
-          label="UsernName/Email"
-          variant="outlined"
-        />
-          <OutlinedInput
-            label="password"
-            variant="outlined"
-            name="Password"
-            type={showPassword ? "text" : "password"}
-            onBlur={(event) => {
-              setLoginInfo({ ...loginInfo, password: event.target.value });
-            }}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-        </FormControl>
+          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+            <TextField
+              sx={{ margin: 1 }}
+              onBlur={(event) => {
+                setCurrentUser(event.target.value);
+                setLoginInfo({ ...loginInfo, name: event.target.value });
+              }}
+              name="username"
+              label="UsernName/Email"
+              variant="outlined"
+            />
+            <OutlinedInput
+              label="password"
+              variant="outlined"
+              name="Password"
+              type={showPassword ? "text" : "password"}
+              onBlur={(event) => {
+                setLoginInfo({ ...loginInfo, password: event.target.value });
+              }}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </FormControl>
           <div>
             <Button onClick={handleChange} variant="outlined">
               LOGIN

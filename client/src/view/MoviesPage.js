@@ -84,7 +84,7 @@ const MoviesPage = () => {
     setCurrentUser(currUser);
     const mvAge = JSON.parse(localStorage.getItem("MOVIE_AGE_STORAGE"));
     setMovieAge(mvAge);
-  }, []);
+  }, [currentUser, movieAge]);
   useEffect(() => {
     const usedat = JSON.parse(localStorage.getItem("USER_DATA_STORAGE"));
     setUserData(usedat);

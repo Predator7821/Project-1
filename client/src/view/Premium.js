@@ -1,21 +1,38 @@
 import React, { useEffect, useState, useContext } from "react";
+import axios from "axios";
 
 import {
   AchiveThePremiumContext,
   CheckPremiumContext,
   CurrentUserContext,
   UserDataContext,
+  User_IdContext,
 } from "../context/Passdata";
 import PremiumCardMap from "../comps/PremiumCardMap";
 import "./Premium.css";
 import { SERVER_URL } from "../constants/const";
+import { Button } from "@mui/material";
 
 const Premium = () => {
   const { isPremium, setIsPremium } = useContext(CheckPremiumContext);
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const { premium, setPremium } = useContext(AchiveThePremiumContext);
   const { userData, setUserData } = useContext(UserDataContext);
+  const { userId, setUserId } = useContext(User_IdContext);
   const [loading, setLoading] = useState(false);
+  const makePrem = true;
+  const getPremium = () => {
+    setLoading(true);
+    axios
+      .put(`${SERVER_URL}/api/users/${userId}`, {
+        premium: "true",
+      })
+      .then((res) => {
+        console.log(res);
+        localStorage.setItem("IS_PREMIUM_STORAGE", JSON.stringify(makePrem));
+      })
+      .finally(setLoading(false));
+  };
 
   useEffect(() => {
     if (!isPremium) {
@@ -44,7 +61,10 @@ const Premium = () => {
     const usedat = JSON.parse(localStorage.getItem("USER_DATA_STORAGE"));
     setUserData(usedat);
   }, []);
-
+  useEffect(() => {
+    const prem = JSON.parse(localStorage.getItem("IS_PREMIUM_STORAGE"));
+    setIsPremium(prem);
+  }, [userData]);
   return (
     <div className="worstHeader goToTheCetner">
       {loading && (
@@ -65,6 +85,10 @@ const Premium = () => {
       ) : (
         <div className="centerprem">
           <h1>please register for a premium user</h1>
+          <Button onClick={getPremium} variant="contained" color="error">
+            Buy Premium
+          </Button>
+          <h1>after buying please refresh the page</h1>
         </div>
       )}
     </div>
