@@ -4,6 +4,7 @@ import {
   AchiveThePremiumContext,
   CheckPremiumContext,
   CurrentUserContext,
+  UserDataContext,
 } from "../context/Passdata";
 import PremiumCardMap from "../comps/PremiumCardMap";
 import "./Premium.css";
@@ -13,6 +14,7 @@ const Premium = () => {
   const { isPremium, setIsPremium } = useContext(CheckPremiumContext);
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const { premium, setPremium } = useContext(AchiveThePremiumContext);
+  const { userData, setUserData } = useContext(UserDataContext);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -30,7 +32,7 @@ const Premium = () => {
     setLoading(true);
     fetch(`${SERVER_URL}/api/premiums`)
       .then((response) => response.json())
-      .then((data) => setPremium(data))
+      .then((data) => setPremium(data), setUserData(userData))
       .finally(setLoading(false));
   };
   useEffect(() => {
@@ -39,6 +41,8 @@ const Premium = () => {
       fetchPremium();
       setLoading(false);
     }
+    const usedat = JSON.parse(localStorage.getItem("USER_DATA_STORAGE"));
+    setUserData(usedat);
   }, []);
 
   return (

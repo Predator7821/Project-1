@@ -60,7 +60,6 @@ app.post("/api/users", newUserController);
 app.get("/api/allDataBaseEnterys", getResults);
 
 app.delete("/api/users/delete/:userid", deleteUserController);
-
 app.get("*", (req, res) => {
   res.sendFile(__dirname + "/client/build/index.html");
 });

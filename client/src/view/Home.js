@@ -4,12 +4,13 @@ import { Box } from "@mui/system";
 import Tinybox from "../comps/Tinybox";
 import MovieContainer from "../comps/MovieContainer";
 import BirthdayContainer from "../comps/BirthdayContainer";
-import { CurrentUserContext } from "../context/Passdata";
+import { CurrentUserContext, UserDataContext } from "../context/Passdata";
 import { SERVER_URL } from "../constants/const";
 import "./Home.css";
 
 const Home = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const { userData, setUserData } = useContext(UserDataContext);
   const [loading, setLoading] = useState(false);
   const [top, setTop] = useState([]);
   const [actor, setActor] = useState(false);
@@ -46,6 +47,10 @@ const Home = () => {
     bdayactor();
     topmovies();
   }, []);
+  useEffect(() => {
+    const usedat = JSON.parse(localStorage.getItem("USER_DATA_STORAGE"));
+    setUserData(usedat);
+  }, [userData]);
   return (
     <div className="enlarge">
       {loading && (

@@ -47,6 +47,10 @@ const MovieContainer = ({ currentUser, item, isPremium }) => {
           )
           .then((res) => {
             setUserData(res.data.user);
+            localStorage.setItem(
+              "USER_DATA_STORAGE",
+              JSON.stringify(res.data.user)
+            );
             console.log(res);
           })
           .catch((e) => console.log(e))
@@ -80,7 +84,10 @@ const MovieContainer = ({ currentUser, item, isPremium }) => {
       }
     }
   }, [userData]);
-
+  useEffect(() => {
+    const usedat = JSON.parse(localStorage.getItem("USER_DATA_STORAGE"));
+    setUserData(usedat);
+  }, [userData]);
   return (
     <>
       {loading && (
@@ -124,7 +131,7 @@ const MovieContainer = ({ currentUser, item, isPremium }) => {
           <>
             <Rating
               name="simple-controlled"
-              value={ratedMovie.rate || value}
+              value={value}
               onChange={(event, newValue) => {
                 console.log(userData);
                 const wasMovieRated = userData?.MovieRating.findIndex(

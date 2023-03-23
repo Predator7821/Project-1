@@ -4,6 +4,7 @@ import {
   MovieFetchContext,
   CurrentUserContext,
   MovieAgeContext,
+  UserDataContext,
 } from "../context/Passdata";
 import MovieTypeFilter from "../comps/MovieTypeFilter";
 import Runtime from "../comps/Runtime";
@@ -15,6 +16,7 @@ const MoviesPage = () => {
   const { bestOfDaBest, setBestOfDaBest } = useContext(MovieFetchContext);
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const { movieAge, setMovieAge } = useContext(MovieAgeContext);
+  const { userData, setUserData } = useContext(UserDataContext);
   const [loading, setLoading] = useState(false);
   const [movie, setMovie] = useState([]);
   const [bestMovie, setBestMovie] = useState([]);
@@ -62,12 +64,12 @@ const MoviesPage = () => {
     }
   };
   setBestOfDaBest(movie);
-  
+
   useEffect(() => {
     setLoading(true);
     FetchMovie();
     setLoading(false);
-  }, []);
+  }, [userData]);
 
   useEffect(() => {
     if (currentUser !== false) {
@@ -80,10 +82,13 @@ const MoviesPage = () => {
   useEffect(() => {
     const currUser = JSON.parse(localStorage.getItem("CURRENT_USER"));
     setCurrentUser(currUser);
-    const mvAge= JSON.parse(localStorage.getItem("MOVIE_AGE_STORAGE"))
-    setMovieAge(mvAge)
+    const mvAge = JSON.parse(localStorage.getItem("MOVIE_AGE_STORAGE"));
+    setMovieAge(mvAge);
   }, []);
-
+  useEffect(() => {
+    const usedat = JSON.parse(localStorage.getItem("USER_DATA_STORAGE"));
+    setUserData(usedat);
+  }, [userData]);
 
   return (
     <div>
