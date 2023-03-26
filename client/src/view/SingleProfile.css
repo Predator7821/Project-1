@@ -17,3 +17,18 @@
   flex-direction: row;
   justify-content: space-between;
 }
+.makeItWhite {
+  color: black;
+}
+.takeItToTheCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.moveTheButtons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}

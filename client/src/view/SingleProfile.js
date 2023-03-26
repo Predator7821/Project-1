@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState, useMemo } from "react";
 import { AchiveThePremiumContext, User_IdContext } from "../context/Passdata";
-import { Button } from "@mui/material";
+import { Button, Drawer, TextField } from "@mui/material";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Image } from "cloudinary-react";
@@ -23,6 +23,7 @@ const SingleProfile = () => {
   const { setMovieAge } = useContext(MovieAgeContext);
   const { userId, setUserId } = useContext(User_IdContext);
   const { premium, setPremium } = useContext(AchiveThePremiumContext);
+  const [dellAcc, setDellAcc] = useState(false);
   const [loading, setLoading] = useState(false);
   const [imageSelected, setImageSelected] = useState("");
   const [bio, setBio] = useState([]);
@@ -142,6 +143,18 @@ const SingleProfile = () => {
   }, []);
   return (
     <div className="theHeaderIsSoDiff">
+      <Drawer anchor={"top"} open={dellAcc}>
+        <p className="takeItToTheCenter">
+          Are You Sure You Want To Delete Your Account ?
+        </p>
+        <div className="moveTheButtons">
+          <Button onClick={() => setDellAcc(false)}>no</Button>
+
+          <Button onClick={deleteUser}>
+            <Link to={"/"}>YES</Link>
+          </Button>
+        </div>
+      </Drawer>
       {loading && (
         <img
           src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmVlNWQ3ODMzMjBiOGYwYjAxYjAwYzY1MGQ4NTE0ODJmZGQ5YjQ0YSZjdD1n/2oLtN5SdHX6J4cm9d1/giphy.gif"
@@ -199,12 +212,16 @@ const SingleProfile = () => {
         <Button onClick={() => logout()}>
           <Link to={"/"}>Logout</Link>
         </Button>
-        <Button sx={{ bgcolor: "red" }} color="warning" onClick={deleteUser}>
-          <Link to={"/"}>Delete User</Link>
+        <Button
+          className="makeItWhite"
+          sx={{ bgcolor: "red" }}
+          color="warning"
+          onClick={() => setDellAcc(true)}
+        >
+          Delete User
         </Button>
       </div>
     </div>
   );
 };
-
 export default SingleProfile;
