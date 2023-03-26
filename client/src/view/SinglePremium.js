@@ -1,13 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ReactPlayer from "react-player/youtube";
 
 import SingleMovieMap from "../comps/SingleMovieMap";
-import { AchiveThePremiumContext } from "../context/Passdata";
 import { SERVER_URL } from "../constants/const";
 
 const SinglePremium = () => {
-  const { premium, setPremium } = useContext(AchiveThePremiumContext);
+  const [premium, setPremium] = useState({});
   const [loading, setLoading] = useState(false);
   const params = useParams();
 
@@ -15,7 +14,10 @@ const SinglePremium = () => {
     setLoading(true);
     fetch(`${SERVER_URL}/api/premiums/${params.premiumsid}`)
       .then((response) => response.json())
-      .then((data) => setPremium(data))
+      .then((data) => {
+        console.log(data);
+        setPremium(data);
+      })
       .finally(setLoading(false));
   };
 

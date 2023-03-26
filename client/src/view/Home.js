@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState, useContext } from "react";
 import { Box } from "@mui/system";
+import axios from "axios";
 
 import Tinybox from "../comps/Tinybox";
 import MovieContainer from "../comps/MovieContainer";

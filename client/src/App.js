@@ -11,6 +11,7 @@ import {
   MovieAgeContext,
   UserDataContext,
   AchiveThePremiumContext,
+  FlagContext,
 } from "./context/Passdata";
 import Main from "./view/Main";
 import "./App.css";
@@ -27,7 +28,7 @@ function App() {
   const [movieAge, setMovieAge] = useState("");
   const [userData, setUserData] = useState({});
   const [premium, setPremium] = useState([]);
-
+  const [flag, setFlag] = useState(false);
   useEffect(() => {
     localStorage.getItem("auth") >
     Date.now() - AMOUNT_OF_TIME_TO_STAY_LOGGED_IN_WITH_MS
@@ -58,7 +59,9 @@ function App() {
                         <AchiveThePremiumContext.Provider
                           value={{ premium, setPremium }}
                         >
-                          <Main />
+                          <FlagContext.Provider value={{ flag, setFlag }}>
+                            <Main />
+                          </FlagContext.Provider>
                         </AchiveThePremiumContext.Provider>
                       </UserDataContext.Provider>
                     </MovieAgeContext.Provider>

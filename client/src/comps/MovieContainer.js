@@ -13,18 +13,18 @@ import { Rating } from "@mui/material";
 import axios from "axios";
 
 import MarkMovieActions from "./MarkMovieActions";
-import { AchiveThePremiumContext, UserDataContext } from "../context/Passdata";
+import { FlagContext, UserDataContext } from "../context/Passdata";
 import "./MovieContainer.css";
 import { SERVER_URL } from "../constants/const";
 
 const MovieContainer = ({ currentUser, item, isPremium }) => {
   const { userData, setUserData } = useContext(UserDataContext);
-  const { premium, setPremium } = useContext(AchiveThePremiumContext);
   const [value, setValue] = useState();
   const [movieData, setMovieData] = useState([]);
   const [ratedMovie, setRatedMovie] = useState({});
   const [loading, setLoading] = useState(false);
   const [loadingRating, setLoadingRating] = useState(true);
+  const { flag, setFlag } = useContext(FlagContext);
   const avrageMovieRating =
     (item.rating.rate / item.rating.count).toFixed(1) || 0;
 
@@ -54,7 +54,7 @@ const MovieContainer = ({ currentUser, item, isPremium }) => {
             console.log(res);
           })
           .catch((e) => console.log(e))
-          .finally(() => setLoadingRating(true));
+          .finally(() => setLoadingRating(true), setFlag(!flag));
       }
     }
   };

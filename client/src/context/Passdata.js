@@ -19,3 +19,5 @@ export const MovieAgeContext = createContext(null);
 export const UserDataContext = createContext(null);
 
 export const AchiveThePremiumContext = createContext(null);
+
+export const FlagContext = createContext(null);

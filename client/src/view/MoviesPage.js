@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
+import axios from "axios";
 
 import {
   MovieFetchContext,
   CurrentUserContext,
   MovieAgeContext,
   UserDataContext,
+  FlagContext,
 } from "../context/Passdata";
 import MovieTypeFilter from "../comps/MovieTypeFilter";
 import Runtime from "../comps/Runtime";
@@ -22,17 +24,7 @@ const MoviesPage = () => {
   const [bestMovie, setBestMovie] = useState([]);
   const [length, setLength] = useState([1, 1000]);
   const [cat, setCat] = useState("All Movies");
-  const FetchMovie = async () => {
-    setLoading(true);
-    fetch(`${SERVER_URL}/api/movies`)
-      .then((response) => response.json())
-      .then((data) => {
-        setMovie(data);
-        setBestMovie(data);
-      })
-      .finally(setLoading(false));
-  };
-
+  const { flag, setFlag } = useContext(FlagContext);
   const onFilterChange = () => {
     if (cat === "All Movies") {
       setBestMovie(
@@ -67,10 +59,17 @@ const MoviesPage = () => {
 
   useEffect(() => {
     setLoading(true);
-    FetchMovie();
-    setLoading(false);
-  }, [userData]);
-
+    axios({
+      method: "GET",
+      url: `${SERVER_URL}/api/movies`,
+    })
+      .then((res) => {
+        setMovie(res.data);
+        setBestMovie(res.data);
+      })
+      .catch((e) => console.log(e))
+      .finally(() => setLoading(false));
+  }, [flag]);
   useEffect(() => {
     if (currentUser !== false) {
       ageonFilterChange();
@@ -89,7 +88,6 @@ const MoviesPage = () => {
     const usedat = JSON.parse(localStorage.getItem("USER_DATA_STORAGE"));
     setUserData(usedat);
   }, [userData]);
-
   return (
     <div>
       {loading && (
