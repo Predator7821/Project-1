@@ -5,6 +5,7 @@ import {
   AchiveThePremiumContext,
   CheckPremiumContext,
   CurrentUserContext,
+  FlagContext,
   UserDataContext,
   User_IdContext,
 } from "../context/Passdata";
@@ -19,6 +20,7 @@ const Premium = () => {
   const { premium, setPremium } = useContext(AchiveThePremiumContext);
   const { userData, setUserData } = useContext(UserDataContext);
   const { userId, setUserId } = useContext(User_IdContext);
+  const {flag,setFlag}=useContext(FlagContext)
   const [loading, setLoading] = useState(false);
   const makePrem = true;
   const getPremium = () => {
@@ -45,26 +47,26 @@ const Premium = () => {
       setCurrentUser(currUser);
     }
   }, []);
-  const fetchPremium = async () => {
-    setLoading(true);
-    fetch(`${SERVER_URL}/api/premiums`)
-      .then((response) => response.json())
-      .then((data) => setPremium(data), setUserData(userData))
-      .finally(setLoading(false));
-  };
   useEffect(() => {
-    if (premium.length === 0) {
-      setLoading(true);
-      fetchPremium();
-      setLoading(false);
-    }
-    const usedat = JSON.parse(localStorage.getItem("USER_DATA_STORAGE"));
-    setUserData(usedat);
-  }, []);
+    if(premium.length===0){
+    setLoading(true);
+    axios({
+      method: "GET",
+      url: `${SERVER_URL}/api/premiums`,
+    })
+      .then((res) => {
+        setPremium(res.data);
+        setUserData(userData);
+      })
+      .catch((e) => console.log(e))
+      .finally(() => setLoading(false));}
+  }, [flag]);
   useEffect(() => {
     const prem = JSON.parse(localStorage.getItem("IS_PREMIUM_STORAGE"));
     setIsPremium(prem);
-  }, [userData]);
+    const usedat = JSON.parse(localStorage.getItem("USER_DATA_STORAGE"));
+    setUserData(usedat);
+  }, [userData,isPremium]);
   return (
     <div className="worstHeader goToTheCetner">
       {loading && (
