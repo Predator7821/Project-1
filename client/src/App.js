@@ -25,7 +25,7 @@ function App() {
   const [isPremium, setIsPremium] = useState(false);
   const [userId, setUserId] = useState("");
   const [bestOfDaBest, setBestOfDaBest] = useState([]);
-  const [movieAge, setMovieAge] = useState("");
+  const [movieAge, setMovieAge] = useState(false);
   const [userData, setUserData] = useState({});
   const [premium, setPremium] = useState([]);
   const [flag, setFlag] = useState(false);

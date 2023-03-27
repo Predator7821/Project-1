@@ -50,6 +50,7 @@ const Login = () => {
     setMovieAge(false);
     setUserId(false);
     localStorage.clear();
+    localStorage.setItem("CURRENT_USER",false)
   };
 
   const handleChange = () => {

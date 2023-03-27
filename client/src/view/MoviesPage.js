@@ -19,12 +19,13 @@ const MoviesPage = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const { movieAge, setMovieAge } = useContext(MovieAgeContext);
   const { userData, setUserData } = useContext(UserDataContext);
+  const { flag, setFlag } = useContext(FlagContext);
   const [loading, setLoading] = useState(false);
   const [movie, setMovie] = useState([]);
   const [bestMovie, setBestMovie] = useState([]);
   const [length, setLength] = useState([1, 1000]);
   const [cat, setCat] = useState("All Movies");
-  const { flag, setFlag } = useContext(FlagContext);
+  
   const onFilterChange = () => {
     if (cat === "All Movies") {
       setBestMovie(
@@ -40,7 +41,7 @@ const MoviesPage = () => {
   };
   let ageOfMovie = movie.filter((e) => e.age < movieAge);
 
-  const ageonFilterChange = () => {
+  const ageOnFilterChange = () => {
     if (cat === "All Movies") {
       setBestMovie(
         ageOfMovie.filter(
@@ -52,6 +53,7 @@ const MoviesPage = () => {
         (t) =>
           t.category === cat && t.runtime >= length[0] && t.runtime <= length[1]
       );
+      
       setBestMovie(filteredmovies);
     }
   };
@@ -70,9 +72,10 @@ const MoviesPage = () => {
       .catch((e) => console.log(e))
       .finally(() => setLoading(false));
   }, [flag]);
+  
   useEffect(() => {
     if (currentUser !== false) {
-      ageonFilterChange();
+      ageOnFilterChange();
     } else {
       onFilterChange();
     }
@@ -83,11 +86,10 @@ const MoviesPage = () => {
     setCurrentUser(currUser);
     const mvAge = JSON.parse(localStorage.getItem("MOVIE_AGE_STORAGE"));
     setMovieAge(mvAge);
-  }, [currentUser, movieAge]);
-  useEffect(() => {
     const usedat = JSON.parse(localStorage.getItem("USER_DATA_STORAGE"));
     setUserData(usedat);
-  }, [userData]);
+  }, [currentUser, movieAge,userData]);
+
   return (
     <div>
       {loading && (
@@ -126,6 +128,7 @@ const MoviesPage = () => {
             MovieTypeFilter={MovieTypeFilter}
             bestMovie={bestMovie}
             length={length}
+            
           />
         </div>
       )}

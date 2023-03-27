@@ -70,6 +70,8 @@ const SingleProfile = () => {
     setMovieAge(false);
     setUserId(false);
     localStorage.clear();
+    localStorage.setItem("CURRENT_USER",false)
+
   };
 
   const fetchPremium = async () => {

@@ -14,17 +14,15 @@ import axios from "axios";
 
 import MarkMovieActions from "./MarkMovieActions";
 import { FlagContext, UserDataContext } from "../context/Passdata";
-import "./MovieContainer.css";
 import { SERVER_URL } from "../constants/const";
+import "./MovieContainer.css";
 
 const MovieContainer = ({ currentUser, item, isPremium }) => {
   const { userData, setUserData } = useContext(UserDataContext);
-  const [value, setValue] = useState();
-  const [movieData, setMovieData] = useState([]);
-  const [ratedMovie, setRatedMovie] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [loadingRating, setLoadingRating] = useState(true);
   const { flag, setFlag } = useContext(FlagContext);
+  const [value, setValue] = useState();
+  const [ratedMovie, setRatedMovie] = useState({});
+  const [loadingRating, setLoadingRating] = useState(true);
   const avrageMovieRating =
     (item.rating.rate / item.rating.count).toFixed(1) || 0;
 
@@ -54,23 +52,13 @@ const MovieContainer = ({ currentUser, item, isPremium }) => {
             console.log(res);
           })
           .catch((e) => console.log(e))
-          .finally(() => setLoadingRating(true), setFlag(!flag));
+          .finally(() => setLoadingRating(true));
       }
     }
+    for (let i = 0; i < 2; i++) {
+      setFlag(!flag);
+    }
   };
-
-  useEffect(() => {
-    setLoading(true);
-    axios({
-      method: "GET",
-      url: `${SERVER_URL}/api/movies/`,
-    })
-      .then((res) => {
-        setMovieData(res.data);
-      })
-      .catch((e) => console.log(e))
-      .finally(() => setLoading(false));
-  }, []);
 
   useEffect(() => {
     if (currentUser !== false) {
@@ -90,12 +78,6 @@ const MovieContainer = ({ currentUser, item, isPremium }) => {
   }, [userData]);
   return (
     <>
-      {loading && (
-        <img
-          src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmVlNWQ3ODMzMjBiOGYwYjAxYjAwYzY1MGQ4NTE0ODJmZGQ5YjQ0YSZjdD1n/2oLtN5SdHX6J4cm9d1/giphy.gif"
-          alt=""
-        />
-      )}
       <Card sx={{ minWidth: 345, maxWidth: 345, margin: 1 }}>
         <CardContent>
           <MarkMovieActions
