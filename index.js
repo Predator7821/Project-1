@@ -64,7 +64,7 @@ app.get("*", (req, res) => {
   res.sendFile(__dirname + "/client/build/index.html");
 });
 mongoose.connect(
-  `mongodb+srv://${DB_USER2}:${DB_PASS2}@${DB_HOST2}/${DB_NAME2}?retryWrites=true&w=majority`,
+  `mongodb+srv://${DB_USER2}:${DB_PASS2}@${DB_HOST2}/?retryWrites=true&w=majority`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
