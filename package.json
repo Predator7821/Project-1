@@ -8,7 +8,7 @@
     "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"nodemon index.js\" \"cd client && npm start\"",
-    "render-postbuild": "cd client && yarn set version 1.22.19 && yarn build"
+    "render-postbuild": "cd client && yarn set version https://github.com/yarnpkg/yarn/releases/v1.22.19 && yarn build"
   },
   "keywords": [],
   "author": "",
