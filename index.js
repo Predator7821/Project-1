@@ -21,17 +21,8 @@ import {
   getResults,
 } from "./controllers/Controllers.js";
 dotenv.config();
-const {
-  PORT,
-  DB_USER,
-  DB_PASS,
-  DB_HOST,
-  DB_NAME,
-  DB_HOST2,
-  DB_NAME2,
-  DB_PASS2,
-  DB_USER2,
-} = process.env;
+const { PORT, DB_USER, DB_PASS, DB_HOST, DB_HOST2, DB_PASS2, DB_USER2 } =
+  process.env;
 const app = express();
 
 app.use(express.json());
